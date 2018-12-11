@@ -1,51 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".VerifyPhoneNumber">
+    tools:context=".VerifyPhoneNumber"
+    tools:layout_editor_absoluteY="162dp">
 
-    <RelativeLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/brandontext_medium"
+        android:text="Submit OTP"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codeInput" />
+
+
+    <TextView
+        android:id="@+id/txtTimer"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_marginTop="32dp"
+        android:text=""
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weSentOTP" />
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextCode"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+    <TextView
+        android:id="@+id/resendCode"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/brandontext_medium"
+        android:text="Resend OTP"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
 
-        <EditText
-            android:id="@+id/editTextCode"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:digits="0123456789"
-            android:drawablePadding="10dp"
-            android:hint="enter verification code"
-            android:layout_alignParentTop="true"
-            android:inputType="phone"
-            android:maxLength="10" />
 
-        <Button
-            android:id="@+id/buttonSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progressbar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="19dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="Sign In"
-            android:textAllCaps="false"
-            android:textColor="#cdd8f1" />
+    <com.raycoarana.codeinputview.CodeInputView
+        android:id="@+id/codeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:animate_on_complete="false"
+        app:code_text_color="#b12eff"
+        app:error_color="#77ce9d"
+        app:input_type="numeric"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTimer"
+        app:length_of_code="6"
+        app:underline_color="#457ad1"
+        app:underline_selected_color="#9e1ace"
+        app:underline_width="50dp" />
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/weSentOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/brandontext_black"
+        android:gravity="center_horizontal"
+        android:inputType="textMultiLine"
+        android:text="Please Enter OTP"
+        android:textColor="#484848"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
+
