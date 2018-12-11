@@ -18,7 +18,7 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/round_button"
-        android:fontFamily="@font/brandontext_medium"
+        android:fontFamily="@font/brandontext_bold"
         android:text="Submit OTP"
         android:textAllCaps="false"
         android:textColor="#fff"
@@ -76,7 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTimer"
         app:length_of_code="6"
-        app:underline_color="#D3D3D3"
+        app:underline_color="#707070"
         app:underline_selected_color="#000"
         app:underline_width="50dp" />
 
@@ -87,7 +87,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/brandontext_black"
+        android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
         android:inputType="textMultiLine"
         android:text="Please Enter OTP"

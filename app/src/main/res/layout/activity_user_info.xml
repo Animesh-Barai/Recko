@@ -13,19 +13,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/brandontext_black"
+        android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
-        android:inputType="textMultiLine"
+
         android:text="Tell us more about yourself"
         android:textColor="#484848"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <View
         android:id="@+id/view"
@@ -86,7 +82,8 @@
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_vertical"
         android:hint=""
-        android:inputType="number"
+
+        android:maxLines="1"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +100,7 @@
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_vertical"
         android:hint=""
-        android:inputType="number"
+        android:maxLines="1"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +115,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/round_button"
-        android:fontFamily="@font/brandontext_black"
+        android:fontFamily="@font/brandontext_bold"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="#fff"
@@ -126,5 +123,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <android.support.design.chip.Chip
+        style="@style/Widget.MaterialComponents.Chip.Action"
+        android:id="@+id/chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        app:chipIcon="@drawable/chip_education"
+        app:chipBackgroundColor="#FF0070"
+        android:layout_marginEnd="157dp"
+        android:layout_marginBottom="102dp"
+        android:text="Education"
+
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
