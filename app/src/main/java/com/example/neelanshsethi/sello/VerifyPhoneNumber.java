@@ -1,5 +1,6 @@
 package com.example.neelanshsethi.sello;
 
+import android.content.res.ColorStateList;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -7,9 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,9 +23,14 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.raycoarana.codeinputview.CodeInputView;
+import com.raycoarana.codeinputview.OnCodeCompleteListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneNumber extends AppCompatActivity {
@@ -32,25 +41,40 @@ public class VerifyPhoneNumber extends AppCompatActivity {
 
     //The edittext to input the code
     private EditText editTextCode;
-
+    String mobile;
+    private boolean mVerificationInProgress = false;
+    CodeInputView codeInputView;
+    TextView wesenOTP;
+    String code;
+    TextView resend;
+    private Timer timer;
+    private int timeRemaining = 30;
+    private TextView txtTimer;
+    private boolean isWaiting = false;
     //firebase auth object
     private FirebaseAuth mAuth;
+    PhoneAuthProvider.ForceResendingToken mResendToken;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone_number);
+        codeInputView = findViewById(R.id.codeInput);
+        resend=findViewById(R.id.resendCode);
+        txtTimer = (TextView) findViewById(R.id.txtTimer);
 
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
-        editTextCode = findViewById(R.id.editTextCode);
+        wesenOTP=findViewById(R.id.weSentOTP);
+        wesenOTP.setText("We have sent an OTP\n Please wait for auto-read or\n enter the OTP below");
+//        editTextCode = findViewById(R.id.editTextCode);
 
 
         //getting mobile number from the previous activity
         //and sending the verification code to the number
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("mobile");
+        mobile = intent.getStringExtra("mobile");
         sendVerificationCode(mobile);
 
 
@@ -59,15 +83,44 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = editTextCode.getText().toString().trim();
-                if (code.isEmpty() || code.length() < 6) {
-                    editTextCode.setError("Enter valid code");
-                    editTextCode.requestFocus();
-                    return;
-                }
 
-                //verifying the code entered manually
-                verifyVerificationCode(code);
+                    codeInputView = findViewById(R.id.codeInput);
+                    code=codeInputView.getCode();
+//                    codeInputView.addOnCompleteListener(new OnCodeCompleteListener() {
+//                        @Override
+//                        public void onCompleted(String code) {
+//                        }
+//                    });
+                            Log.d("zzz","Code is"+code+ "of length "+ code.length());
+
+                            if(code.length()<6 || code.isEmpty())
+                            {
+                                codeInputView.setError("Enter valid code");
+                                codeInputView.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        codeInputView.clearError();
+                                    }
+                                },1000);
+                            }
+                            else {
+                                
+                                verifyVerificationCode(code);
+                                Log.d("zzz", code);
+
+                            }
+
+
+
+//                verifying the code entered manually
+
+            }
+        });
+
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resendVerificationCode(mobile);
             }
         });
 
@@ -79,10 +132,12 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + mobile,
-                60,
+                30,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
+        codeInputView.setCode("");
+        mVerificationInProgress = true;
     }
 
 
@@ -91,32 +146,47 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
-            //Getting the code sent by SMS
+//            Getting the code sent by SMS
             String code = phoneAuthCredential.getSmsCode();
+            Log.d("zzz","passed "+ phoneAuthCredential+" "+code);
+            mVerificationInProgress = false;
+
 
             //sometime the code is not detected automatically
             //in this case the code will be null
             //so user has to manually enter the code
             if (code != null) {
-                editTextCode.setText(code);
+
+
+                codeInputView.setInputType(InputType.TYPE_CLASS_NUMBER);
+                codeInputView.setCode(code);
+                codeInputView.setEditable(true);
+                codeInputView.setShowKeyboard(false);
                 //verifying the code
                 verifyVerificationCode(code);
             }
+            else{
 
+                signInWithPhoneAuthCredential(phoneAuthCredential);
+            }
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
             Toast.makeText(VerifyPhoneNumber.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            mVerificationInProgress = false;
         }
 
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            Log.d("tag","CodeSent");
+            Log.d("zzz","CodeSent is " +s);
+            Toast.makeText(VerifyPhoneNumber.this,"Code Sent!", Toast.LENGTH_SHORT).show();
 
             //storing the verification id that is sent to the user
             mVerificationId = s;
+            mResendToken = forceResendingToken;
+            startResendTimer();
         }
     };
 
@@ -135,10 +205,13 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            FirebaseUser user= task.getResult().getUser();
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneNumber.this, ProfileActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                            finish();
 
                         } else {
 
@@ -150,18 +223,66 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                 message = "Invalid code entered...";
                             }
 
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            codeInputView.setEditable(true);
 
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
-                            snackbar.setAction("Dismiss", new View.OnClickListener() {
+                            codeInputView.postDelayed(new Runnable() {
                                 @Override
-                                public void onClick(View v) {
-
+                                public void run() {
+                                    codeInputView.setCode("");
                                 }
-                            });
-                            snackbar.show();
+                            },2000);
+
+
                         }
                     }
                 });
+    }
+
+    private void resendVerificationCode(String mobile){
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91"+mobile,        // Phone number to verify
+                1  ,               // Timeout duration
+                TimeUnit.MINUTES,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks,         // OnVerificationStateChangedCallbacks
+                mResendToken);             // Force Resending Token from callbacks
+    }
+
+    private void startResendTimer(){
+        if (timer != null){
+            timer.cancel();
+        }
+        timer = new Timer();
+        timer.schedule(new WaitingTask(), 0, 1000);
+        txtTimer.setVisibility(View.VISIBLE);
+        isWaiting = true;
+    }
+
+    private void stopResendTimer(){
+        timer.cancel();
+        txtTimer.setVisibility(View.INVISIBLE);
+        timeRemaining = 30;
+        isWaiting = false;
+    }
+
+    class WaitingTask extends TimerTask {
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    timeRemaining = timeRemaining - 1;
+                    if (timeRemaining == 0){
+                        stopResendTimer();
+                    }else{
+                        String strTimeRemaining = String.format("%02d:%02d",timeRemaining/30,timeRemaining%30);
+                        txtTimer.setText(strTimeRemaining);
+                    }
+                }
+            });
+        }
     }
 
 }
