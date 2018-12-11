@@ -15,7 +15,6 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
-
         android:text="Tell us more about yourself"
         android:textColor="#484848"
         android:textSize="24sp"
@@ -131,10 +130,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="155dp"
         app:chipIcon="@drawable/chip_education"
-        app:chipBackgroundColor="#FF0070"
         android:layout_marginEnd="157dp"
         android:layout_marginBottom="102dp"
         android:text="Education"
+        android:checkable="true"
+        android:clickable="true"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+
+
 
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"

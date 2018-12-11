@@ -1,6 +1,7 @@
 package com.example.neelanshsethi.sello;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.design.chip.Chip;
@@ -33,7 +34,7 @@ public class UserInfo extends AppCompatActivity {
     Button next;
     private String NAME, LOCATION;
     Chip chip;
-
+    private int toggle=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +100,29 @@ public class UserInfo extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(UserInfo.this);
         requestQueue.add(jsonObjectRequest);
+
+
+
+        chip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if(toggle%2==0) {
+                    chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#ff0070")));
+                    chip.setTextColor(Color.WHITE);
+                }
+                else{
+                    chip.setChipBackgroundColor((ColorStateList.valueOf(Color.parseColor("#808080"))));
+                    chip.setTextColor(Color.parseColor("#484848"));
+                    chip.setChipIconVisible(false);
+
+                }
+
+                toggle=(toggle+1)%2;
+
+            }
+        });
 
 
 
