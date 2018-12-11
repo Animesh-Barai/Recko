@@ -67,7 +67,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         app:animate_on_complete="false"
-        app:code_text_color="#b12eff"
+        app:code_text_color="#000"
         app:error_color="#77ce9d"
         app:input_type="numeric"
         android:clickable="true"
@@ -76,8 +76,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTimer"
         app:length_of_code="6"
-        app:underline_color="#457ad1"
-        app:underline_selected_color="#9e1ace"
+        app:underline_color="#D3D3D3"
+        app:underline_selected_color="#000"
         app:underline_width="50dp" />
 
     <TextView
