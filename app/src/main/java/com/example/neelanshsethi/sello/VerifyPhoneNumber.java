@@ -208,7 +208,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
 
                             FirebaseUser user= task.getResult().getUser();
                             //verification successful we will start the profile activity
-                            Intent intent = new Intent(VerifyPhoneNumber.this, ProfileActivity.class);
+                            Intent intent = new Intent(VerifyPhoneNumber.this, UserInfo.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();

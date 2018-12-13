@@ -13,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".VerifyPhoneNumber" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SplashScreen">
@@ -29,7 +30,13 @@
             android:name=".Slider"
             android:exported="true" />
         <activity android:name=".GetStarted" />
-        <activity android:name=".UserInfo"
+        <activity
+            android:name=".UserInfo"
+            android:exported="true" />
+        <activity
+            android:name=".LearnHowItWorks"
+            android:exported="true" />
+        <activity android:name=".Industries"
             android:exported="true"></activity>
     </application>
 

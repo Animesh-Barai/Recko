@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="">
+
+    <android.support.design.chip.Chip
+        android:id="@+id/chip"
+        style="@style/Widget.MaterialComponents.Chip.Action"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingLeft="-5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Education"
+        android:textColor="#484848"
+        android:textSize="25sp"
+        app:chipCornerRadius="22dp"
+        app:chipIcon="@drawable/chip_education"
+        app:chipIconSize="35dp"
+        app:iconStartPadding="3dp"
+        app:textStartPadding="15dp"
+        tools:layout_editor_absoluteX="114dp"
+        tools:layout_editor_absoluteY="134dp" />
+
+</LinearLayout>
