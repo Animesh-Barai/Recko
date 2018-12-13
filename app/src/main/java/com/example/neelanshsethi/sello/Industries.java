@@ -90,7 +90,7 @@ public class Industries extends AppCompatActivity {
                                     String pic_base64 = object.getString("image_url");
                                     String name = object.getString("name");
                                     Log.d("zzz",pic_base64);
-                                    if(!pic_base64.equals("null")) {
+                                    if(pic_base64.contains("data")) {
 
                                         for (int j = 0; j < 8; j++) {
                                             Log.d("zzz j",String.valueOf(j+" " +i));
