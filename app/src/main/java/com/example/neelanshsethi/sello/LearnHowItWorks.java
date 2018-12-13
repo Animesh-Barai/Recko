@@ -9,42 +9,38 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.RendererCapabilities;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelectorResult;
-import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
-import com.google.android.exoplayer2.video.VideoListener;
 
 public class LearnHowItWorks extends AppCompatActivity {
 
     PlayerView playerView;
     SimpleExoPlayer player;
-    String videoURL = "http://blueappsoftware.in/layout_design_android_blog.mp4";
+    String videoURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_learn_how_it_works);
         playerView=findViewById(R.id.playerview);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         player=ExoPlayerFactory.newSimpleInstance(this);
         Uri uri=Uri.parse(videoURL);
+        playerView.setPlayer(player);
 
         try {
             // Produces DataSource instances through which media data is loaded.
@@ -54,9 +50,16 @@ public class LearnHowItWorks extends AppCompatActivity {
             MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
                     .createMediaSource(uri);
             // Prepare the player with the source.
+
             player.prepare(videoSource);
-            player.setPlayWhenReady(true);
-            playerView.setPlayer(player);
+            player.setPlayWhenReady(false);
+            playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
+            playerView.setControllerHideOnTouch(true);
+
+            playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+            player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+
+
 
             player.addListener(new Player.EventListener() {
                 @Override
@@ -67,5 +70,6 @@ public class LearnHowItWorks extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("MainAcvtivity"," exoplayer error "+ e.toString());
         }
+
     }
 }
