@@ -18,58 +18,66 @@
         android:text="Learn how it works"
         android:textColor="@color/heading_dark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/skip_illustration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/playerview"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:visibility="gone"
-        app:layout_constraintDimensionRatio="w,9:16"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="h,16:9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtindustries">
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/exoplayerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/Next"
+            app:layout_constraintDimensionRatio="w,16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtindustries">
 
-    </com.google.android.exoplayer2.ui.PlayerView>
-
-
+        </com.google.android.exoplayer2.ui.PlayerView>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/skip_illustration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/skip_illustration"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/Next"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtindustries" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-
+        android:layout_gravity=""
         android:src="@drawable/play_icon"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/skip_illustration"
         app:layout_constraintEnd_toEndOf="@+id/skip_illustration"
         app:layout_constraintStart_toStartOf="@+id/skip_illustration"
         app:layout_constraintTop_toTopOf="@+id/skip_illustration" />
 
-
     <Button
-        android:id="@+id/Next"
+        android:id="@+id/Skip"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="45dp"

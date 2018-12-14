@@ -1,5 +1,6 @@
 package com.example.neelanshsethi.sello;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -7,9 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -25,12 +30,30 @@ public class LearnHowItWorks extends AppCompatActivity {
 
     PlayerView playerView;
     SimpleExoPlayer player;
+    Button skip;
+    ImageView skip_illustration;
+    ImageView play;
     String videoURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_how_it_works);
-        playerView=findViewById(R.id.playerview);
+        playerView=findViewById(R.id.exoplayerview);
+        skip=findViewById(R.id.Skip);
+        skip_illustration=findViewById(R.id.skip_illustration);
+        play=findViewById(R.id.play);
+
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context=view.getContext();
+                skip_illustration.setVisibility(View.INVISIBLE);
+                play.setVisibility(View.INVISIBLE);
+                playerView.setVisibility(View.VISIBLE);
+                play(context);
+            }
+        });
 
     }
 
@@ -38,21 +61,25 @@ public class LearnHowItWorks extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        player=ExoPlayerFactory.newSimpleInstance(this);
+    }
+
+    public  void play(Context ctx)
+    {
+        player=ExoPlayerFactory.newSimpleInstance(getApplicationContext());
         Uri uri=Uri.parse(videoURL);
         playerView.setPlayer(player);
 
         try {
             // Produces DataSource instances through which media data is loaded.
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
-                    Util.getUserAgent(this, "Sello"));
+                    Util.getUserAgent(ctx, "Sello"));
             // This is the MediaSource representing the media to be played.
             MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
                     .createMediaSource(uri);
             // Prepare the player with the source.
 
             player.prepare(videoSource);
-            player.setPlayWhenReady(false);
+            player.setPlayWhenReady(true);
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
             playerView.setControllerHideOnTouch(true);
 
@@ -70,6 +97,19 @@ public class LearnHowItWorks extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("MainAcvtivity"," exoplayer error "+ e.toString());
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        release();
+    }
+
+    public void release()
+    {
+        if (playerView != null) {
+            player.seekTo(0);
+            player.release();
+        }
     }
 }
