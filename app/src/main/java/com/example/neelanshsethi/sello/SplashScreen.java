@@ -64,28 +64,32 @@ public class SplashScreen extends AppCompatActivity {
         SharedPreferences pref=getSharedPreferences("status",MODE_PRIVATE);
         final boolean test=pref.getBoolean("first",true);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (test) {
-                        Intent i = new Intent(SplashScreen.this, GetStarted.class);
-                        startActivity(i);
-                        finish();
-                    } else {
 
-                        if(user==null) {
-                            Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        }
-                        else{
-                            Intent i = new Intent(SplashScreen.this, ProfileActivity.class);
-                            startActivity(i);
-                            finish();
-                        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+//
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (test) {
+                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
                 }
+                else {
+                    Intent i = new Intent(SplashScreen.this, GetStarted.class);
+                    startActivity(i);
+                    finish();
+                }
+
             }
-        }, 3000);
+        },3000);
+
+
     }
 }
 

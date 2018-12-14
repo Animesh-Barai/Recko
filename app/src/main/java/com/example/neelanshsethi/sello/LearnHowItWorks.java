@@ -1,8 +1,10 @@
 package com.example.neelanshsethi.sello;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,6 +54,17 @@ public class LearnHowItWorks extends AppCompatActivity {
                 play.setVisibility(View.INVISIBLE);
                 playerView.setVisibility(View.VISIBLE);
                 play(context);
+            }
+        });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+
             }
         });
 
@@ -107,7 +120,7 @@ public class LearnHowItWorks extends AppCompatActivity {
 
     public void release()
     {
-        if (playerView != null) {
+        if (player != null) {
             player.seekTo(0);
             player.release();
         }

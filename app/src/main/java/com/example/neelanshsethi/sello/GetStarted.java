@@ -20,11 +20,11 @@ public class GetStarted extends AppCompatActivity {
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences pref = getSharedPreferences("status", MODE_PRIVATE);
-                pref.edit().putBoolean("first", false).apply();
-                Intent i = new Intent(GetStarted.this, MainActivity.class);
+//                SharedPreferences pref = getSharedPreferences("status", MODE_PRIVATE);
+//                pref.edit().putBoolean("first", false).apply();
+                Intent i = new Intent(GetStarted.this, LearnHowItWorks.class);
                 startActivity(i);
-                finish();
+
             }
         });
     }
