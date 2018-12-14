@@ -62,7 +62,7 @@ public class Industries extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(Industries.this,ProfileActivity.class);
+                Intent intent= new Intent(Industries.this,ForYou.class);
                 startActivity(intent);
                 Log.d("zzz",selectedChips.toString());
             }

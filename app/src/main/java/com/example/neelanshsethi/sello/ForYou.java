@@ -7,6 +7,7 @@ import com.google.android.youtube.player.YouTubePlayerFragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -22,7 +23,7 @@ import java.util.List;
  * itself extends {@link YouTubeBaseActivity}. However, you are not required to extend
  * {@link YouTubeBaseActivity} if using {@link YouTubePlayerFragment}s.
  */
-public class ForYou extends YouTubeFailureRecoveryActivity {
+public class ForYou extends AppCompatActivity {
 
 
     private RecyclerView rv_videolist;
@@ -40,23 +41,23 @@ public class ForYou extends YouTubeFailureRecoveryActivity {
         VideoListAdapter adapter=new VideoListAdapter(this,list,thisActivity);
         rv_videolist.setAdapter(adapter);
 
-
-        YouTubePlayerFragment youTubePlayerFragment =
-                (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
-        youTubePlayerFragment.initialize(DeveloperKey.DEVELOPER_KEY, this);
-    }
-
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
-                                        boolean wasRestored) {
-        if (!wasRestored) {
-            player.cueVideo("nCgQDjiotG0");
-        }
-    }
-
-    @Override
-    protected YouTubePlayer.Provider getYouTubePlayerProvider() {
-        return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
+//!To initialize the Youtube Fragmnet in a activity
+//        YouTubePlayerFragment youTubePlayerFragment =
+//                (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
+//        youTubePlayerFragment.initialize(DeveloperKey.DEVELOPER_KEY, this);
+//    }
+//
+//    @Override
+//    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
+//                                        boolean wasRestored) {
+//        if (!wasRestored) {
+//            player.cueVideo("nCgQDjiotG0");
+//        }
+//    }
+//
+//    @Override
+//    protected YouTubePlayer.Provider getYouTubePlayerProvider() {
+//        return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
     }
 
 
