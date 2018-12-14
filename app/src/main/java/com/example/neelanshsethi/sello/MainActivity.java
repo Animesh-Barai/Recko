@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, VerifyPhoneNumber.class);
                 intent.putExtra("mobile", mobile);
                 startActivity(intent);
+
             }
         });
     }

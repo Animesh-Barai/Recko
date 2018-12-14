@@ -4,7 +4,15 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple YouTube Android API demo application which shows how to create a simple application that
@@ -16,10 +24,22 @@ import android.os.Bundle;
  */
 public class ForYou extends YouTubeFailureRecoveryActivity {
 
+
+    private RecyclerView rv_videolist;
+//    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
+    int[] list={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_you);
+        Activity thisActivity=(Activity)this;
+        rv_videolist=findViewById(R.id.rv_videolist);
+
+        rv_videolist.setHasFixedSize(true);
+        rv_videolist.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        VideoListAdapter adapter=new VideoListAdapter(this,list,thisActivity);
+        rv_videolist.setAdapter(adapter);
+
 
         YouTubePlayerFragment youTubePlayerFragment =
                 (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
@@ -38,5 +58,7 @@ public class ForYou extends YouTubeFailureRecoveryActivity {
     protected YouTubePlayer.Provider getYouTubePlayerProvider() {
         return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
     }
+
+
 
 }

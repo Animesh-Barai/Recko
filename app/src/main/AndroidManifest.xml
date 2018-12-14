@@ -38,14 +38,14 @@
         <activity
             android:name=".Industries"
             android:exported="true"></activity>
-        <activity android:name=".ForYou"
+        <activity
+            android:name=".ForYou"
             android:exported="true"></activity>
-
         <activity
             android:name=".VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
+        <activity android:name=".YoutubePlayerActivity"></activity>
     </application>
 
 </manifest>
