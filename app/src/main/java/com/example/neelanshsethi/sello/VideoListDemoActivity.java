@@ -148,7 +148,7 @@ public final class VideoListDemoActivity extends Activity implements OnFullscree
       videoBox.setTranslationY(0); // Reset any translation that was applied in portrait.
       int screenWidth = dpToPx(getResources().getConfiguration().screenWidthDp);
       setLayoutSize(listFragment.getView(), screenWidth / 4, MATCH_PARENT);
-      int videoWidth = screenWidth - screenWidth / 4 - dpToPx(LANDSCAPE_VIDEO_PADDING_DP);
+      int videoWidth = screenWidth - screenWidth / 3 - dpToPx(LANDSCAPE_VIDEO_PADDING_DP);
       setLayoutSize(videoFragment.getView(), videoWidth, WRAP_CONTENT);
       setLayoutSizeAndGravity(videoBox, videoWidth, WRAP_CONTENT,
           Gravity.RIGHT | Gravity.CENTER_VERTICAL);
