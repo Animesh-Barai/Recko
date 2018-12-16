@@ -75,9 +75,7 @@
                     android:id="@+id/rv_videolist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="0dp"
-                    >
+                    android:layout_alignParentStart="true">
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
@@ -87,8 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/videohelpssell"
                 android:layout_marginTop="25dp"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,7 +95,6 @@
                     android:text="Popular products for you"
                     android:layout_marginStart="24dp"
                     android:textColor="@color/heading_dark"/>
-
             </LinearLayout>
 
         </RelativeLayout>
