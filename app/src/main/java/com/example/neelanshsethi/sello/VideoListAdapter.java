@@ -13,18 +13,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ResultViewHolder> {
 
     Context mctx;
-    int[] list;
+    List<String> rv_videos;
     Activity mActivity;
+    int[] rv_thumbnails;
+    List<String > rv_videos_title;
     public static final int VIEW_TYPE_NORMAL = 1;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
 
-    public VideoListAdapter(Context mctx, int[] list, Activity mActivity) {
+    public VideoListAdapter(Context mctx, List<String> rv_videos, int[] rv_thumbnails,List<String> rv_videos_title, Activity mActivity) {
         this.mctx = mctx;
-        this.list = list;
+        this.rv_videos = rv_videos;
         this.mActivity=mActivity;
+        this.rv_thumbnails=rv_thumbnails;
+        this.rv_videos_title=rv_videos_title;
     }
 
 
@@ -39,16 +45,17 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
 
     @Override
-    public void onBindViewHolder(@NonNull ResultViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
-        final int id= list[position];
+        final int id= rv_thumbnails[position];
 
         holder.imageView.setBackgroundResource(id);
+//        holder.textView.setText(rv_videos_title.get(position));
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
-                intent.putExtra("video_id","nCgQDjiotG0");
+                intent.putExtra("video_id",rv_videos.get(position));
                 mctx.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
@@ -116,15 +123,17 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
     @Override
     public int getItemCount() {
-        if (list != null && list.length > 0) {
-            return list.length;
+        if (rv_videos != null && rv_videos.size() > 0) {
+            return rv_videos.size();
         } else {
             return 1;
         }
     }
 
     public void setItems(int[] list) {
-        this.list = list;
+        this.rv_videos = rv_videos;
+        this.rv_thumbnails=rv_thumbnails;
+        this.rv_videos_title=rv_videos_title;
         notifyDataSetChanged();
     }
 
