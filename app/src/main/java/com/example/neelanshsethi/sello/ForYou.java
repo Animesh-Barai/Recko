@@ -58,6 +58,7 @@ public class ForYou extends AppCompatActivity {
     private LinearLayout Dots;
     private DotsIndicator dotsIndicator;
     private VideoListAdapter videoListAdapter;
+    private Activity thisActivity;
 
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
@@ -68,7 +69,7 @@ public class ForYou extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_you);
-        Activity thisActivity=(Activity)this;
+        thisActivity=(Activity)this;
         rv_videolist=findViewById(R.id.rv_videolist);
         dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
         carousel=findViewById(R.id.carousel);
@@ -84,8 +85,7 @@ public class ForYou extends AppCompatActivity {
 
         rv_videolist.setHasFixedSize(true);
         rv_videolist.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        videoListAdapter=new VideoListAdapter(this, rv_videos,rv_thumbnails,rv_videos_title,thisActivity);
-        rv_videolist.setAdapter(videoListAdapter);
+
         get_rv_videolist();
 
 
@@ -136,6 +136,8 @@ public class ForYou extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            videoListAdapter=new VideoListAdapter(getApplicationContext(), rv_videos,rv_thumbnails,rv_videos_title,thisActivity);
+                            rv_videolist.setAdapter(videoListAdapter);
                             videoListAdapter.notifyDataSetChanged();
                         }
                         catch (JSONException e) {

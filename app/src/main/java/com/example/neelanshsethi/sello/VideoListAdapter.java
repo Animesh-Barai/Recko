@@ -7,6 +7,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
     List<String> rv_videos;
     Activity mActivity;
     int[] rv_thumbnails;
-    List<String > rv_videos_title;
+    List<String> rv_videos_title;
     public static final int VIEW_TYPE_NORMAL = 1;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
 
@@ -41,6 +42,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
         LayoutInflater inflater = LayoutInflater.from(mctx);
         View v = inflater.inflate(R.layout.item_video_list, null);
         return new ResultViewHolder(v);
+
     }
 
 
@@ -50,7 +52,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
         final int id= rv_thumbnails[position];
 
         holder.imageView.setBackgroundResource(id);
-//        holder.textView.setText(rv_videos_title.get(position));
+        holder.textView.setText(rv_videos_title.get(position));
+
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +139,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
         this.rv_videos_title=rv_videos_title;
         notifyDataSetChanged();
     }
+
+
 
     class ResultViewHolder extends RecyclerView.ViewHolder {
 
