@@ -1,11 +1,12 @@
 package com.example.neelanshsethi.sello;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 public class SliderAdapter extends PagerAdapter
 {
@@ -13,24 +14,29 @@ public class SliderAdapter extends PagerAdapter
     int[] layouts;
     Context mctx;
     LayoutInflater layoutInflater;
-    public SliderAdapter(Context mctx, int[] layouts)
+    int [] images;
+    public SliderAdapter(Context mctx, int[] images)
     {
         this.mctx=mctx;
-        this.layouts=layouts;
+//        this.layouts=layouts;
+        this.images=images;
+
     }
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) mctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.carousel_panel, container, false);
 
-        View view = layoutInflater.inflate(layouts[position], container, false);
+        assert view!=null;
+        final ImageView imageView=(ImageView) view.findViewById(R.id.carousel_panel);
+        imageView.setImageResource(images[position]);
         container.addView(view);
-
         return view;
     }
 
     @Override
     public int getCount() {
-        return layouts.length;
+        return images.length;
     }
 
     @Override

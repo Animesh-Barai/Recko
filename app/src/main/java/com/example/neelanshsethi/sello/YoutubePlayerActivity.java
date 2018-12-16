@@ -1,25 +1,19 @@
 package com.example.neelanshsethi.sello;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;

@@ -1,17 +1,13 @@
 package com.example.neelanshsethi.sello;
 
-import android.content.res.ColorStateList;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.raycoarana.codeinputview.CodeInputView;
-import com.raycoarana.codeinputview.OnCodeCompleteListener;
 
 import java.util.Timer;
 import java.util.TimerTask;

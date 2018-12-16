@@ -3,30 +3,15 @@ package com.example.neelanshsethi.sello;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.Pair;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.android.youtube.player.YouTubeThumbnailLoader;
-import com.google.android.youtube.player.YouTubeThumbnailView;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ResultViewHolder> {
 

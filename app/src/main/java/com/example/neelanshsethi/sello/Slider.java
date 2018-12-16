@@ -2,10 +2,9 @@ package com.example.neelanshsethi.sello;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -31,8 +30,9 @@ public class Slider extends AppCompatActivity {
         get_started=findViewById(R.id.get_started);
         Dots=findViewById(R.id.Dots);
 
-        layouts=new int[]{R.layout.welcome1,R.layout.welcome2,R.layout.welcome3};
-        adapter=new SliderAdapter(this,layouts);
+            layouts=new int[]{R.layout.welcome1,R.layout.welcome2,R.layout.welcome3};
+            int [] images= {R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
+        adapter=new SliderAdapter(this,images);
 
         addBottomDots(0);
         slides.setAdapter(adapter);

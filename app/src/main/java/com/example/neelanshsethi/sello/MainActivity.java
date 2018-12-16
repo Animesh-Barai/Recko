@@ -1,10 +1,9 @@
 package com.example.neelanshsethi.sello;
 
 import android.content.Intent;
-import android.support.annotation.IntRange;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.IntRange;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import android.view.View;
 import android.widget.EditText;

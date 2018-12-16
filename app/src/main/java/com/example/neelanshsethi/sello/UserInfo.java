@@ -7,10 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.NonNull;
-import android.support.design.chip.Chip;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import com.google.android.material.chip.Chip;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -35,9 +34,6 @@ import com.google.firebase.auth.GetTokenResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserInfo extends AppCompatActivity {
 

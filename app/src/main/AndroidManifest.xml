@@ -45,7 +45,8 @@
             android:name=".VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"></activity>
-        <activity android:name=".YoutubePlayerActivity"></activity>
+        <activity android:name=".YoutubePlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 
 </manifest>

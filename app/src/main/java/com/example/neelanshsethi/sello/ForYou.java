@@ -1,19 +1,23 @@
 package com.example.neelanshsethi.sello;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
+import android.text.Html;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * A simple YouTube Android API demo application which shows how to create a simple application that
@@ -27,19 +31,38 @@ public class ForYou extends AppCompatActivity {
 
 
     private RecyclerView rv_videolist;
-//    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
-    int[] list={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
+    private ViewPager carousel;
+    private SliderAdapter sliderAdapter;
+    private ImageView[] dots;
+    private LinearLayout Dots;
+    private DotsIndicator dotsIndicator;
+
+    //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
+    int carousel_images[]={R.drawable.sample,R.drawable.sample2,R.drawable.sample,R.drawable.sample};
+    int[] list={R.drawable.sample,R.drawable.sample2,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_you);
         Activity thisActivity=(Activity)this;
         rv_videolist=findViewById(R.id.rv_videolist);
+        dotsIndicator = (DotsIndicator) findViewById(R.id.dots_indicator);
+        carousel=findViewById(R.id.carousel);
+        carousel.setPageTransformer(true, new DepthPageTransformer());
+        Dots=findViewById(R.id.Dots);
+
+        sliderAdapter=new SliderAdapter(this,carousel_images);
+        carousel.setAdapter(sliderAdapter);
+        dotsIndicator.setViewPager(carousel);
+
+
+
 
         rv_videolist.setHasFixedSize(true);
         rv_videolist.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         VideoListAdapter adapter=new VideoListAdapter(this,list,thisActivity);
         rv_videolist.setAdapter(adapter);
+
 
 //!To initialize the Youtube Fragmnet in a activity
 //        YouTubePlayerFragment youTubePlayerFragment =
@@ -61,5 +84,5 @@ public class ForYou extends AppCompatActivity {
     }
 
 
-
 }
+
