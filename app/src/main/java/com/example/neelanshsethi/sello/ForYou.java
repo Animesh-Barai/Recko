@@ -52,6 +52,7 @@ public class ForYou extends AppCompatActivity {
 
 
     private RecyclerView rv_videolist;
+    private RecyclerView rv_categorylist;
     private ViewPager carousel;
     private SliderAdapter sliderAdapter;
     private ImageView[] dots;
@@ -59,12 +60,21 @@ public class ForYou extends AppCompatActivity {
     private DotsIndicator dotsIndicator;
     private VideoListAdapter videoListAdapter;
     private Activity thisActivity;
+    private CategoryListAdapter categoryListAdapter;
 
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
     int carousel_images[]={R.drawable.sample,R.drawable.sample2,R.drawable.sample,R.drawable.sample};
     int[] rv_thumbnails={R.drawable.sample,R.drawable.sample2,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
+
+    List<String> sampleimgurl= new ArrayList<String>();
+
+    private List<String> heading= new ArrayList<String>();
+    private List<List<String>> imageurl= new ArrayList<List<String>>();
+    private List<List<String>> categorytitle= new ArrayList<List<String>>();
+    private List<List<String>> categoryamount= new ArrayList<List<String>>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +90,53 @@ public class ForYou extends AppCompatActivity {
         carousel.setAdapter(sliderAdapter);
         dotsIndicator.setViewPager(carousel);
 
-
-
+        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/airplane.png");
+        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/cat.png");
+        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/lena.bmp");
+        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/tulips.png");
 
         rv_videolist.setHasFixedSize(true);
         rv_videolist.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-
+        videoListAdapter=new VideoListAdapter(getApplicationContext(), rv_videos,sampleimgurl,rv_videos_title,thisActivity);
         get_rv_videolist();
+
+        rv_categorylist=findViewById(R.id.rv_categorylist);
+        heading.add("Popular Products for you");
+        heading.add("Kamao BC Kamao");
+        List<String > temp1= new ArrayList<String>();
+        temp1.add("https://testimages.org/img/testimages_screenshot.jpg");
+        temp1.add("https://homepages.cae.wisc.edu/~ece533/images/cat.png");
+        temp1.add("https://homepages.cae.wisc.edu/~ece533/images/lena.bmp");
+        temp1.add("https://homepages.cae.wisc.edu/~ece533/images/tulips.png");
+        imageurl.add(temp1);
+        imageurl.add(temp1);
+        List<String > temp2= new ArrayList<String>();
+        temp2.add("sub heading 1");
+        temp2.add("sub heading 2");
+        temp2.add("sub heading 3");
+        temp2.add("sub heading 4");
+        categorytitle.add(temp2);
+        categorytitle.add(temp2);
+        List<String > temp3= new ArrayList<String>();
+        temp3.add("10000");
+        temp3.add("20000");
+        temp3.add("30000");
+        temp3.add("40000");
+        categoryamount.add(temp3);
+        categoryamount.add(temp3);
+
+        rv_categorylist.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        rv_categorylist.setLayoutManager(linearLayoutManager);
+        categoryListAdapter =new CategoryListAdapter(this,heading,imageurl,categorytitle,categoryamount);
+        rv_categorylist.setAdapter(categoryListAdapter);
+        categoryListAdapter.notifyDataSetChanged();
+
+
+
+
+
+
 
 
 //!To initialize the Youtube Fragmnet in a activity
@@ -136,7 +186,7 @@ public class ForYou extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            videoListAdapter=new VideoListAdapter(getApplicationContext(), rv_videos,rv_thumbnails,rv_videos_title,thisActivity);
+
                             rv_videolist.setAdapter(videoListAdapter);
                             videoListAdapter.notifyDataSetChanged();
                         }

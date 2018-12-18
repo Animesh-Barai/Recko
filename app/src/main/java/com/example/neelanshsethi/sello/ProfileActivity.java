@@ -22,7 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Industries industries=new Industries();
                 industries.clearchips();
-                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, GetStarted.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

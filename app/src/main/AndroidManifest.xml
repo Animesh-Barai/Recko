@@ -31,7 +31,8 @@
         <activity android:name=".GetStarted" />
         <activity
             android:name=".UserInfo"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".LearnHowItWorks"
             android:exported="true" />
@@ -45,8 +46,10 @@
             android:name=".VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"></activity>
-        <activity android:name=".YoutubePlayerActivity"
+        <activity
+            android:name=".YoutubePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <activity android:name=".AwwSnap"></activity>
     </application>
 
 </manifest>

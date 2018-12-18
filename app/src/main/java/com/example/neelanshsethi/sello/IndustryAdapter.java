@@ -22,8 +22,6 @@ public class IndustryAdapter extends BaseAdapter {
     View v;
     LayoutInflater layoutInflater;
 
-    int toggle=0;
-
     public IndustryAdapter(Context mctx, List<String> industry_names, Drawable[] industry_logo) {
         this.mctx = mctx;
         this.industry_names = industry_names;

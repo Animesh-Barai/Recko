@@ -53,8 +53,7 @@ public class UserInfo extends AppCompatActivity {
         next=findViewById(R.id.Next);
         chip=findViewById(R.id.chip);
 
-
-
+        name.requestFocus();
 
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getIdToken(true)

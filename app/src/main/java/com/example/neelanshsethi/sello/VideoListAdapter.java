@@ -7,12 +7,16 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -25,13 +29,15 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
     List<String> rv_videos_title;
     public static final int VIEW_TYPE_NORMAL = 1;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
+    private List<String> sampleimgurl;
 
-    public VideoListAdapter(Context mctx, List<String> rv_videos, int[] rv_thumbnails,List<String> rv_videos_title, Activity mActivity) {
+    public VideoListAdapter(Context mctx, List<String> rv_videos, List<String> sampleimgurl,List<String> rv_videos_title, Activity mActivity) {
         this.mctx = mctx;
         this.rv_videos = rv_videos;
         this.mActivity=mActivity;
-        this.rv_thumbnails=rv_thumbnails;
+//        this.rv_thumbnails=rv_thumbnails;
         this.rv_videos_title=rv_videos_title;
+        this.sampleimgurl=sampleimgurl;
     }
 
 
@@ -49,9 +55,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
-        final int id= rv_thumbnails[position];
-
-        holder.imageView.setBackgroundResource(id);
+//        final int id= rv_thumbnails[position];
+//        xholder.imageView.setBackgroundResource(id);
+        Glide.with(mctx)
+                .load(sampleimgurl.get(position))
+                .into(holder.imageView);
         holder.textView.setText(rv_videos_title.get(position));
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {

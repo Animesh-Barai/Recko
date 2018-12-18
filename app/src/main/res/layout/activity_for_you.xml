@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ForYou">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -63,7 +64,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/brandontext_medium"
-                    android:text="Videos help you sell better"
+                    android:text="Videos to help you sell better"
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 
@@ -74,26 +75,21 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/popularproducts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/videohelpssell"
-                android:layout_marginTop="25dp"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:fontFamily="@font/brandontext_medium"
-                    android:text="Popular products for you"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="20dp"
-                    android:textColor="@color/heading_dark"/>
-            </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rv_categorylist"
+                    android:layout_below="@id/videohelpssell"
+                    android:scrollbars="vertical"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+
+
         </RelativeLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

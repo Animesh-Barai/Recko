@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +45,6 @@ public class Industries extends AppCompatActivity {
      private static List<String> selectedChips = new ArrayList<String>();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +60,16 @@ public class Industries extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(Industries.this,ForYou.class);
-                startActivity(intent);
-                Log.d("zzz",selectedChips.toString());
+                if(InternetConnection.checkConnection(Industries.this)) {
+                    Intent intent = new Intent(Industries.this, ForYou.class);
+                    startActivity(intent);
+                    Log.d("zzz", selectedChips.toString());
+                }
+                else
+                {
+                    Intent intent = new Intent(Industries.this, AwwSnap.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -141,5 +148,4 @@ public class Industries extends AppCompatActivity {
     {
         selectedChips.clear();
     }
-
 }

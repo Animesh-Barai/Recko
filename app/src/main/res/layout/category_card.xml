@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="144dp"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/categorycard"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        android:background="@color/white"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+
+            <ImageView
+                android:id="@+id/imgcategory"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:src="@drawable/sample2"/>
+
+            <TextView
+                android:id="@+id/titlecategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/brandontext_medium"
+                android:text="Car Loan"
+                android:textColor="@color/heading_dark"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgcategory" />
+
+            <TextView
+                android:id="@+id/earnupto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/brandontext_regular"
+                android:text="Earn upto"
+                android:textColor="#8b8b8b"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titlecategory" />
+
+            <TextView
+                android:id="@+id/amountcategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/brandontext_medium"
+                android:text="10,000"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/earnupto" />
+
+            <TextView
+                android:id="@+id/salecategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:text="/sale"
+                android:textColor="#8b8b8b"
+                android:textSize="14sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/amountcategory"
+                app:layout_constraintStart_toEndOf="@+id/amountcategory" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
