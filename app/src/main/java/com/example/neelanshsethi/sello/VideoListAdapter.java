@@ -67,6 +67,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
             public void onClick(View view) {
                 Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
                 intent.putExtra("video_id",rv_videos.get(position));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mctx.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 

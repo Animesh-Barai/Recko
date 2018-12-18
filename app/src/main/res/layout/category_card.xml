@@ -64,15 +64,13 @@
                     android:id="@+id/amountcategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="3dp"
                     android:fontFamily="@font/brandontext_medium"
                     android:text="10,000"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/earnupto" />
+                    app:layout_constraintBaseline_toBaselineOf="@+id/rupee_symbol"
+                    app:layout_constraintStart_toEndOf="@+id/rupee_symbol" />
 
                 <TextView
                     android:id="@+id/salecategory"
@@ -83,6 +81,19 @@
                     android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/amountcategory"
                     app:layout_constraintStart_toEndOf="@+id/amountcategory" />
+
+                <TextView
+                    android:id="@+id/rupee_symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="\u20B9"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/earnupto" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
