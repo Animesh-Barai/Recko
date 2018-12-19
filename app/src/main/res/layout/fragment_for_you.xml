@@ -83,9 +83,39 @@
                 android:layout_height="match_parent"
                 android:id="@+id/rv_categorylist"
                 android:layout_below="@id/videohelpssell"
+
                 android:scrollbars="vertical"
                 android:orientation="vertical">
             </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/small_industry_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/rv_categorylist"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:id="@+id/small_industry_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/brandontext_medium"
+                    android:text="Your Industries"
+                    android:textColor="@color/heading_dark"
+                    android:textSize="24sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rv_small_industry"
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
 
 
         </RelativeLayout>

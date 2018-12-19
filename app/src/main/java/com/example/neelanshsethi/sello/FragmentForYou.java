@@ -55,6 +55,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
     private RecyclerView rv_videolist;
     private RecyclerView rv_categorylist;
+    private RecyclerView rv_small_industry;
     private ViewPager carousel;
     private SliderAdapter sliderAdapter;
     private ImageView[] dots;
@@ -63,6 +64,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private VideoListAdapter videoListAdapter;
     private Activity thisActivity;
     private CategoryListAdapter categoryListAdapter;
+    private IndustrySmallCardAdapter industrySmallCardAdapter;
 
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
@@ -73,6 +75,8 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     List<String> sampleimgurl= new ArrayList<String>();
 
     private List<String> heading= new ArrayList<String>();
+    private List<String> heading2= new ArrayList<String>();
+
     private List<List<String>> imageurl= new ArrayList<List<String>>();
     private List<List<String>> categorytitle= new ArrayList<List<String>>();
     private List<List<String>> categoryamount= new ArrayList<List<String>>();
@@ -107,6 +111,8 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
         thisActivity=(Activity)getActivity();
         rv_videolist=v.findViewById(R.id.rv_videolist);
+        rv_categorylist=v.findViewById(R.id.rv_categorylist);
+        rv_small_industry=v.findViewById(R.id.rv_small_industry);
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
         carousel=v.findViewById(R.id.carousel);
         carousel.setPageTransformer(true, new DepthPageTransformer());
@@ -126,9 +132,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         videoListAdapter=new VideoListAdapter(getActivity(), rv_videos,sampleimgurl,rv_videos_title,thisActivity);
         get_rv_videolist();
 
-        rv_categorylist=v.findViewById(R.id.rv_categorylist);
+
         heading.add("Popular Products for you");
         heading.add("Kamao BC Kamao");
+        heading.add("Kamao BC Kamao");
+        heading.add("Kamao BC Kamao");
+        heading2.add("Education");
+        heading2.add("Mediacal");
+        heading2.add("Finance");
+        heading2.add("Finance");
         List<String > temp1= new ArrayList<String>();
         temp1.add("https://testimages.org/img/testimages_screenshot.jpg");
         temp1.add("https://homepages.cae.wisc.edu/~ece533/images/cat.png");
@@ -158,6 +170,11 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         rv_categorylist.setAdapter(categoryListAdapter);
         categoryListAdapter.notifyDataSetChanged();
 
+        rv_small_industry.setHasFixedSize(true);
+        rv_small_industry.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
+        industrySmallCardAdapter=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
+        rv_small_industry.setAdapter(industrySmallCardAdapter);
+        industrySmallCardAdapter.notifyDataSetChanged();
 
 
         return v;

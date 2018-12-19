@@ -61,7 +61,7 @@ public class Industries extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(InternetConnection.checkConnection(Industries.this)) {
-                    Intent intent = new Intent(Industries.this, ForYou.class);
+                    Intent intent = new Intent(Industries.this, NavigationDashboard.class);
                     startActivity(intent);
                     Log.d("zzz", selectedChips.toString());
                 }
