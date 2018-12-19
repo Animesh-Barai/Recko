@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -69,8 +70,8 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
-    int carousel_images[]={R.drawable.sample,R.drawable.sample2,R.drawable.sample,R.drawable.sample};
-    int[] rv_thumbnails={R.drawable.sample,R.drawable.sample2,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
+    int carousel_images[]={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
+    int[] rv_thumbnails={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
 
     List<String> sampleimgurl= new ArrayList<String>();
 
@@ -108,7 +109,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_for_you, container, false);
-
+        RelativeLayout layout=v.findViewById(R.id.top_layout);
         thisActivity=(Activity)getActivity();
         rv_videolist=v.findViewById(R.id.rv_videolist);
         rv_categorylist=v.findViewById(R.id.rv_categorylist);
@@ -122,15 +123,12 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         carousel.setAdapter(sliderAdapter);
         dotsIndicator.setViewPager(carousel);
 
-        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/airplane.png");
-        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/cat.png");
-        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/lena.bmp");
-        sampleimgurl.add("https://homepages.cae.wisc.edu/~ece533/images/tulips.png");
+        sampleimgurl.add("https://www.desktopbackground.org/download/2000x1500/2010/04/10/29_ultra-hd-4k-rain-wallpapers-hd-desktop-backgrounds-3840x2400_3840x2400_h.jpg");
+        sampleimgurl.add("https://www.oneperiodic.com/products/photobatch/tutorials/img/scale_original.png");
+        sampleimgurl.add("https://a-static.besthdwallpaper.com/above-the-clouds-sunset-wallpaper-2048x1536-4355_26.jpg");
+        sampleimgurl.add("http://s4301.pcdn.co/wp-content/uploads/2012/11/20130312_10thExterior_night-desktop4x3.jpg");
 
-        rv_videolist.setHasFixedSize(true);
-        rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        videoListAdapter=new VideoListAdapter(getActivity(), rv_videos,sampleimgurl,rv_videos_title,thisActivity);
-        get_rv_videolist();
+
 
 
         heading.add("Popular Products for you");
@@ -142,10 +140,10 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         heading2.add("Finance");
         heading2.add("Finance");
         List<String > temp1= new ArrayList<String>();
-        temp1.add("https://testimages.org/img/testimages_screenshot.jpg");
-        temp1.add("https://homepages.cae.wisc.edu/~ece533/images/cat.png");
-        temp1.add("https://homepages.cae.wisc.edu/~ece533/images/lena.bmp");
-        temp1.add("https://homepages.cae.wisc.edu/~ece533/images/tulips.png");
+        temp1.add("https://cdn.tutsplus.com/photo/uploads/legacy/746_aspectratio/07.jpg");
+        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
+        temp1.add("https://iacopodeenosee.files.wordpress.com/2013/06/abstract-circles-l.jpg");
+        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/weareG2esports-1200x600.jpg");
         imageurl.add(temp1);
         imageurl.add(temp1);
         List<String > temp2= new ArrayList<String>();
@@ -163,6 +161,11 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         categoryamount.add(temp3);
         categoryamount.add(temp3);
 
+        rv_videolist.setHasFixedSize(true);
+        rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        videoListAdapter=new VideoListAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
+        get_rv_videolist();
+
         rv_categorylist.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         rv_categorylist.setLayoutManager(linearLayoutManager);
@@ -176,7 +179,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         rv_small_industry.setAdapter(industrySmallCardAdapter);
         industrySmallCardAdapter.notifyDataSetChanged();
 
-
+        layout.requestFocus();
         return v;
 
 

@@ -8,26 +8,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/categorycard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="0dp"
             app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,144:168"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/imgcategory"
-                    android:layout_width="160dp"
+                    android:layout_width="170dp"
                     android:layout_height="0dp"
                     android:src="@drawable/sample2"
                     app:layout_constraintDimensionRatio="h,16:8"
@@ -39,11 +42,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/brandontext_medium"
                     android:text="Car Loan"
                     android:textColor="@color/heading_dark"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/earnupto"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imgcategory" />
 
@@ -51,13 +56,12 @@
                     android:id="@+id/earnupto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/brandontext_regular"
-                    android:text="Earn upto"
+                    android:text="10+ Products"
                     android:textColor="#8b8b8b"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/titlecategory"
                     app:layout_constraintTop_toBottomOf="@+id/titlecategory" />
 
                 <TextView
@@ -68,7 +72,7 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="10,000"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/rupee_symbol"
                     app:layout_constraintStart_toEndOf="@+id/rupee_symbol" />
 
@@ -87,11 +91,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="12dp"
                     android:text="\u20B9"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:fontFamily="@font/brandontext_regular"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/upto"
+                    app:layout_constraintStart_toEndOf="@+id/upto" />
+
+                <TextView
+                    android:id="@+id/upto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/brandontext_regular"
+                    android:text="Upto"
+                    android:textColor="#8b8b8b"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/earnupto" />
 
