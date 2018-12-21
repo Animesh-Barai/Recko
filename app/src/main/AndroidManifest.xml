@@ -50,7 +50,10 @@
             android:name=".YoutubePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".AwwSnap" />
-        <activity android:name=".NavigationDashboard"
+        <activity
+            android:name=".NavigationDashboard"
+            android:exported="true" />
+        <activity android:name=".CategoryAndCompany"
             android:exported="true"></activity>
     </application>
 

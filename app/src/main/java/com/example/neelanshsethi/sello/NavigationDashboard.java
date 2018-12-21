@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static android.view.FrameMetrics.ANIMATION_DURATION;
 
 public class NavigationDashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -26,14 +31,14 @@ public class NavigationDashboard extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
-        ViewPagerAdapter adapter = new ViewPagerAdapter (NavigationDashboard.this.getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter (getSupportFragmentManager());
         adapter.addFragment(new FragmentForYou(), "title");
         adapter.addFragment(new FragmentExplore(), "title");
         adapter.addFragment(new FragmentForYou(), "title");
         adapter.addFragment(new FragmentForYou(), "title");
         adapter.addFragment(new FragmentForYou(), "title");
 
-//        viewPager.setPagingEnabled(false);
+        viewPager.setPagingEnabled(false);
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(adapter);
         bottomNavigationView.setSelectedItemId(R.id.action_for_you);
@@ -73,4 +78,7 @@ public class NavigationDashboard extends AppCompatActivity {
             return true;
         }
     };
+
+
+
 }

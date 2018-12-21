@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoryAndCompany">
+
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:theme="@style/CustomToolbar"
+            app:navigationIcon="@drawable/back"
+            app:title="Education Sector"
+            app:titleTextAppearance="@style/BrandonTextAppearance"
+            app:titleTextColor="@color/heading_dark">
+
+        </androidx.appcompat.widget.Toolbar>
+
+    <com.kekstudio.dachshundtablayout.DachshundTabLayout
+        android:layout_marginStart="72dp"
+        android:id="@+id/tablayout"
+        android:layout_width="wrap_content"
+        app:tabTextAppearance="@style/TablayoutText"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        app:ddAnimatedIndicator="lineMove"
+        app:ddIndicatorHeight="4dp"
+        app:ddIndicatorColor="#c62c70"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabGravity="center">
+
+    </com.kekstudio.dachshundtablayout.DachshundTabLayout>
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tablayout">
+
+        <com.example.neelanshsethi.sello.CustomViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container">
+        </com.example.neelanshsethi.sello.CustomViewPager>
+    </FrameLayout>
+
+
+
+
+
+</RelativeLayout>
