@@ -6,8 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".CategoryAndCompany">
 
-
-
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -38,12 +42,14 @@
 
     </com.kekstudio.dachshundtablayout.DachshundTabLayout>
 
+    </com.google.android.material.appbar.AppBarLayout>
+
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tablayout">
+        android:layout_below="@id/appbar">
 
         <com.example.neelanshsethi.sello.CustomViewPager
             android:layout_width="match_parent"
