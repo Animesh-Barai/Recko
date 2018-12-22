@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
+
 public class CategoryAdapter extends BaseAdapter {
 
     View v;
@@ -79,6 +81,7 @@ public class CategoryAdapter extends BaseAdapter {
         TextView titlecategory= v.findViewById(R.id.titlecategory);
         ImageView imgcategory=v.findViewById(R.id.imgcategory);
         TextView amountcategory=v.findViewById(R.id.amountcategory);
+        CardView cardView=v.findViewById(R.id.categorycard);
 
         if(!categoryimageurl.isEmpty()) {
             Glide.with(mctx)
@@ -88,7 +91,7 @@ public class CategoryAdapter extends BaseAdapter {
             amountcategory.setText(categorymaxcommission.get(i));
         }
 
-        imgcategory.setOnClickListener(new View.OnClickListener() {
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(mctx,CategoryAndCompany.class);

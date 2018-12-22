@@ -53,4 +53,11 @@ public class CategoryAndCompany extends AppCompatActivity {
         menuInflater.inflate(R.menu.category_and_company_menu,menu);
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
 }
