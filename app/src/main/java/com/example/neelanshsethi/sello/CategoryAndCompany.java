@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.Toolbar;
 
 import com.kekstudio.dachshundtablayout.DachshundTabLayout;
@@ -25,6 +26,13 @@ public class CategoryAndCompany extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSupportActionBar(toolbar);
         }
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         tabLayout = findViewById(R.id.tablayout);
         viewPager = (CustomViewPager) findViewById(R.id.fragment_container);

@@ -120,41 +120,12 @@
         android:background="@drawable/round_button"
         android:fontFamily="@font/brandontext_bold"
         android:text="Next"
+        android:stateListAnimator="@animator/button_animator"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
-
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip"
-        style="@style/Widget.MaterialComponents.Chip.Action"
-        android:layout_width="140dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="76dp"
-        android:checkable="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:paddingLeft="-5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="Education"
-        android:textColor="@color/heading_dark"
-        android:textSize="25sp"
-        app:chipCornerRadius="22dp"
-        app:chipIconSize="35dp"
-        app:iconStartPadding="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.572"
-        app:layout_constraintStart_toStartOf="parent"
-        app:textStartPadding="15dp" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
