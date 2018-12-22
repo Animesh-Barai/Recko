@@ -33,7 +33,7 @@ public class NavigationDashboard extends AppCompatActivity {
         viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
         ViewPagerAdapter adapter = new ViewPagerAdapter (getSupportFragmentManager());
         adapter.addFragment(new FragmentForYou(), "title");
-        adapter.addFragment(new FragmentExplore(), "title");
+        adapter.addFragment(new FragmentForYou(), "title");
         adapter.addFragment(new FragmentForYou(), "title");
         adapter.addFragment(new FragmentForYou(), "title");
         adapter.addFragment(new FragmentForYou(), "title");

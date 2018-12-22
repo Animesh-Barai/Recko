@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -22,12 +23,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,9 +85,12 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private List<String> heading= new ArrayList<String>();
     private List<String> heading2= new ArrayList<String>();
 
-    private List<List<String>> imageurl= new ArrayList<List<String>>();
-    private List<List<String>> categorytitle= new ArrayList<List<String>>();
-    private List<List<String>> categoryamount= new ArrayList<List<String>>();
+    private List<List<String>> categoryimageurl= new ArrayList<List<String>>();
+    private List<List<String>> categoryname= new ArrayList<List<String>>();
+    private List<List<String>> categoryindustry= new ArrayList<List<String>>();
+    private List<List<String>> categorymaxcommission= new ArrayList<List<String>>();
+    private List<List<String>> categoryuuid= new ArrayList<List<String>>();
+    private List<List<String>> categorynoofproduct= new ArrayList<List<String>>();
 
     public FragmentForYou() {
         // Required empty public constructor
@@ -134,10 +141,10 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
 
 
-        heading.add("Popular Products for you");
-        heading.add("Kamao BC Kamao");
-        heading.add("Kamao BC Kamao");
-        heading.add("Kamao BC Kamao");
+//        heading.add("Popular Products for you");
+//        heading.add("Kamao BC Kamao");
+//        heading.add("Kamao BC Kamao");
+//        heading.add("Kamao BC Kamao");
         heading2.add("Education");
         heading2.add("Mediacal");
         heading2.add("Finance");
@@ -147,34 +154,36 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
         temp1.add("https://iacopodeenosee.files.wordpress.com/2013/06/abstract-circles-l.jpg");
         temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/weareG2esports-1200x600.jpg");
-        imageurl.add(temp1);
-        imageurl.add(temp1);
+//        imageurl.add(temp1);
+//        imageurl.add(temp1);
         List<String > temp2= new ArrayList<String>();
         temp2.add("sub heading 1");
         temp2.add("sub heading 2");
         temp2.add("sub heading 3");
         temp2.add("sub heading 4");
-        categorytitle.add(temp2);
-        categorytitle.add(temp2);
+//        categorytitle.add(temp2);
+//        categorytitle.add(temp2);
         List<String > temp3= new ArrayList<String>();
         temp3.add("10000");
         temp3.add("20000");
         temp3.add("30000");
         temp3.add("40000");
-        categoryamount.add(temp3);
-        categoryamount.add(temp3);
+//        categoryamount.add(temp3);
+//        categoryamount.add(temp3);
 
         rv_videolist.setHasFixedSize(true);
         rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         videoListAdapter=new VideoListAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
+        rv_videolist.setAdapter(videoListAdapter);
         get_rv_videolist();
 
         rv_categorylist.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         rv_categorylist.setLayoutManager(linearLayoutManager);
-        categoryListAdapter =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
+        categoryListAdapter =new CategoryListAdapter(getActivity(),heading,categoryimageurl,categoryindustry,categorymaxcommission,categoryname,categorynoofproduct,categoryuuid,thisActivity);
         rv_categorylist.setAdapter(categoryListAdapter);
-        categoryListAdapter.notifyDataSetChanged();
+
+        get_rv_categorylist();
 
         rv_small_industry.setHasFixedSize(true);
         rv_small_industry.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
@@ -184,9 +193,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
         layout.requestFocus();
         return v;
-
-
-
 
 //!To initialize the Youtube Fragmnet in a activity
 //        YouTubePlayerFragment youTubePlayerFragment =
@@ -206,6 +212,102 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 //    protected YouTubePlayer.Provider getYouTubePlayerProvider() {
 //        return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
     }
+
+    private void get_rv_categorylist() {
+
+        final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("seller_uuid",mUser.getUid());
+            Log.d("zzz json", json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/front_page_categories", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("zzz", APIURL.url + "user/front_page_categories" + "\nonResponse: " + response);
+
+                        try {
+                            JSONArray array1 = response.getJSONArray("data");
+                            Log.d("zzzarray", array1.toString());
+                            for (int i = 0; i < array1.length(); i++) {
+                                try {
+                                    JSONObject object = array1.getJSONObject(i);
+                                    String Cat_title = object.getString("heading");
+                                    heading.add(Cat_title);
+
+                                    List<String > temp1= new ArrayList<String>();
+                                    List<String > temp2= new ArrayList<String>();
+                                    List<String > temp3= new ArrayList<String>();
+                                    List<String > temp4= new ArrayList<String>();
+                                    List<String > temp5= new ArrayList<String>();
+                                    List<String > temp6= new ArrayList<String>();
+
+                                    Log.d("zzzarray", object.toString());
+                                    JSONArray array2 = object.getJSONArray("data");
+                                    for (int j = 0; j < array2.length(); j++) {
+
+                                        try {
+                                            JSONObject object2 = array2.getJSONObject(j);
+                                            Log.d("zzzobjct", object2.toString());
+                                            String max_commission = object2.getString("max_commission");
+                                            String name = object2.getString("name");
+                                            String industry = object2.getString("industry");
+                                            String category_uuid = object2.getString("category_uuid");
+                                            String no_of_products = String.valueOf(object2.getInt("no_of_product"));
+                                            String image_url = object2.getString("image_url");
+
+                                            temp1.add(max_commission);
+                                            temp2.add(name);
+                                            temp3.add(industry);
+                                            temp4.add(category_uuid);
+                                            temp5.add(image_url);
+                                            temp6.add(no_of_products);
+
+
+
+
+
+                                            Log.d("zzz id", max_commission + " " + name + " " + industry + " " + " " + category_uuid + " " + no_of_products + " " + image_url);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    categorymaxcommission.add(temp1);
+                                    categoryname.add(temp2);
+                                    categoryindustry.add(temp3);
+                                    categoryuuid.add(temp4);
+                                    categoryimageurl.add(temp5);
+                                    categorynoofproduct.add(temp6);
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            categoryListAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonObjectRequest);
+    }
+
 
     private void get_rv_videolist(){
         JSONObject json = new JSONObject();
@@ -236,7 +338,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                 }
                             }
 
-                            rv_videolist.setAdapter(videoListAdapter);
                             videoListAdapter.notifyDataSetChanged();
                         }
                         catch (JSONException e) {
@@ -252,11 +353,9 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
         });
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jsonObjectRequest);
     }
-
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -264,14 +363,11 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         }
     }
 
-
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

@@ -20,6 +20,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,20 +43,20 @@ import java.util.List;
 
 public class Industries extends AppCompatActivity {
 
-
+    TextView textView;
     GridView gridView;
-//    String [] industry_names={"Managements","Finance","Medical","Lorem Ipsum","Neelansh","Abhishek","Chinmay","Khagesh"};
+    //    String [] industry_names={"Managements","Finance","Medical","Lorem Ipsum","Neelansh","Abhishek","Chinmay","Khagesh"};
 //  int [] industry_logos={R.drawable.chip_education,R.drawable.chip_education,R.drawable.chip_education,R.drawable.chip_education,R.drawable.chip_education,R.drawable.chip_education,R.drawable.chip_education,R.drawable.chip_education};
     private Drawable [] industry_logos=new Drawable[30];
-//    String [] industry_names = new String[20];
+    //    String [] industry_names = new String[20];
     private  List<String> industry_names = new ArrayList<String>();
     private  static List<String> ind_names = new ArrayList<String>();
     private static List<String> industry_uuid = new ArrayList<String>();
-//    List<String > industry_logos = new ArrayList<String>();
+    //    List<String > industry_logos = new ArrayList<String>();
     IndustryAdapter industryAdapter;
     Button next;
     private String idToken;
-     private static List<String> selectedChips = new ArrayList<String>();
+    private static List<String> selectedChips = new ArrayList<String>();
 
 
     @Override
@@ -73,24 +74,31 @@ public class Industries extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                send_industries();
+                if (selectedChips.isEmpty())
+                    Toast.makeText(getApplicationContext(),"Please choose the Industires",Toast.LENGTH_SHORT).show();
+                else if(!InternetConnection.checkConnection(Industries.this)) {
+                    Intent intent = new Intent(Industries.this, AwwSnap.class);
+                    startActivity(intent);
+                    Log.d("zzz", selectedChips.toString());
+                }
+                else
+                {
+                    send_industries();
+                }
 
-//                if(InternetConnection.checkConnection(Industries.this)) {
-//                    Intent intent = new Intent(Industries.this, NavigationDashboard.class);
-//                    startActivity(intent);
-//                    Log.d("zzz", selectedChips.toString());
-//                }
-//                else
-//                {
-//                    Intent intent = new Intent(Industries.this, AwwSnap.class);
-//
-//                    startActivity(intent);
-//                }
             }
         });
+
+        textView=findViewById(R.id.txtindustries);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Industries.this, NavigationDashboard.class);
+                startActivity(intent);
+            }
+        });
+
     }
-
-
 
     private void getdata(){
         JSONObject json = new JSONObject();
@@ -115,15 +123,15 @@ public class Industries extends AppCompatActivity {
                                     if(pic_base64.contains("data")) {
 
 
-                                            Log.d("zzz j",String.valueOf(" " +i));
-                                            String base64Image = pic_base64.split(",")[1];
-                                            byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-                                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                                            Drawable d = new BitmapDrawable(getResources(), decodedByte);
-                                            industry_logos[i]=d;
-                                            industry_names.add(i,name);
-                                            ind_names.add(i,name);
-                                            industry_uuid.add(i,uuid);
+                                        Log.d("zzz j",String.valueOf(" " +i));
+                                        String base64Image = pic_base64.split(",")[1];
+                                        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                        Drawable d = new BitmapDrawable(getResources(), decodedByte);
+                                        industry_logos[i]=d;
+                                        industry_names.add(i,name);
+                                        ind_names.add(i,name);
+                                        industry_uuid.add(i,uuid);
 
 
                                     }
@@ -151,11 +159,8 @@ public class Industries extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
     private void send_industries()
     {
-
-
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getIdToken(true)
                 .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
@@ -190,28 +195,22 @@ public class Industries extends AppCompatActivity {
 
                         Log.d("zzz", APIURL.url+"user/insert_industries"+"\nonResponse: "+response);
 
-                                try {
-                                    if(response.getString("code").equals("200"))
-                                    {
-                                        if(InternetConnection.checkConnection(Industries.this)) {
-                                            Intent intent = new Intent(Industries.this, NavigationDashboard.class);
-                                            startActivity(intent);
-                                            Log.d("zzz", selectedChips.toString());
-                                        }
-                                        else
-                                        {
-                                            Intent intent = new Intent(Industries.this, AwwSnap.class);
+                        try {
+                            if(response.getString("code").equals("200"))
+                            {
 
-                                            startActivity(intent);
-                                        }
-                                    }
-                                    else{
-                                        Toast.makeText(getApplicationContext(),"Oooops! Please try again later",Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                    Intent intent = new Intent(Industries.this, NavigationDashboard.class);
+                                    startActivity(intent);
+                                    Log.d("zzz", selectedChips.toString());
+
                             }
+                            else{
+                                Toast.makeText(getApplicationContext(),"Oooops! Please try again later",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

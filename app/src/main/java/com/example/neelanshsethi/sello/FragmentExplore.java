@@ -169,9 +169,9 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         rv_categorylist1.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         rv_categorylist1.setLayoutManager(linearLayoutManager);
-        categoryListAdapter1 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
-        rv_categorylist1.setAdapter(categoryListAdapter1);
-        categoryListAdapter1.notifyDataSetChanged();
+//        categoryListAdapter1 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
+//        rv_categorylist1.setAdapter(categoryListAdapter1);
+//        categoryListAdapter1.notifyDataSetChanged();
 
         rv_small_industry1.setHasFixedSize(true);
         rv_small_industry1.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
@@ -181,7 +181,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
 
         rv_categorylist2.setHasFixedSize(true);
         rv_categorylist2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL, false));
-        categoryListAdapter2 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
+//        categoryListAdapter2 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
         rv_categorylist2.setAdapter(categoryListAdapter1);
         categoryListAdapter2.notifyDataSetChanged();
 

@@ -51,16 +51,17 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
 //        final int id= rv_thumbnails[position];
 //        xholder.imageView.setBackgroundResource(id);
-        Glide.with(mctx)
-                .load(sampleimgurl.get(position))
-                .into(holder.imageView);
-        holder.textView.setText(rv_videos_title.get(position));
+        if(!rv_videos_title.isEmpty()) {
+            Glide.with(mctx)
+                    .load(sampleimgurl.get(position))
+                    .into(holder.imageView);
+            holder.textView.setText(rv_videos_title.get(position));
+        }
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,8 @@
 package com.example.neelanshsethi.sello;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +20,28 @@ public class CategoryAdapter extends BaseAdapter {
     LayoutInflater layoutInflater;
 
     private Context mctx;
-    private List<String> imageurl;
-    private List<String> categorytitle;
-    private List<String> getCategoryamount;
+    private Activity mActivity;
+    private List<String> categoryimageurl;
+    private List<String> categoryname;
+    private List<String> categoryindustry;
+    private List<String> categoryuuid;
+    private List<String> categorynoofproducts;
+    private List<String> categorymaxcommission;
 
-    public CategoryAdapter(Context mctx, List<String> imageurl, List<String> categorytitle, List<String> getCategoryamount) {
+    public CategoryAdapter(Context mctx, List<String> categoryimageurl, List<String> categoryname, List<String> categorymaxcommission, List<String> categoryindustry, List<String> categorynoofproducts, List<String> categoryuuid, Activity mActivity) {
         this.mctx = mctx;
-        this.imageurl = imageurl;
-        this.categorytitle = categorytitle;
-        this.getCategoryamount = getCategoryamount;
+        this.categoryimageurl = categoryimageurl;
+        this.categoryname = categoryname;
+        this.categoryindustry = categoryindustry;
+        this.categoryuuid = categoryuuid;
+        this.categorynoofproducts = categorynoofproducts;
+        this.categorymaxcommission = categorymaxcommission;
+        this.mActivity=mActivity;
     }
-
 
     @Override
     public int getCount() {
-        return imageurl.size();
+        return categoryimageurl.size();
     }
 
     @Override
@@ -56,7 +65,7 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         layoutInflater= (LayoutInflater) mctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(view==null)
         {
@@ -71,11 +80,25 @@ public class CategoryAdapter extends BaseAdapter {
         ImageView imgcategory=v.findViewById(R.id.imgcategory);
         TextView amountcategory=v.findViewById(R.id.amountcategory);
 
-        Glide.with(mctx)
-                .load(imageurl.get(i))
-                .into(imgcategory);
-        titlecategory.setText(categorytitle.get(i));
-        amountcategory.setText(getCategoryamount.get(i));
+        if(!categoryimageurl.isEmpty()) {
+            Glide.with(mctx)
+                    .load(categoryimageurl.get(i))
+                    .into(imgcategory);
+            titlecategory.setText(categoryname.get(i));
+            amountcategory.setText(categorymaxcommission.get(i));
+        }
+
+        imgcategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(mctx,CategoryAndCompany.class);
+                intent.putExtra("category_uuid",categoryuuid.get(i));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mctx.startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            }
+        });
+
         return v;
     }
 

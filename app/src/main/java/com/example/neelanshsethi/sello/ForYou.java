@@ -128,7 +128,7 @@ public class ForYou extends AppCompatActivity {
         rv_categorylist.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rv_categorylist.setLayoutManager(linearLayoutManager);
-        categoryListAdapter =new CategoryListAdapter(this,heading,imageurl,categorytitle,categoryamount);
+//        categoryListAdapter =new CategoryListAdapter(this,heading,imageurl,categorytitle,categoryamount);
         rv_categorylist.setAdapter(categoryListAdapter);
         categoryListAdapter.notifyDataSetChanged();
 
