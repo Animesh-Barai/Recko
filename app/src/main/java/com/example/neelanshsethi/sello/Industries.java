@@ -1,13 +1,12 @@
 package com.example.neelanshsethi.sello;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.example.neelanshsethi.sello.Model.IndustryModel;
+import com.example.neelanshsethi.sello.Model.IndustryChipModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
@@ -17,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -129,8 +127,8 @@ public class Industries extends AppCompatActivity {
                                             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                                             Drawable d = new BitmapDrawable(getResources(), decodedByte);
 
-                                            IndustryModel industryModel=new IndustryModel(d,name,uuid);
-                                            industryModellist.add(industryModel);
+                                            IndustryChipModel industryChipModel =new IndustryChipModel(d,name,uuid);
+                                            industryModellist.add(industryChipModel);
                                             ind_names.add(j, name);
                                             industry_uuid.add(j, uuid);
                                         }

@@ -17,27 +17,26 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 
 import java.util.List;
 
 public class CategoryAndCompanyAdapter extends RecyclerView.Adapter<CategoryAndCompanyAdapter.ResultViewHolder> {
 
     Context mctx;
-    List<String> rv_videos;
+    List categorylist;
     Activity mActivity;
-    int[] rv_thumbnails;
-    List<String> rv_videos_title;
+
     public static final int VIEW_TYPE_NORMAL = 1;
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     private List<String> sampleimgurl;
+    private Category_InCategoryAndCompanyModel category_inCategoryAndCompanyModel;
 
-    public CategoryAndCompanyAdapter(Context mctx, List<String> rv_videos, List<String> sampleimgurl,List<String> rv_videos_title, Activity mActivity) {
+    public CategoryAndCompanyAdapter(Context mctx,List categorylist, Activity mActivity) {
         this.mctx = mctx;
-        this.rv_videos = rv_videos;
+        this.categorylist=categorylist;
         this.mActivity=mActivity;
-//        this.rv_thumbnails=rv_thumbnails;
-        this.rv_videos_title=rv_videos_title;
-        this.sampleimgurl=sampleimgurl;
+
     }
 
 
@@ -51,25 +50,28 @@ public class CategoryAndCompanyAdapter extends RecyclerView.Adapter<CategoryAndC
 
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
-//        final int id= rv_thumbnails[position];
-//        xholder.imageView.setBackgroundResource(id);
-        Glide.with(mctx)
-                .load(sampleimgurl.get(position))
-                .into(holder.imageView);
-        holder.textView.setText(rv_videos_title.get(position));
+        if (!categorylist.isEmpty()) {
+            category_inCategoryAndCompanyModel = (Category_InCategoryAndCompanyModel) categorylist.get(position);
+            Glide.with(mctx)
+                    .load(category_inCategoryAndCompanyModel.getImage_url())
+                    .into(holder.imageView);
+            holder.textView.setText(category_inCategoryAndCompanyModel.getName());
+        }
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
-                intent.putExtra("video_id",rv_videos.get(position));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mctx.startActivity(intent);
-                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+                //yet to be decided
+
+//                Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
+//                intent.putExtra("kuch ayega yahan",category_inCategoryAndCompanyModel.getCategory_uuid());
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                mctx.startActivity(intent);
+//                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
             }
         });
@@ -82,21 +84,12 @@ public class CategoryAndCompanyAdapter extends RecyclerView.Adapter<CategoryAndC
 
     @Override
     public int getItemCount() {
-        if (rv_videos != null && rv_videos.size() > 0) {
-            return rv_videos.size();
+        if (categorylist != null && categorylist.size() > 0) {
+            return categorylist.size();
         } else {
             return 1;
         }
     }
-
-    public void setItems(int[] list) {
-        this.rv_videos = rv_videos;
-        this.rv_thumbnails=rv_thumbnails;
-        this.rv_videos_title=rv_videos_title;
-        notifyDataSetChanged();
-    }
-
-
 
     class ResultViewHolder extends RecyclerView.ViewHolder {
 

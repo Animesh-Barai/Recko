@@ -102,8 +102,8 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
 
         rv_videolist.setHasFixedSize(true);
         rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
-        get_rv_companylist();
+//        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
+//        get_rv_companylist();
 
 
 

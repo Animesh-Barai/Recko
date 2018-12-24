@@ -3,17 +3,15 @@ package com.example.neelanshsethi.sello;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 
-import com.example.neelanshsethi.sello.Model.IndustryModel;
+import com.example.neelanshsethi.sello.Model.IndustryChipModel;
 import com.google.android.material.chip.Chip;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IndustryAdapter extends BaseAdapter {
@@ -75,17 +73,17 @@ public class IndustryAdapter extends BaseAdapter {
         final Chip chip = v.findViewById(R.id.chip);
 //        Drawable drawable= mctx.getResources().getDrawable(industry_logo[i]);
 
-        final IndustryModel industryModel = (IndustryModel) industryModellist.get(i);
-        chip.setChipIcon(industryModel.getIndustry_logo());
-        chip.setText(industryModel.getIndustry_name());
+        final IndustryChipModel industryChipModel = (IndustryChipModel) industryModellist.get(i);
+        chip.setChipIcon(industryChipModel.getIndustry_logo());
+        chip.setText(industryChipModel.getIndustry_name());
         final Industries industries=new Industries();
-        chip.setChecked(industryModel.getSelected());
+        chip.setChecked(industryChipModel.getSelected());
         setSelection(chip);
         chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSelection(chip);
-                industryModel.setSelected(chip.isChecked());
+                industryChipModel.setSelected(chip.isChecked());
                 if(chip.isChecked()) {
                     industries.selectChips(chip);
                 }

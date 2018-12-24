@@ -1,6 +1,8 @@
 package com.example.neelanshsethi.sello;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.sello.Model.IndustryCardModel;
 
 import java.util.List;
 
@@ -17,15 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmallCardAdapter.ResultViewHolder> {
 
     Context mctx;
-    private List<String> industries_small_title;
-    private List<String> img_url;
+    private List cardindustrylist;
+    private Activity mActivity;
+    private IndustryCardModel industryCardModel;
+
     public static final int VIEW_TYPE_NORMAL = 1;
 
 
-    public IndustrySmallCardAdapter( Context mctx, List<String> industries_small,List<String> img_url) {
+    public IndustrySmallCardAdapter( Context mctx, List cardindustrylist,Activity mActivity) {
         this.mctx = mctx;
-        this.industries_small_title = industries_small;
-        this.img_url=img_url;
+        this.cardindustrylist=cardindustrylist;
+        this.mActivity=mActivity;
     }
 
 
@@ -41,16 +46,31 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
     @Override
     public void onBindViewHolder(@NonNull IndustrySmallCardAdapter.ResultViewHolder holder, int position) {
 
-        Glide.with(mctx)
-                .load(img_url.get(position))
-                .into(holder.imageView);
-        holder.textView.setText(industries_small_title.get(position));
+        if (!cardindustrylist.isEmpty()) {
+            industryCardModel = (IndustryCardModel) cardindustrylist.get(position);
+            Glide.with(mctx)
+                    .load(industryCardModel.getImage_url())
+                    .into(holder.imageView);
+            holder.textView.setText(industryCardModel.getName());
+        }
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(mctx,CategoryAndCompany.class);
+                intent.putExtra("industry_uuid",industryCardModel.getIndustry_uuid());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mctx.startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        if (img_url != null && img_url.size() > 0) {
-            return img_url.size();
+        if (cardindustrylist != null && cardindustrylist.size() > 0) {
+            return cardindustrylist.size();
         } else {
             return 1;
         }

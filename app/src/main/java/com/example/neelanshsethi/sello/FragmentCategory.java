@@ -2,6 +2,7 @@ package com.example.neelanshsethi.sello;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +56,8 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
     private Activity thisActivity;
+
+    List categorylist;
 
 
     public FragmentCategory() {
@@ -94,6 +98,8 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
         rv_videolist=v.findViewById(R.id.rv_videolist);
         thisActivity=(Activity)getActivity();
 
+        categorylist = new ArrayList();
+
         List<String > temp1= new ArrayList<String>();
         temp1.add("https://cdn.tutsplus.com/photo/uploads/legacy/746_aspectratio/07.jpg");
         temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
@@ -102,8 +108,11 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
 
         rv_videolist.setHasFixedSize(true);
         rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
-        get_rv_videolist();
+        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(),categorylist,thisActivity);
+        rv_videolist.setAdapter(categoryAndCompanyAdapter);
+        get_categories();
+
+
 
 
 
@@ -141,14 +150,21 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void get_rv_videolist(){
+    private void get_categories(){
+
         JSONObject json = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,APIURL.url+"video/list", json,
+        try {
+            json.put("industry_uuid",getActivity().getIntent().getStringExtra("industry_uuid"));
+            Log.d("zzz json", json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"category/list", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.d("zzz", APIURL.url+"video/list"+"\nonResponse: "+response);
+                        Log.d("zzz", APIURL.url+"category/list"+"\nonResponse: "+response);
 
                         try {
                             JSONArray array= response.getJSONArray("data");
@@ -157,20 +173,19 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
                                 try {
                                     JSONObject object = array.getJSONObject(i);
                                     Log.d("zzzobjct",object.toString());
-                                    String video_ID = object.getString("video_url");
-                                    rv_videos.add(video_ID);
+                                    String industry = object.getString("industry");
+                                    String category_uuid = object.getString("category_uuid");
+                                    String image_url = object.getString("image_url");
+                                    String name = object.getString("name");
 
-                                    String title = object.getString("title");
-                                    rv_videos_title.add(title);
-
-                                    Log.d("zzz id",video_ID +" "+title );
+                                    Category_InCategoryAndCompanyModel category_inCategoryAndCompanyModel= new Category_InCategoryAndCompanyModel(industry,category_uuid,image_url,name);
+                                    categorylist.add(category_inCategoryAndCompanyModel);
+                                    Log.d("zzz id",industry +" "+name );
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-
-                            rv_videolist.setAdapter(categoryAndCompanyAdapter);
                             categoryAndCompanyAdapter.notifyDataSetChanged();
                         }
                         catch (JSONException e) {

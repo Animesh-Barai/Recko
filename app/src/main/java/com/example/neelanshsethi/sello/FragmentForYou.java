@@ -25,6 +25,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.neelanshsethi.sello.Model.CarouselModel;
 import com.example.neelanshsethi.sello.Model.CategoryListModel;
+import com.example.neelanshsethi.sello.Model.IndustryCardModel;
+import com.example.neelanshsethi.sello.Model.VideosModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -78,16 +80,16 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
-//    int carousel_images[]={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
 
     List<String> sampleimgurl= new ArrayList<String>();
 
-    private List<String> heading= new ArrayList<String>();
     private List<String> heading2= new ArrayList<String>();
 
 
     List categorylist;
     List carousel_images;
+    List videoslist;
+    List cardindustrylist;
 
     public FragmentForYou() {
 
@@ -124,14 +126,17 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
         carousel=v.findViewById(R.id.carousel);
         carousel.setPageTransformer(true, new DepthPageTransformer());
+
         carousel_images=new ArrayList();
+        categorylist=new ArrayList();
+        videoslist=new ArrayList();
+        cardindustrylist=new ArrayList();
 
         sliderAdapter=new SliderAdapter(getActivity(),carousel_images);
         carousel.setAdapter(sliderAdapter);
         get_carousel_images();
         dotsIndicator.setViewPager(carousel);
 
-        categorylist=new ArrayList();
 
         sampleimgurl.add("https://www.desktopbackground.org/download/2000x1500/2010/04/10/29_ultra-hd-4k-rain-wallpapers-hd-desktop-backgrounds-3840x2400_3840x2400_h.jpg");
         sampleimgurl.add("https://www.oneperiodic.com/products/photobatch/tutorials/img/scale_original.png");
@@ -144,36 +149,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 //        heading.add("Kamao BC Kamao");
 //        heading.add("Kamao BC Kamao");
         heading2.add("Education");
-        heading2.add("Mediacal");
+        heading2.add("Medical");
         heading2.add("Finance");
         heading2.add("Finance");
-        List<String > temp1= new ArrayList<String>();
-        temp1.add("https://cdn.tutsplus.com/photo/uploads/legacy/746_aspectratio/07.jpg");
-        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
-        temp1.add("https://iacopodeenosee.files.wordpress.com/2013/06/abstract-circles-l.jpg");
-        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/weareG2esports-1200x600.jpg");
-//        imageurl.add(temp1);
-//        imageurl.add(temp1);
-        List<String > temp2= new ArrayList<String>();
-        temp2.add("sub heading 1");
-        temp2.add("sub heading 2");
-        temp2.add("sub heading 3");
-        temp2.add("sub heading 4");
-//        categorytitle.add(temp2);
-//        categorytitle.add(temp2);
-        List<String > temp3= new ArrayList<String>();
-        temp3.add("10000");
-        temp3.add("20000");
-        temp3.add("30000");
-        temp3.add("40000");
-//        categoryamount.add(temp3);
-//        categoryamount.add(temp3);
+//        List<String > temp1= new ArrayList<String>();
+//        temp1.add("https://cdn.tutsplus.com/photo/uploads/legacy/746_aspectratio/07.jpg");
+//        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
+//        temp1.add("https://iacopodeenosee.files.wordpress.com/2013/06/abstract-circles-l.jpg");
+//        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/weareG2esports-1200x600.jpg");
 
-        rv_videolist.setHasFixedSize(true);
-        rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        videoListAdapter=new VideoListAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
-        rv_videolist.setAdapter(videoListAdapter);
-        get_rv_videolist();
 
         rv_categorylist.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
@@ -182,32 +166,77 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         rv_categorylist.setAdapter(categoryListAdapter);
         get_rv_categorylist();
 
+        rv_videolist.setHasFixedSize(true);
+        rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        videoListAdapter=new VideoListAdapter(getActivity(),videoslist,thisActivity);
+        rv_videolist.setAdapter(videoListAdapter);
+        get_rv_videolist();
+
+
+
         rv_small_industry.setHasFixedSize(true);
         rv_small_industry.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
-        industrySmallCardAdapter=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
+        industrySmallCardAdapter=new IndustrySmallCardAdapter(getActivity(),cardindustrylist,thisActivity);
         rv_small_industry.setAdapter(industrySmallCardAdapter);
-        industrySmallCardAdapter.notifyDataSetChanged();
+        get_smallcard_industry();
+
 
         layout.requestFocus();
         return v;
 
-//!To initialize the Youtube Fragmnet in a activity
-//        YouTubePlayerFragment youTubePlayerFragment =
-//                (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
-//        youTubePlayerFragment.initialize(DeveloperKey.DEVELOPER_KEY, this);
-//    }
-//
-//    @Override
-//    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
-//                                        boolean wasRestored) {
-//        if (!wasRestored) {
-//            player.cueVideo("nCgQDjiotG0");
-//        }
-//    }
-//
-//    @Override
-//    protected YouTubePlayer.Provider getYouTubePlayerProvider() {
-//        return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
+    }
+
+    private void get_smallcard_industry() {
+
+        final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("seller_uuid",mUser.getUid());
+            Log.d("zzz json", json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/list_industries", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("zzz", APIURL.url + "user/list_industries" + "\nonResponse: " + response);
+
+                        try {
+                            JSONArray array1 = response.getJSONArray("data");
+                            Log.d("zzzarray", array1.toString());
+                            for (int i = 0; i < array1.length(); i++) {
+                                try {
+                                    JSONObject object = array1.getJSONObject(i);
+                                    String image_url = object.getString("image_url");
+                                    String industry_uuid = object.getString("industry_uuid");
+                                    String name = object.getString("name");
+
+                                    Log.d("zzzarray", object.toString());
+
+                                    IndustryCardModel industryCardModel=new IndustryCardModel(image_url,name,industry_uuid);
+                                    cardindustrylist.add(industryCardModel);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            industrySmallCardAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void get_carousel_images() {
@@ -262,7 +291,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private void get_rv_categorylist() {
 
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-
         JSONObject json = new JSONObject();
         try {
             json.put("seller_uuid",mUser.getUid());
@@ -322,8 +350,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                     CategoryListModel categoryListModel=new CategoryListModel(Cat_title,temp5,temp2,temp3,temp1,temp4,temp6);
                                     categorylist.add(categoryListModel);
 
-
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -362,13 +388,14 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                 try {
                                     JSONObject object = array.getJSONObject(i);
                                     Log.d("zzzobjct",object.toString());
-                                    String video_ID = object.getString("video_url");
-                                    rv_videos.add(video_ID);
-
+                                    String video_url = object.getString("video_url");
+                                    String video_uuid = object.getString("video_uuid");
+                                    String thumbnail_url = object.getString("thumbnail_url");
                                     String title = object.getString("title");
-                                    rv_videos_title.add(title);
 
-                                    Log.d("zzz id",video_ID +" "+title );
+                                    VideosModel videosModel = new VideosModel(thumbnail_url,video_url,video_uuid,title);
+                                    videoslist.add(videosModel);
+                                    Log.d("zzz id",video_url +" "+title );
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

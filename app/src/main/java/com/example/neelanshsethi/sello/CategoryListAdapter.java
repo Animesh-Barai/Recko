@@ -27,6 +27,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private Context mctx;
     private Activity mActivity;
     private List categorylist;
+    private CategoryListModel categoryListModel;
 
     public CategoryListAdapter(Context mctx, List categorylist,Activity mActivity) {
         this.mctx = mctx;
@@ -45,20 +46,22 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @Override
     public void onBindViewHolder(@NonNull CategoryListAdapter.ResultViewHolder holder, int position) {
 
+        CategoryModel tmp=null;
+        CategoryAdapter temp = new CategoryAdapter(mctx,tmp,mActivity);
+        holder.gridView.setAdapter(temp);
+
 
         if(!categorylist.isEmpty()) {
-            CategoryListModel categoryListModel= (CategoryListModel) categorylist.get(position);
+            categoryListModel= (CategoryListModel) categorylist.get(position);
             Log.d("zzz", categoryListModel.getHeading());
             holder.textView.setText(categoryListModel.getHeading());
-            if (!categoryListModel.getCategoryimageurl().isEmpty()) {
 
                 CategoryModel categoryModel= new CategoryModel(categoryListModel.getCategoryimageurl(),categoryListModel.getCategoryname(),categoryListModel.getCategoryindustry(),categoryListModel.getCategorymaxcommission(),categoryListModel.getCategoryuuid(),categoryListModel.getCategorynoofproduct());
                 Log.d("zzzz "+position,categoryListModel.getCategoryimageurl().toString());
                 CategoryAdapter categoryAdapter = new CategoryAdapter(mctx,categoryModel,mActivity);
                 holder.gridView.setAdapter(categoryAdapter);
-            }
-        }
 
+        }
     }
 
     @Override

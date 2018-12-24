@@ -179,9 +179,9 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
 
         rv_small_industry1.setHasFixedSize(true);
         rv_small_industry1.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
-        industrySmallCardAdapter1=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
-        rv_small_industry1.setAdapter(industrySmallCardAdapter1);
-        industrySmallCardAdapter1.notifyDataSetChanged();
+//        industrySmallCardAdapter1=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
+//        rv_small_industry1.setAdapter(industrySmallCardAdapter1);
+//        industrySmallCardAdapter1.notifyDataSetChanged();
 
         rv_categorylist2.setHasFixedSize(true);
         rv_categorylist2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL, false));
@@ -191,9 +191,9 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
 
         rv_small_industry2.setHasFixedSize(true);
         rv_small_industry2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
-        industrySmallCardAdapter2=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
-        rv_small_industry2.setAdapter(industrySmallCardAdapter2);
-        industrySmallCardAdapter2.notifyDataSetChanged();
+//        industrySmallCardAdapter2=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
+//        rv_small_industry2.setAdapter(industrySmallCardAdapter2);
+//        industrySmallCardAdapter2.notifyDataSetChanged();
 
         layout.requestFocus();
 

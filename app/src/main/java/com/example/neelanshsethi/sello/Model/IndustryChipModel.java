@@ -2,14 +2,14 @@ package com.example.neelanshsethi.sello.Model;
 
 import android.graphics.drawable.Drawable;
 
-public class IndustryModel {
+public class IndustryChipModel {
 
     private Drawable industry_logo;
     private String industry_name;
     private String industry_uuid;
     private Boolean isSelected;
 
-    public IndustryModel(Drawable industry_logo, String industry_name, String industry_uuid) {
+    public IndustryChipModel(Drawable industry_logo, String industry_name, String industry_uuid) {
         this.industry_logo = industry_logo;
         this.industry_name = industry_name;
         this.industry_uuid = industry_uuid;

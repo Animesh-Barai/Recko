@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.Model.CategoryModel;
-
-import java.util.List;
-
 import androidx.cardview.widget.CardView;
 
 public class CategoryAdapter extends BaseAdapter {
@@ -34,7 +31,10 @@ public class CategoryAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return categoryModel.getCategoryimageurl().size();
+        if(categoryModel!=null && categoryModel.getCategoryimageurl().size()>0)
+            return categoryModel.getCategoryimageurl().size();
+        else
+            return 2;
     }
 
     @Override
@@ -74,12 +74,14 @@ public class CategoryAdapter extends BaseAdapter {
         TextView amountcategory=v.findViewById(R.id.amountcategory);
         CardView cardView=v.findViewById(R.id.categorycard);
 
-        if(!categoryModel.getCategoryimageurl().isEmpty()) {
-            Glide.with(mctx)
-                    .load(categoryModel.getCategoryimageurl().get(i))
-                    .into(imgcategory);
-            titlecategory.setText(categoryModel.getCategoryname().get(i));
-            amountcategory.setText(categoryModel.getCategorymaxcommission().get(i));
+        if(categoryModel!=null) {
+            if (!categoryModel.getCategoryimageurl().isEmpty()) {
+                Glide.with(mctx)
+                        .load(categoryModel.getCategoryimageurl().get(i))
+                        .into(imgcategory);
+                titlecategory.setText(categoryModel.getCategoryname().get(i));
+                amountcategory.setText(categoryModel.getCategorymaxcommission().get(i));
+            }
         }
 
         cardView.setOnClickListener(new View.OnClickListener() {
