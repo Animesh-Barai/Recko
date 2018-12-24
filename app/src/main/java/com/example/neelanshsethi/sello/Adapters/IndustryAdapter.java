@@ -1,10 +1,12 @@
-package com.example.neelanshsethi.sello;
+package com.example.neelanshsethi.sello.Adapters;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 
+import com.example.neelanshsethi.sello.Industries;
 import com.example.neelanshsethi.sello.Model.IndustryChipModel;
+import com.example.neelanshsethi.sello.R;
 import com.google.android.material.chip.Chip;
 
 import android.view.LayoutInflater;

@@ -1,30 +1,20 @@
 package com.example.neelanshsethi.sello;
 
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Adapters.CategoryListAdapter;
+import com.example.neelanshsethi.sello.Adapters.IndustrySmallCardAdapter;
+import com.example.neelanshsethi.sello.Adapters.SliderAdapter;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +74,11 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private List<List<String>> categorytitle= new ArrayList<List<String>>();
     private List<List<String>> categoryamount= new ArrayList<List<String>>();
 
-    List carousel_images;
+    private List categorylist1;
+    private List categorylist2;
+    private List carousel_images;
+    private List small_card_list1;
+    private List small_card_list2;
 
 
 
@@ -124,6 +118,12 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         rv_small_industry2=v.findViewById(R.id.rv_small_industry2);
         RelativeLayout layout = v.findViewById(R.id.top_layout);
         carousel_images=new ArrayList();
+
+        categorylist1 = new ArrayList();
+        categorylist2 = new ArrayList();
+        carousel_images = new ArrayList();
+        small_card_list1 = new ArrayList();
+        small_card_list2 = new ArrayList();
 
 
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);

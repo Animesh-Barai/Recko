@@ -1,19 +1,14 @@
 package com.example.neelanshsethi.sello;
 
-import android.animation.Animator;
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -23,6 +18,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Adapters.CategoryListAdapter;
+import com.example.neelanshsethi.sello.Adapters.IndustrySmallCardAdapter;
+import com.example.neelanshsethi.sello.Adapters.SliderAdapter;
+import com.example.neelanshsethi.sello.Adapters.VideoListAdapter;
 import com.example.neelanshsethi.sello.Model.CarouselModel;
 import com.example.neelanshsethi.sello.Model.CategoryListModel;
 import com.example.neelanshsethi.sello.Model.IndustryCardModel;
@@ -35,11 +34,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -78,18 +75,16 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private CategoryListAdapter categoryListAdapter;
     private IndustrySmallCardAdapter industrySmallCardAdapter;
 
-    private List<String> rv_videos= new ArrayList<String>();
-    private List<String> rv_videos_title= new ArrayList<String>();
 
     List<String> sampleimgurl= new ArrayList<String>();
 
     private List<String> heading2= new ArrayList<String>();
 
 
-    List categorylist;
-    List carousel_images;
-    List videoslist;
-    List cardindustrylist;
+    private List categorylist;
+    private List carousel_images;
+    private List videoslist;
+    private List cardindustrylist;
 
     public FragmentForYou() {
 

@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.widget.Toolbar;
 
+import com.example.neelanshsethi.sello.Adapters.ViewPagerAdapter;
 import com.kekstudio.dachshundtablayout.DachshundTabLayout;
 
 public class CategoryAndCompany extends AppCompatActivity {

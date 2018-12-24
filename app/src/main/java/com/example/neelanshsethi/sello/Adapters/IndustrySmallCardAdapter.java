@@ -1,4 +1,4 @@
-package com.example.neelanshsethi.sello;
+package com.example.neelanshsethi.sello.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.sello.CategoryAndCompany;
 import com.example.neelanshsethi.sello.Model.IndustryCardModel;
+import com.example.neelanshsethi.sello.R;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package com.example.neelanshsethi.sello;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -18,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Adapters.CategoryAndCompanyAdapter;
 import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 
 import org.json.JSONArray;

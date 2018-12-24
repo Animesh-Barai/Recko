@@ -1,4 +1,4 @@
-package com.example.neelanshsethi.sello;
+package com.example.neelanshsethi.sello.Adapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.Model.CarouselModel;
+import com.example.neelanshsethi.sello.R;
 
 import java.util.List;
 

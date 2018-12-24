@@ -1,4 +1,4 @@
-package com.example.neelanshsethi.sello;
+package com.example.neelanshsethi.sello.Adapters;
 
 import android.util.SparseArray;
 import android.view.ViewGroup;
@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final SparseArray<WeakReference<Fragment>> instantiatedFragments = new SparseArray<>();
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    ViewPagerAdapter(FragmentManager manager) {
+    public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
     }
 
@@ -31,7 +31,7 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-    void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }

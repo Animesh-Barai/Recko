@@ -1,4 +1,4 @@
-package com.example.neelanshsethi.sello;
+package com.example.neelanshsethi.sello.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.sello.CategoryAndCompany;
 import com.example.neelanshsethi.sello.Model.CategoryModel;
+import com.example.neelanshsethi.sello.R;
+
 import androidx.cardview.widget.CardView;
 
 public class CategoryAdapter extends BaseAdapter {

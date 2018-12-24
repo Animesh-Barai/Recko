@@ -5,17 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.example.neelanshsethi.sello.Adapters.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import static android.view.FrameMetrics.ANIMATION_DURATION;
 
 public class NavigationDashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;

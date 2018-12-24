@@ -1,4 +1,4 @@
-package com.example.neelanshsethi.sello;
+package com.example.neelanshsethi.sello.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,19 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.neelanshsethi.sello.ExpandableHeightGridView;
 import com.example.neelanshsethi.sello.Model.CategoryListModel;
 import com.example.neelanshsethi.sello.Model.CategoryModel;
+import com.example.neelanshsethi.sello.R;
 
-import org.w3c.dom.ls.LSInput;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ResultViewHolder> {

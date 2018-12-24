@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.example.neelanshsethi.sello.Adapters.IndustryAdapter;
 import com.example.neelanshsethi.sello.Model.IndustryChipModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -222,21 +223,21 @@ public class Industries extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    void selectChips(Chip chip)
+    public void selectChips(Chip chip)
     {
         selectedChips.add(industry_uuid.get(ind_names.indexOf(chip.getText().toString())));
         Log.d("zzz added",chip.getText().toString() +" "+selectedChips.toString());
         Log.d("zzzzzzzz added",ind_names.indexOf("Education") +" "+selectedChips.toString());
     }
 
-    void removeChips(Chip chip)
+    public void removeChips(Chip chip)
     {
         selectedChips.remove(industry_uuid.get(ind_names.indexOf(chip.getText().toString())));
 
         Log.d("zzz remove",chip.getText().toString() +" "+selectedChips.toString());
     }
 
-    void clearchips()
+    public void clearchips()
     {
         selectedChips.clear();
     }
