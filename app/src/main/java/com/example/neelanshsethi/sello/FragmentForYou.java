@@ -23,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Model.CarouselModel;
+import com.example.neelanshsethi.sello.Model.CategoryListModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -67,33 +69,28 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private ViewPager carousel;
     private SliderAdapter sliderAdapter;
     private ImageView[] dots;
-    private LinearLayout Dots;
+
     private DotsIndicator dotsIndicator;
     private VideoListAdapter videoListAdapter;
     private Activity thisActivity;
     private CategoryListAdapter categoryListAdapter;
     private IndustrySmallCardAdapter industrySmallCardAdapter;
 
-    //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
-    int carousel_images[]={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
-    int[] rv_thumbnails={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
+//    int carousel_images[]={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
 
     List<String> sampleimgurl= new ArrayList<String>();
 
     private List<String> heading= new ArrayList<String>();
     private List<String> heading2= new ArrayList<String>();
 
-    private List<List<String>> categoryimageurl= new ArrayList<List<String>>();
-    private List<List<String>> categoryname= new ArrayList<List<String>>();
-    private List<List<String>> categoryindustry= new ArrayList<List<String>>();
-    private List<List<String>> categorymaxcommission= new ArrayList<List<String>>();
-    private List<List<String>> categoryuuid= new ArrayList<List<String>>();
-    private List<List<String>> categorynoofproduct= new ArrayList<List<String>>();
+
+    List categorylist;
+    List carousel_images;
 
     public FragmentForYou() {
-        // Required empty public constructor
+
     }
 
     public static FragmentForYou newInstance(String param1, String param2) {
@@ -127,18 +124,19 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
         carousel=v.findViewById(R.id.carousel);
         carousel.setPageTransformer(true, new DepthPageTransformer());
-        Dots=v.findViewById(R.id.Dots);
+        carousel_images=new ArrayList();
 
         sliderAdapter=new SliderAdapter(getActivity(),carousel_images);
         carousel.setAdapter(sliderAdapter);
+        get_carousel_images();
         dotsIndicator.setViewPager(carousel);
+
+        categorylist=new ArrayList();
 
         sampleimgurl.add("https://www.desktopbackground.org/download/2000x1500/2010/04/10/29_ultra-hd-4k-rain-wallpapers-hd-desktop-backgrounds-3840x2400_3840x2400_h.jpg");
         sampleimgurl.add("https://www.oneperiodic.com/products/photobatch/tutorials/img/scale_original.png");
         sampleimgurl.add("https://a-static.besthdwallpaper.com/above-the-clouds-sunset-wallpaper-2048x1536-4355_26.jpg");
         sampleimgurl.add("http://s4301.pcdn.co/wp-content/uploads/2012/11/20130312_10thExterior_night-desktop4x3.jpg");
-
-
 
 
 //        heading.add("Popular Products for you");
@@ -180,9 +178,8 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         rv_categorylist.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         rv_categorylist.setLayoutManager(linearLayoutManager);
-        categoryListAdapter =new CategoryListAdapter(getActivity(),heading,categoryimageurl,categoryindustry,categorymaxcommission,categoryname,categorynoofproduct,categoryuuid,thisActivity);
+        categoryListAdapter =new CategoryListAdapter(getActivity(),categorylist,thisActivity);
         rv_categorylist.setAdapter(categoryListAdapter);
-
         get_rv_categorylist();
 
         rv_small_industry.setHasFixedSize(true);
@@ -213,6 +210,55 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 //        return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtube_fragment);
     }
 
+    private void get_carousel_images() {
+        JSONObject json = new JSONObject();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"carousel/list", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("zzz", APIURL.url+"carousel/list"+"\nonResponse: "+response);
+
+                        try {
+                            JSONArray array= response.getJSONArray("data");
+                            Log.d("zzzarray",array.toString());
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    JSONObject object = array.getJSONObject(i);
+                                    Log.d("zzzobjct",object.toString());
+                                    String image_url = object.getString("image_url");
+                                    String web_link = object.getString("web_link");
+                                    String carousel_id = object.getString("carousel_uuid");
+
+                                    CarouselModel carouselModel= new CarouselModel(carousel_id,image_url,web_link);
+                                    carousel_images.add(carouselModel);
+                                    carousel_images.add(carouselModel);
+                                    Log.d("zzz id",image_url +" "+web_link+" " +carousel_id );
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            sliderAdapter.notifyDataSetChanged();
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonObjectRequest);
+    }
+
     private void get_rv_categorylist() {
 
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -237,7 +283,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                 try {
                                     JSONObject object = array1.getJSONObject(i);
                                     String Cat_title = object.getString("heading");
-                                    heading.add(Cat_title);
 
                                     List<String > temp1= new ArrayList<String>();
                                     List<String > temp2= new ArrayList<String>();
@@ -267,10 +312,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                             temp5.add(image_url);
                                             temp6.add(no_of_products);
 
-
-
-
-
                                             Log.d("zzz id", max_commission + " " + name + " " + industry + " " + " " + category_uuid + " " + no_of_products + " " + image_url);
 
                                         } catch (JSONException e) {
@@ -278,12 +319,8 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                         }
                                     }
 
-                                    categorymaxcommission.add(temp1);
-                                    categoryname.add(temp2);
-                                    categoryindustry.add(temp3);
-                                    categoryuuid.add(temp4);
-                                    categoryimageurl.add(temp5);
-                                    categorynoofproduct.add(temp6);
+                                    CategoryListModel categoryListModel=new CategoryListModel(Cat_title,temp5,temp2,temp3,temp1,temp4,temp6);
+                                    categorylist.add(categoryListModel);
 
 
 

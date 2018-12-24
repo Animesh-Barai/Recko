@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.sello.Model.CategoryModel;
 
 import java.util.List;
 
@@ -23,27 +24,17 @@ public class CategoryAdapter extends BaseAdapter {
 
     private Context mctx;
     private Activity mActivity;
-    private List<String> categoryimageurl;
-    private List<String> categoryname;
-    private List<String> categoryindustry;
-    private List<String> categoryuuid;
-    private List<String> categorynoofproducts;
-    private List<String> categorymaxcommission;
+    private CategoryModel categoryModel;
 
-    public CategoryAdapter(Context mctx, List<String> categoryimageurl, List<String> categoryname, List<String> categorymaxcommission, List<String> categoryindustry, List<String> categorynoofproducts, List<String> categoryuuid, Activity mActivity) {
+    public CategoryAdapter(Context mctx, CategoryModel categoryModel, Activity mActivity) {
         this.mctx = mctx;
-        this.categoryimageurl = categoryimageurl;
-        this.categoryname = categoryname;
-        this.categoryindustry = categoryindustry;
-        this.categoryuuid = categoryuuid;
-        this.categorynoofproducts = categorynoofproducts;
-        this.categorymaxcommission = categorymaxcommission;
+        this.categoryModel=categoryModel;
         this.mActivity=mActivity;
     }
 
     @Override
     public int getCount() {
-        return categoryimageurl.size();
+        return categoryModel.getCategoryimageurl().size();
     }
 
     @Override
@@ -83,19 +74,19 @@ public class CategoryAdapter extends BaseAdapter {
         TextView amountcategory=v.findViewById(R.id.amountcategory);
         CardView cardView=v.findViewById(R.id.categorycard);
 
-        if(!categoryimageurl.isEmpty()) {
+        if(!categoryModel.getCategoryimageurl().isEmpty()) {
             Glide.with(mctx)
-                    .load(categoryimageurl.get(i))
+                    .load(categoryModel.getCategoryimageurl().get(i))
                     .into(imgcategory);
-            titlecategory.setText(categoryname.get(i));
-            amountcategory.setText(categorymaxcommission.get(i));
+            titlecategory.setText(categoryModel.getCategoryname().get(i));
+            amountcategory.setText(categoryModel.getCategorymaxcommission().get(i));
         }
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(mctx,CategoryAndCompany.class);
-                intent.putExtra("category_uuid",categoryuuid.get(i));
+                intent.putExtra("category_uuid",categoryModel.getCategoryuuid().get(i));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mctx.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

@@ -8,18 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.sello.Model.CarouselModel;
+
+import java.util.List;
+
 public class SliderAdapter extends PagerAdapter
 {
 
-    int[] layouts;
     Context mctx;
     LayoutInflater layoutInflater;
-    int [] images;
-    public SliderAdapter(Context mctx, int[] images)
+    List carousel_images;
+    public SliderAdapter(Context mctx, List carousel_images)
     {
         this.mctx=mctx;
-//        this.layouts=layouts;
-        this.images=images;
+        this.carousel_images=carousel_images;
 
     }
     @Override
@@ -28,15 +31,18 @@ public class SliderAdapter extends PagerAdapter
         View view = layoutInflater.inflate(R.layout.carousel_panel, container, false);
 
         assert view!=null;
+        CarouselModel carouselModel = (CarouselModel) carousel_images.get(position);
         final ImageView imageView=(ImageView) view.findViewById(R.id.carousel_panel);
-        imageView.setImageResource(images[position]);
+        Glide.with(mctx)
+                .load(carouselModel.getImage_url())
+                .into(imageView);
         container.addView(view);
         return view;
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return carousel_images.size();
     }
 
     @Override

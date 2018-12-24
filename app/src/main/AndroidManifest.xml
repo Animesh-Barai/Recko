@@ -25,9 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Slider"
-            android:exported="true" />
         <activity android:name=".GetStarted" />
         <activity
             android:name=".UserInfo"
@@ -38,9 +35,6 @@
             android:exported="true" />
         <activity
             android:name=".Industries"
-            android:exported="true" />
-        <activity
-            android:name=".ForYou"
             android:exported="true" />
         <activity
             android:name=".VideoListDemoActivity"

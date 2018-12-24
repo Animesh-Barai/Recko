@@ -10,8 +10,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.neelanshsethi.sello.Model.CategoryListModel;
+import com.example.neelanshsethi.sello.Model.CategoryModel;
+
 import org.w3c.dom.ls.LSInput;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -22,29 +26,13 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     private Context mctx;
     private Activity mActivity;
-    private List<String> heading;
-    private List<List<String>> categorynoofproduct;
-    private List<List<String>> categorymaxcommisssion;
-    private List<List<String>> categoryname;
-    private List<List<String>> categoryindustry;
-    private List<List<String>> categoryuuid;
-    private List<List<String>> categoryimageurl;
+    private List categorylist;
 
-    public CategoryListAdapter(Context mctx, List<String> heading, List<List<String>> categoryimageurl, List<List<String>> categoryindustry, List<List<String>> categorymaxcommisssion, List<List<String>> categoryname, List<List<String>> categorynoofproduct, List<List<String>> categoryuuid,Activity mActivity) {
+    public CategoryListAdapter(Context mctx, List categorylist,Activity mActivity) {
         this.mctx = mctx;
-        this.heading = heading;
-        this.categorynoofproduct = categorynoofproduct;
-        this.categorymaxcommisssion = categorymaxcommisssion;
-        this.categoryname = categoryname;
-        this.categoryindustry = categoryindustry;
-        this.categoryuuid = categoryuuid;
-        this.categoryimageurl = categoryimageurl;
+        this.categorylist=categorylist;
         this.mActivity=mActivity;
     }
-
-
-
-
 
     @NonNull
     @Override
@@ -57,12 +45,16 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @Override
     public void onBindViewHolder(@NonNull CategoryListAdapter.ResultViewHolder holder, int position) {
 
-        if(!heading.isEmpty()) {
-            Log.d("zzz", heading.get(position));
-            holder.textView.setText(heading.get(position));
-            if (!categoryimageurl.isEmpty()) {
-                Log.d("zzzz "+position,categoryimageurl.toString());
-                CategoryAdapter categoryAdapter = new CategoryAdapter(mctx, categoryimageurl.get(position), categoryname.get(position), categorymaxcommisssion.get(position), categoryindustry.get(position), categorynoofproduct.get(position), categoryuuid.get(position),mActivity);
+
+        if(!categorylist.isEmpty()) {
+            CategoryListModel categoryListModel= (CategoryListModel) categorylist.get(position);
+            Log.d("zzz", categoryListModel.getHeading());
+            holder.textView.setText(categoryListModel.getHeading());
+            if (!categoryListModel.getCategoryimageurl().isEmpty()) {
+
+                CategoryModel categoryModel= new CategoryModel(categoryListModel.getCategoryimageurl(),categoryListModel.getCategoryname(),categoryListModel.getCategoryindustry(),categoryListModel.getCategorymaxcommission(),categoryListModel.getCategoryuuid(),categoryListModel.getCategorynoofproduct());
+                Log.d("zzzz "+position,categoryListModel.getCategoryimageurl().toString());
+                CategoryAdapter categoryAdapter = new CategoryAdapter(mctx,categoryModel,mActivity);
                 holder.gridView.setAdapter(categoryAdapter);
             }
         }
@@ -71,8 +63,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public int getItemCount() {
-        if (heading != null && heading.size() > 0) {
-            return heading.size();
+        if (categorylist != null && categorylist.size() > 0) {
+            return categorylist.size();
         } else {
             return 1;
         }

@@ -73,7 +73,6 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
-    int carousel_images[]={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
     int[] rv_thumbnails={R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample,R.drawable.sample};
 
     List<String> sampleimgurl= new ArrayList<String>();
@@ -84,6 +83,10 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private List<List<String>> imageurl= new ArrayList<List<String>>();
     private List<List<String>> categorytitle= new ArrayList<List<String>>();
     private List<List<String>> categoryamount= new ArrayList<List<String>>();
+
+    List carousel_images;
+
+
 
 
     public FragmentExplore() {
@@ -120,12 +123,13 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         rv_small_industry1=v.findViewById(R.id.rv_small_industry1);
         rv_small_industry2=v.findViewById(R.id.rv_small_industry2);
         RelativeLayout layout = v.findViewById(R.id.top_layout);
+        carousel_images=new ArrayList();
 
 
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
         carousel=v.findViewById(R.id.carousel);
         carousel.setPageTransformer(true, new DepthPageTransformer());
-        Dots=v.findViewById(R.id.Dots);
+//        Dots=v.findViewById(R.id.Dots);
 
         sliderAdapter=new SliderAdapter(getActivity(),carousel_images);
         carousel.setAdapter(sliderAdapter);
