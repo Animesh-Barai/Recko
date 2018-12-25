@@ -30,19 +30,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
-        android:inputType="textMultiLine"
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
+        android:inputType="textMultiLine"
+        android:text="Recommend products &amp; \nEarn commission"
         android:textColor="@color/heading_dark"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/imgReccomend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Recommend products &amp; \nEarn commission" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgReccomend"

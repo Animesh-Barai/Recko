@@ -35,4 +35,10 @@
 
     </style>
 
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/heading_lighter</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/brandontext_regular</item>
+    </style>
+
 </resources>

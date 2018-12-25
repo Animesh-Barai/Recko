@@ -80,7 +80,7 @@
                         android:fontFamily="@font/brandontext_medium"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="Car Loannndddddddddddddddddddddddddddddd"
+                        android:text="Car Loannndddddddddddd"
                         android:textColor="@color/heading_dark"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toTopOf="@+id/earnupto"
