@@ -99,7 +99,7 @@
                     app:ms_multiline="false" />
 
 
-                <com.google.android.material.textfield.TextInputLayout
+                <com.example.neelanshsethi.sello.CustomTextInputLayout
                     android:id="@+id/crm_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,6 +116,8 @@
                         android:id="@+id/crm_price_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/rupee"
+                        android:drawableTint="@color/heading_lighter"
                         android:fontFamily="@font/brandontext_regular"
                         android:hint="Enter price pitched to the user"
                         android:inputType="number"
@@ -126,7 +128,7 @@
                         android:textColor="@color/heading_dark"
                         android:textColorHint="@color/heading_lighter"
                         android:textSize="18sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.example.neelanshsethi.sello.CustomTextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/crm_followup_date"
@@ -202,6 +204,8 @@
                 android:textColor="#fff"
                 android:textSize="22sp"
                  />
+
+
 
 
         </RelativeLayout>
