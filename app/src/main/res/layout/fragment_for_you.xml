@@ -11,8 +11,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -78,8 +77,6 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
-
-
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
@@ -96,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/rv_categorylist"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp">
 
                 <TextView
                     android:id="@+id/small_industry_label"
@@ -109,20 +107,12 @@
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/rv_small_industry"
-                >
-
-            </androidx.recyclerview.widget.RecyclerView>
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rv_small_industry">
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-
-
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
-
-
-
 </RelativeLayout>

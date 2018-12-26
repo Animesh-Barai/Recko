@@ -67,7 +67,6 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private RecyclerView rv_small_industry;
     private ViewPager carousel;
     private SliderAdapter sliderAdapter;
-    private ImageView[] dots;
 
     private DotsIndicator dotsIndicator;
     private VideoListAdapter videoListAdapter;

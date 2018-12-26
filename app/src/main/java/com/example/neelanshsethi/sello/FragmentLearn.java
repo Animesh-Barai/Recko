@@ -1,16 +1,12 @@
 package com.example.neelanshsethi.sello;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,9 +15,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Adapters.CategoryListAdapter;
 import com.example.neelanshsethi.sello.Adapters.LearnVideoAdapter;
-import com.example.neelanshsethi.sello.Adapters.VideoListAdapter;
+import com.example.neelanshsethi.sello.Adapters.SliderAdapter;
+import com.example.neelanshsethi.sello.Model.CarouselModel;
 import com.example.neelanshsethi.sello.Model.VideosModel;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +31,7 @@ import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 
 public class FragmentLearn extends androidx.fragment.app.Fragment {
@@ -48,9 +48,15 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
 
     private RecyclerView rv_videolist;
     private List videoslist;
+    private ViewPager carousel;
+    private SliderAdapter sliderAdapter;
+
     private LearnVideoAdapter learnVideoAdapter;
     private Activity thisActivity;
+    private DotsIndicator dotsIndicator;
+    private CategoryListAdapter categoryListAdapter;
 
+    private List carousel_images;
 
 
     public FragmentLearn() {
@@ -83,6 +89,15 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
         thisActivity=(Activity)getActivity();
         rv_videolist=v.findViewById(R.id.rv_videolist);
 
+        dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
+        carousel=v.findViewById(R.id.carousel);
+        carousel.setPageTransformer(true, new DepthPageTransformer());
+        carousel_images = new ArrayList();
+        sliderAdapter=new SliderAdapter(getActivity(),carousel_images);
+        carousel.setAdapter(sliderAdapter);
+        get_carousel_images();
+        dotsIndicator.setViewPager(carousel);
+
 
         videoslist=new ArrayList();
 
@@ -92,10 +107,7 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
         rv_videolist.setAdapter(learnVideoAdapter);
         get_rv_videolist();
 
-
-
         return v;
-
     }
 
     private void get_rv_videolist(){
@@ -127,8 +139,56 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
                                     e.printStackTrace();
                                 }
                             }
-
                             learnVideoAdapter.notifyDataSetChanged();
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void get_carousel_images() {
+        JSONObject json = new JSONObject();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"carousel/list", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("zzz", APIURL.url+"carousel/list"+"\nonResponse: "+response);
+
+                        try {
+                            JSONArray array= response.getJSONArray("data");
+                            Log.d("zzzarray",array.toString());
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    JSONObject object = array.getJSONObject(i);
+                                    Log.d("zzzobjct",object.toString());
+                                    String image_url = object.getString("image_url");
+                                    String web_link = object.getString("web_link");
+                                    String carousel_id = object.getString("carousel_uuid");
+
+                                    CarouselModel carouselModel= new CarouselModel(carousel_id,image_url,web_link);
+                                    carousel_images.add(carouselModel);
+                                    carousel_images.add(carouselModel);
+                                    Log.d("zzz id",image_url +" "+web_link+" " +carousel_id );
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            sliderAdapter.notifyDataSetChanged();
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
@@ -153,8 +213,6 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-
 
     @Override
     public void onDetach() {
