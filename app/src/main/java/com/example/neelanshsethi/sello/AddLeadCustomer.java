@@ -220,7 +220,6 @@ public class AddLeadCustomer extends Activity {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "Error retreiving contact", Toast.LENGTH_LONG).show();
             client_details.setText("");
-
         }
     }
 

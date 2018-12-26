@@ -28,10 +28,12 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="696969" />
-                            <entry key="outputName" value="date_picker" />
+                            <entry key="outputName" value="rupee" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Neelansh Sethi" />
+                            <entry key="sourceFile" value="C:\Users\Neelansh Sethi\Desktop\asd\nrnr.svg" />
+                            <entry key="width" value="15" />
                           </map>
                         </option>
                       </PersistentState>
