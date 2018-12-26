@@ -33,6 +33,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class AddLeadCustomer extends Activity {
 
+    androidx.appcompat.widget.Toolbar toolbar;
     private EditText client_details;
     private EditText price;
     private EditText followup_date;
@@ -50,6 +51,13 @@ public class AddLeadCustomer extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_customer);
 
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
         materialSpinner = findViewById(R.id.spinner);
@@ -234,6 +242,13 @@ public class AddLeadCustomer extends Activity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
 }

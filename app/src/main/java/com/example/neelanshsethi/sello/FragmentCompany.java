@@ -105,9 +105,6 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
 //        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
 //        get_rv_companylist();
 
-
-
-
         return v;
     }
 

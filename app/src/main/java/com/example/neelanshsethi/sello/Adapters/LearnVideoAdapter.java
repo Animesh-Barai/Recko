@@ -42,7 +42,7 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
     public ResultViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(mctx);
-        View v = inflater.inflate(R.layout.category_and_company_card, null);
+        View v = inflater.inflate(R.layout.learn_video_card, null);
         return new ResultViewHolder(v);
 
     }
