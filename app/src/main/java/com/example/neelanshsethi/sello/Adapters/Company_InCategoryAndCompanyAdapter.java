@@ -2,40 +2,38 @@ package com.example.neelanshsethi.sello.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
+import com.example.neelanshsethi.sello.Model.Company_InCategoryAndCompanyModel;
+import com.example.neelanshsethi.sello.Model.ProductModel;
 import com.example.neelanshsethi.sello.R;
 
 import java.util.List;
 
-public class CategoryAndCompanyAdapter extends RecyclerView.Adapter<CategoryAndCompanyAdapter.ResultViewHolder> {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Company_InCategoryAndCompanyAdapter.ResultViewHolder> {
 
     Context mctx;
-    List categorylist;
+    List companylist;
     Activity mActivity;
 
     public static final int VIEW_TYPE_NORMAL = 1;
-    private static final int RECOVERY_DIALOG_REQUEST = 1;
-    private List<String> sampleimgurl;
-    private Category_InCategoryAndCompanyModel category_inCategoryAndCompanyModel;
+    private Company_InCategoryAndCompanyModel company_inCategoryAndCompanyModel;
 
-    public CategoryAndCompanyAdapter(Context mctx,List categorylist, Activity mActivity) {
+    public Company_InCategoryAndCompanyAdapter(Context mctx, List companylist, Activity mActivity) {
         this.mctx = mctx;
-        this.categorylist=categorylist;
+        this.companylist=companylist;
         this.mActivity=mActivity;
 
     }
-
 
     @NonNull
     @Override
@@ -50,25 +48,25 @@ public class CategoryAndCompanyAdapter extends RecyclerView.Adapter<CategoryAndC
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
-        if (!categorylist.isEmpty()) {
-            category_inCategoryAndCompanyModel = (Category_InCategoryAndCompanyModel) categorylist.get(position);
+        if (!companylist.isEmpty()) {
+            company_inCategoryAndCompanyModel = (Company_InCategoryAndCompanyModel) companylist.get(position);
             Glide.with(mctx)
-                    .load(category_inCategoryAndCompanyModel.getImage_url())
+                    .load(company_inCategoryAndCompanyModel.getImage_url())
                     .into(holder.imageView);
-            holder.textView.setText(category_inCategoryAndCompanyModel.getName());
+            holder.textView.setText(company_inCategoryAndCompanyModel.getCompany_name());
         }
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //yet to be decided
-
 //                Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
 //                intent.putExtra("kuch ayega yahan",category_inCategoryAndCompanyModel.getCategory_uuid());
 //                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                mctx.startActivity(intent);
 //                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                ProductModel productModel = company_inCategoryAndCompanyModel.getList().get(0);
+                Toast.makeText(mctx,productModel.getTitle()+productModel.getTotal_commission(),Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -81,8 +79,8 @@ public class CategoryAndCompanyAdapter extends RecyclerView.Adapter<CategoryAndC
 
     @Override
     public int getItemCount() {
-        if (categorylist != null && categorylist.size() > 0) {
-            return categorylist.size();
+        if (companylist != null && companylist.size() > 0) {
+            return companylist.size();
         } else {
             return 1;
         }

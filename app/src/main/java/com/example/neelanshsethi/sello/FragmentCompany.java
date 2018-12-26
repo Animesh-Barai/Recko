@@ -16,7 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.neelanshsethi.sello.Adapters.CategoryAndCompanyAdapter;
+import com.example.neelanshsethi.sello.Adapters.Company_InCategoryAndCompanyAdapter;
+import com.example.neelanshsethi.sello.Model.Company_InCategoryAndCompanyModel;
+import com.example.neelanshsethi.sello.Model.ProductModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,26 +51,17 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
 
     private FragmentCategory.OnFragmentInteractionListener mListener;
 
-    private RecyclerView rv_videolist;
-    private CategoryAndCompanyAdapter categoryAndCompanyAdapter;
-    private List<String> rv_videos= new ArrayList<String>();
-    private List<String> rv_videos_title= new ArrayList<String>();
+    private RecyclerView rv_companylist;
+    private Company_InCategoryAndCompanyAdapter companyInCategoryAndCompanyAdapter;
+
     private Activity thisActivity;
+    List companylist;
 
 
     public FragmentCompany() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentCategory.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentCategory newInstance(String param1, String param2) {
         FragmentCategory fragment = new FragmentCategory();
         Bundle args = new Bundle();
@@ -91,19 +84,15 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_company, container, false);
-        rv_videolist=v.findViewById(R.id.rv_videolist);
+        rv_companylist=v.findViewById(R.id.rv_companylist);
         thisActivity=(Activity)getActivity();
+        companylist = new ArrayList();
 
-        List<String > temp1= new ArrayList<String>();
-        temp1.add("https://cdn.tutsplus.com/photo/uploads/legacy/746_aspectratio/07.jpg");
-        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
-        temp1.add("https://iacopodeenosee.files.wordpress.com/2013/06/abstract-circles-l.jpg");
-        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/weareG2esports-1200x600.jpg");
-
-        rv_videolist.setHasFixedSize(true);
-        rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-//        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(), rv_videos,temp1,rv_videos_title,thisActivity);
-//        get_rv_companylist();
+        rv_companylist.setHasFixedSize(true);
+        rv_companylist.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        companyInCategoryAndCompanyAdapter =new Company_InCategoryAndCompanyAdapter(getActivity(), companylist,thisActivity);
+        rv_companylist.setAdapter(companyInCategoryAndCompanyAdapter);
+        get_rv_companylist();
 
         return v;
     }
@@ -123,16 +112,6 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -140,12 +119,18 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
 
     private void get_rv_companylist(){
         JSONObject json = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,APIURL.url+"video/list", json,
+        try {
+            json.put("industry_uuid",getActivity().getIntent().getStringExtra("industry_uuid"));
+            Log.d("zzz json", json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"product/list_grouped_by_industry", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.d("zzz", APIURL.url+"video/list"+"\nonResponse: "+response);
+                        Log.d("zzz", APIURL.url+"product/list_grouped_by_industry"+"\nonResponse: "+response);
 
                         try {
                             JSONArray array= response.getJSONArray("data");
@@ -153,29 +138,64 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
                             for (int i = 0; i < array.length(); i++) {
                                 try {
                                     JSONObject object = array.getJSONObject(i);
-                                    Log.d("zzzobjct",object.toString());
-                                    String video_ID = object.getString("video_url");
-                                    rv_videos.add(video_ID);
+                                    JSONObject company_detail = object.getJSONObject("company");
+                                    Log.d("zzzobjct companydetails",company_detail.toString());
 
-                                    String title = object.getString("title");
-                                    rv_videos_title.add(title);
+                                    Company_InCategoryAndCompanyModel company_inCategoryAndCompanyModel;
 
-                                    Log.d("zzz id",video_ID +" "+title );
+                                    String max_commission = company_detail.getString("max_commission");
+                                    String company_uuid = company_detail.getString("company_uuid");
+                                    String image_url = company_detail.getString("image_url");
+                                    String company_name = company_detail.getString("company_name");
+                                    String no_of_products = company_detail.getString("no_of_products");
+
+                                    JSONArray products = object.getJSONArray("products");
+                                    Log.d("zzzarray products",products.toString());
+                                    
+                                    List<ProductModel> temp = new ArrayList<ProductModel>();
+                                    for(int j = 0; j < products.length(); j++)
+                                    {
+                                        JSONObject productDetails = products.getJSONObject(j);
+                                        Log.d("zzz productdetails",productDetails.toString());
+
+                                         String broucher = productDetails.getString("broucher");
+                                         String video = productDetails.getString("video");
+                                         String to_date = productDetails.getString("to_date");
+                                         String good_time_to_sell = productDetails.getString("good_time_to_sell");
+                                         String category = productDetails.getString("category");
+                                         String title = productDetails.getString("title");
+                                         String upfront_commission = productDetails.getString("upfront_commission");
+                                         String from_date = productDetails.getString("from_date");
+                                         String location_of_sell = productDetails.getString("location_of_sell");
+                                         String target_customer = productDetails.getString("target_customer");
+                                         String type = productDetails.getString("type");
+                                         String price_on_x = productDetails.getString("price_on_x");
+                                         String companyy_uuid = productDetails.getString("company_uuid");
+                                         String total_commission = productDetails.getString("total_commission");
+                                         String tips_to_sell = productDetails.getString("tips_to_sell");
+                                         String customer_data_needed = productDetails.getString("customer_data_needed");
+                                         String product_details = productDetails.getString("product_details");
+                                         String payment_type = productDetails.getString("payment_type");
+                                         String product_uuid = productDetails.getString("product_uuid");
+
+                                        ProductModel productModel = new ProductModel(broucher,video,to_date,good_time_to_sell,category,title,upfront_commission,from_date,location_of_sell,target_customer,type,price_on_x,companyy_uuid,total_commission,tips_to_sell,customer_data_needed,product_details,payment_type,product_uuid);
+                                        temp.add(productModel);
+
+                                    }
+                                    company_inCategoryAndCompanyModel = new Company_InCategoryAndCompanyModel(max_commission,company_uuid,image_url,company_name,no_of_products,temp);
+                                    companylist.add(company_inCategoryAndCompanyModel);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-
-                            rv_videolist.setAdapter(categoryAndCompanyAdapter);
-                            categoryAndCompanyAdapter.notifyDataSetChanged();
+                            companyInCategoryAndCompanyAdapter.notifyDataSetChanged();
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                    }
-                }, new Response.ErrorListener() {
+                    } 
+                    }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 

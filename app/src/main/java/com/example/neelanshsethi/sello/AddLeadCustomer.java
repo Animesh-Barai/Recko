@@ -19,15 +19,34 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.sello.Model.Company_InCategoryAndCompanyModel;
+import com.example.neelanshsethi.sello.Model.ProductModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
@@ -41,26 +60,23 @@ public class AddLeadCustomer extends Activity {
     private MaterialSpinner materialSpinner;
     private static int PICK_CONTACT=1;
     private Date date;
-    final Calendar c = Calendar.getInstance();
+    Calendar c = Calendar.getInstance();
+    Button save;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MM yyyy");
     SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd MMM yyyy");
+    SimpleDateFormat iso8061 = new SimpleDateFormat("yyyyMMdd");
+    private String contact_email;
+    private String contact_number;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lead_customer);
-
-        toolbar=findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-
+        save = findViewById(R.id.crm_save);
         materialSpinner = findViewById(R.id.spinner);
+
+//        c.setTimeZone(TimeZone.getTimeZone("UTC"));
         get_spinner_data();
 
         client_details=findViewById(R.id.crm_name_text);
@@ -74,7 +90,40 @@ public class AddLeadCustomer extends Activity {
             followup_date.setShowSoftInputOnFocus(false);
         }
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(client_details.getText().toString().trim().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Select Client Details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(materialSpinner.getSelectedItem()==null) {
+                    Toast.makeText(getApplicationContext(), "Select Product Details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (price.getText().toString().trim().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Select Price", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (followup_date.getText().toString().trim().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(),"Select Follow-up Date",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else
+                    save_details();
 
+            }
+        });
+
+
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         client_details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,10 +154,9 @@ public class AddLeadCustomer extends Activity {
                             public void onDateSet(DatePicker view, final int year,
                                                   final int monthOfYear, final int dayOfMonth) {
 
-                                final String newmonth;
-                                final String newday;
+                                final int newmonth = monthOfYear+1;
                                 try {
-                                    date = simpleDateFormat.parse(dayOfMonth+" "+monthOfYear+" "+year);
+                                    date = simpleDateFormat.parse(dayOfMonth+" "+newmonth+" "+year);
                                     Log.d("zzz",date.toString());
                                 } catch (ParseException e) {
                                     e.printStackTrace();
@@ -129,7 +177,6 @@ public class AddLeadCustomer extends Activity {
         price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -145,11 +192,61 @@ public class AddLeadCustomer extends Activity {
                 }
             }
 
+
+
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
+    }
+
+    private void save_details() {
+
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("seller_uuid",mUser.getUid());
+            json.put("deadline_time",iso8061.format(date));
+            json.put("industry_uuid","");
+            json.put("contact_name",client_details.getText().toString().trim());
+            json.put("contact_no",contact_number);
+            json.put("email",contact_email);
+//            json.put("product_uuid","");
+            json.put("comment",notes.getText().toString().trim());
+            Log.d("zzz json", json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"lead/insert", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("zzz", APIURL.url + "lead/insert" + "\nonResponse: " + response);
+
+                        try {
+                            String code = response.getString("code");
+                            String msg = response.getString("msg");
+                            if (code.equals("200") && msg.equals("Done")) {
+                                Toast.makeText(getApplicationContext(), "Details Saved", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
     }
 
 
@@ -190,6 +287,7 @@ public class AddLeadCustomer extends Activity {
                             while (phones.moveToNext()) {
                                 number = phones.getString(phones.getColumnIndex
                                         (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
+                                contact_number=number;
                                 name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                             }
                         }
@@ -202,6 +300,7 @@ public class AddLeadCustomer extends Activity {
                     if (emailCur != null) {
                         while (emailCur.moveToNext()) {
                             email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                            contact_email=email;
                         }
                     }
                     emailCur.close();

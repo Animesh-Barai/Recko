@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.neelanshsethi.sello.Adapters.CategoryAndCompanyAdapter;
+import com.example.neelanshsethi.sello.Adapters.Category_InCategoryAndCompanyAdapter;
 import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 
 import org.json.JSONArray;
@@ -50,15 +50,12 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private RecyclerView rv_videolist;
-    private CategoryAndCompanyAdapter categoryAndCompanyAdapter;
-    private List<String> rv_videos= new ArrayList<String>();
-    private List<String> rv_videos_title= new ArrayList<String>();
+    private RecyclerView rv_categorylist;
+    private Category_InCategoryAndCompanyAdapter categoryInCategoryAndCompanyAdapter;
+
     private Activity thisActivity;
 
     List categorylist;
-
-
     public FragmentCategory() {
         // Required empty public constructor
     }
@@ -94,21 +91,15 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_category, container, false);
-        rv_videolist=v.findViewById(R.id.rv_videolist);
+        rv_categorylist=v.findViewById(R.id.rv_categorylist);
         thisActivity=(Activity)getActivity();
 
         categorylist = new ArrayList();
 
-        List<String > temp1= new ArrayList<String>();
-        temp1.add("https://cdn.tutsplus.com/photo/uploads/legacy/746_aspectratio/07.jpg");
-        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2016/03/G2-Esports-3D-Grey-Logo-1200x600.jpg");
-        temp1.add("https://iacopodeenosee.files.wordpress.com/2013/06/abstract-circles-l.jpg");
-        temp1.add("https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/weareG2esports-1200x600.jpg");
-
-        rv_videolist.setHasFixedSize(true);
-        rv_videolist.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        categoryAndCompanyAdapter=new CategoryAndCompanyAdapter(getActivity(),categorylist,thisActivity);
-        rv_videolist.setAdapter(categoryAndCompanyAdapter);
+        rv_categorylist.setHasFixedSize(true);
+        rv_categorylist.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        categoryInCategoryAndCompanyAdapter =new Category_InCategoryAndCompanyAdapter(getActivity(),categorylist,thisActivity);
+        rv_categorylist.setAdapter(categoryInCategoryAndCompanyAdapter);
         get_categories();
 
 
@@ -185,7 +176,7 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
                                     e.printStackTrace();
                                 }
                             }
-                            categoryAndCompanyAdapter.notifyDataSetChanged();
+                            categoryInCategoryAndCompanyAdapter.notifyDataSetChanged();
                         }
                         catch (JSONException e) {
                             e.printStackTrace();

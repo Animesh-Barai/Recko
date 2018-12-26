@@ -117,6 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/rupee"
+                        android:drawablePadding="5dp"
                         android:drawableTint="@color/heading_lighter"
                         android:fontFamily="@font/brandontext_regular"
                         android:hint="Enter price pitched to the user"
