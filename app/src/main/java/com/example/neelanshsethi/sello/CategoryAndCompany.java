@@ -11,7 +11,7 @@ import android.view.View;
 import com.example.neelanshsethi.sello.Adapters.ViewPagerAdapter;
 import com.kekstudio.dachshundtablayout.DachshundTabLayout;
 
-public class CategoryAndCompany extends AppCompatActivity {
+public class CategoryAndCompany extends AppCompatActivity{
 
     androidx.appcompat.widget.Toolbar toolbar;
     CustomViewPager viewPager;

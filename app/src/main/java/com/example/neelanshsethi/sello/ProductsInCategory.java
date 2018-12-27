@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.neelanshsethi.sello.Adapters.Category_InCategoryAndCompanyAdapter;
 import com.example.neelanshsethi.sello.Adapters.Products_InCategoryAdapter;
 import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.sello.Model.ProductModel;

@@ -54,8 +54,9 @@
         <activity
             android:name=".AddLeadCustomer"
             android:exported="true"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".ProductsInCategory"></activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ProductsInCategory" />
+        <activity android:name=".ProductsInCompany"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.example.neelanshsethi.sello.Model;
 
-public class ProductModel {
+import java.io.Serializable;
+
+public class ProductModel implements Serializable{
 
     private String broucher;
     private String video;
