@@ -133,7 +133,9 @@ public class AddLeadCustomer extends Activity {
                 }
                 else
                 {
-                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    Uri uri = Uri.parse("content://contacts");
+                    Intent intent = new Intent(Intent.ACTION_PICK, uri);
+                    intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
                     startActivityForResult(intent, PICK_CONTACT);
                 }
 
@@ -256,7 +258,9 @@ public class AddLeadCustomer extends Activity {
         if (requestCode == 100) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                Uri uri = Uri.parse("content://contacts");
+                Intent intent = new Intent(Intent.ACTION_PICK, uri);
+                intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
                 startActivityForResult(intent, PICK_CONTACT);
             } else {
                 Toast.makeText(this, "Until you grant the permission, we canot display the names", Toast.LENGTH_SHORT).show();
