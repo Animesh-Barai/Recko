@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.CategoryAndCompany;
 import com.example.neelanshsethi.sello.Model.CategoryModel;
+import com.example.neelanshsethi.sello.ProductsInCategory;
 import com.example.neelanshsethi.sello.R;
 
 import androidx.cardview.widget.CardView;
@@ -90,8 +91,9 @@ public class CategoryAdapter extends BaseAdapter {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(mctx,CategoryAndCompany.class);
+                Intent intent= new Intent(mctx,ProductsInCategory.class);
                 intent.putExtra("category_uuid",categoryModel.getCategoryuuid().get(i));
+                intent.putExtra("category_name",categoryModel.getCategoryname().get(i));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mctx.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        tools:targetApi="lollipop">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -57,9 +58,5 @@
             android:id="@+id/fragment_container">
         </com.example.neelanshsethi.sello.CustomViewPager>
     </FrameLayout>
-
-
-
-
 
 </RelativeLayout>

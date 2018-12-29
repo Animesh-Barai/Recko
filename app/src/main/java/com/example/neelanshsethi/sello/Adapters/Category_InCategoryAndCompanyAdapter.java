@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -58,7 +59,7 @@ public class Category_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<C
                     .into(holder.imageView);
             holder.textView.setText(category_inCategoryAndCompanyModel.getName());
         }
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -96,11 +97,13 @@ public class Category_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<C
 
         private ImageView imageView;
         private TextView textView;
+        private CardView cardView;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
+            cardView=itemView.findViewById(R.id.categorycard);
         }
     }
 

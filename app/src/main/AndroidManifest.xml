@@ -17,7 +17,8 @@
             android:name=".MainActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity android:name=".VerifyPhoneNumber" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"
+            android:exported="true"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +57,7 @@
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ProductsInCategory" />
-        <activity android:name=".ProductsInCompany"></activity>
+        <activity android:name=".ProductsInCompany" />
     </application>
 
 </manifest>

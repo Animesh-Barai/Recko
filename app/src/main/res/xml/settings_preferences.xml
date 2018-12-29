@@ -30,12 +30,12 @@
         android:summary="Click to switch on or off"
         android:defaultValue="true"/>
     <Preference
-        android:title="Hello there!"
-        android:summary="Open AwwSnap">
+        android:title="Profile"
+        android:summary="Edit profile details">
 
         <intent
         android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-        android:targetClass="com.example.neelanshsethi.sello.AwwSnap"
+        android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
         android:targetPackage="com.example.neelanshsethi.sello" />
 
 

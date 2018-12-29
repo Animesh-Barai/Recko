@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Company_InCategoryAndCompanyAdapter.ResultViewHolder> {
@@ -60,7 +61,7 @@ public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Co
             holder.textView.setText(company_inCategoryAndCompanyModel.getCompany_name());
         }
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -96,11 +97,13 @@ public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Co
 
         private ImageView imageView;
         private TextView textView;
+        private CardView cardView;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
+            cardView=itemView.findViewById(R.id.categorycard);
         }
     }
 
