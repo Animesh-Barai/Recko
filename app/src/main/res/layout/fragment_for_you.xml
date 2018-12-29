@@ -77,22 +77,29 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
+                android:id="@+id/rv_categorylist_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_below="@id/videohelpssell">
+
+            <androidx.recyclerview.widget.RecyclerView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rv_categorylist"
-                android:layout_below="@id/videohelpssell"
                 android:scrollbars="vertical"
                 android:orientation="vertical">
             </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/small_industry_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/rv_categorylist"
+                android:layout_below="@+id/rv_categorylist_box"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp">
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.neelanshsethi.sello.Adapters.ViewPagerAdapter;
@@ -27,10 +28,10 @@ public class NavigationDashboard extends AppCompatActivity {
         viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
         ViewPagerAdapter adapter = new ViewPagerAdapter (getSupportFragmentManager());
         adapter.addFragment(new FragmentLearn(), "Learn");
-        adapter.addFragment(new FragmentForYou(), "Explore");
+        adapter.addFragment(new FragmentExplore(), "Explore");
         adapter.addFragment(new FragmentForYou(), "ForYou");
         adapter.addFragment(new FragmentCRM(), "CRM");
-        adapter.addFragment(new FragmentForYou(), "title");
+        adapter.addFragment(new FragmentSettings(), "Settings");
 
         viewPager.setPagingEnabled(false);
         viewPager.setOffscreenPageLimit(4);
@@ -73,6 +74,22 @@ public class NavigationDashboard extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("zzz paused","paused");
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("zzz resume","resumed");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("zzz restart","restart");
+    }
 }

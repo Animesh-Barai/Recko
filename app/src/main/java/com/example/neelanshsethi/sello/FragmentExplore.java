@@ -187,7 +187,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         rv_categorylist2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL, false));
 //        categoryListAdapter2 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
         rv_categorylist2.setAdapter(categoryListAdapter1);
-        categoryListAdapter2.notifyDataSetChanged();
+//        categoryListAdapter2.notifyDataSetChanged();
 
         rv_small_industry2.setHasFixedSize(true);
         rv_small_industry2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
