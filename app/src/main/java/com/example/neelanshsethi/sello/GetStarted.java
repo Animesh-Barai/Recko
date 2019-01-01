@@ -22,7 +22,7 @@ public class GetStarted extends AppCompatActivity {
             public void onClick(View v) {
 //                SharedPreferences pref = getSharedPreferences("status", MODE_PRIVATE);
 //                pref.edit().putBoolean("first", false).apply();
-                Intent i = new Intent(GetStarted.this, LearnHowItWorks.class);
+                Intent i = new Intent(GetStarted.this, MainActivity.class);
                 startActivity(i);
 
             }

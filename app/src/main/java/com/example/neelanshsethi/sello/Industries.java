@@ -91,7 +91,7 @@ public class Industries extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Industries.this, NavigationDashboard.class);
+                Intent intent = new Intent(Industries.this, LearnHowItWorks.class);
                 startActivity(intent);
             }
         });
@@ -199,7 +199,7 @@ public class Industries extends AppCompatActivity {
                             if(response.getString("code").equals("200"))
                             {
 
-                                    Intent intent = new Intent(Industries.this, NavigationDashboard.class);
+                                    Intent intent = new Intent(Industries.this, LearnHowItWorks.class);
                                     startActivity(intent);
                                     Log.d("zzz", selectedChips.toString());
                             }

@@ -1,10 +1,13 @@
 package com.example.neelanshsethi.sello;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.AndroidResources;
+
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +46,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     String code;
     TextView resend;
     private Timer timer;
-    private int timeRemaining = 30;
+    private int timeRemaining = 10;
     private TextView txtTimer;
     private boolean isWaiting = false;
     //firebase auth object
@@ -57,6 +60,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         setContentView(R.layout.activity_verify_phone_number);
         codeInputView = findViewById(R.id.codeInput);
         resend=findViewById(R.id.resendCode);
+        resend.setVisibility(View.GONE);
         txtTimer = (TextView) findViewById(R.id.txtTimer);
 
         //initializing objects
@@ -96,7 +100,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                     public void run() {
                                         codeInputView.clearError();
                                     }
-                                },1000);
+                                },500);
                             }
                             else {
                                 
@@ -116,6 +120,8 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resendVerificationCode(mobile);
+                resend.setEnabled(false);
+                resend.setTextColor(Color.parseColor("#d3d3d3"));
             }
         });
 
@@ -127,14 +133,13 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + mobile,
-                30,
+                10,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
         codeInputView.setCode("");
         mVerificationInProgress = true;
     }
-
 
     //the callback to detect the verification status
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -226,7 +231,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                 public void run() {
                                     codeInputView.setCode("");
                                 }
-                            },2000);
+                            },1000);
 
 
                         }
@@ -257,7 +262,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private void stopResendTimer(){
         timer.cancel();
         txtTimer.setVisibility(View.INVISIBLE);
-        timeRemaining = 30;
+        timeRemaining = 10;
         isWaiting = false;
     }
 
@@ -270,9 +275,12 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                 public void run() {
                     timeRemaining = timeRemaining - 1;
                     if (timeRemaining == 0){
+                        resend.setVisibility(View.VISIBLE);
+                        resend.setEnabled(true);
+                        resend.setTextColor(getResources().getColor(R.color.colorPrimary));
                         stopResendTimer();
                     }else{
-                        String strTimeRemaining = String.format("%02d:%02d",timeRemaining/30,timeRemaining%30);
+                        String strTimeRemaining = String.format("%02d:%02d",timeRemaining/10,timeRemaining%10);
                         txtTimer.setText(strTimeRemaining);
                     }
                 }

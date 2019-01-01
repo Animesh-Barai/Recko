@@ -173,7 +173,6 @@ public class AddLeadCustomer extends Activity {
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
-
         });
 
         price.addTextChangedListener(new TextWatcher() {
@@ -193,9 +192,6 @@ public class AddLeadCustomer extends Activity {
 
                 }
             }
-
-
-
             @Override
             public void afterTextChanged(Editable editable) {
 
