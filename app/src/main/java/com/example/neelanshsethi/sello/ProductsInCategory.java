@@ -67,7 +67,7 @@ public class ProductsInCategory extends AppCompatActivity {
         });
 
         //can be modified
-        toolbar.setTitle(this.getIntent().getStringExtra("category_name"));
+        toolbar.setTitle(this.getIntent().getStringExtra("category_name")+"'s Products");
     }
 
     private void get_products() {

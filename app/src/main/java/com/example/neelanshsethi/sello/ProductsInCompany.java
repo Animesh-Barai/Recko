@@ -69,7 +69,7 @@ public class ProductsInCompany extends AppCompatActivity {
         });
 
         //can be modified
-        toolbar.setTitle(this.getIntent().getStringExtra("company_name"));
+        toolbar.setTitle(this.getIntent().getStringExtra("company_name")+"'s Products");
     }
 //
 //    private void get_products() {

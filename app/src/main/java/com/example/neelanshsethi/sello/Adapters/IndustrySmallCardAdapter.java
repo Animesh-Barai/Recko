@@ -3,6 +3,7 @@ package com.example.neelanshsethi.sello.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IndustrySmallCardAdapter.ResultViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull IndustrySmallCardAdapter.ResultViewHolder holder, final int position) {
 
         if (!cardindustrylist.isEmpty()) {
             industryCardModel = (IndustryCardModel) cardindustrylist.get(position);
@@ -60,8 +61,10 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
 
             @Override
             public void onClick(View view) {
+                IndustryCardModel temp = (IndustryCardModel) cardindustrylist.get(position);
                 Intent intent= new Intent(mctx,CategoryAndCompany.class);
-                intent.putExtra("industry_uuid",industryCardModel.getIndustry_uuid());
+                intent.putExtra("industry_uuid",temp.getIndustry_uuid());
+                intent.putExtra("industry_name",temp.getName());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mctx.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

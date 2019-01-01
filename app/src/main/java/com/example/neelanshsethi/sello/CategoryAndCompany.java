@@ -44,15 +44,17 @@ public class CategoryAndCompany extends AppCompatActivity{
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        toolbar.setTitle(this.getIntent().getStringExtra("industry_name")+" Sector");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.category_and_company_menu,menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        MenuInflater menuInflater=getMenuInflater();
+//        menuInflater.inflate(R.menu.category_and_company_menu,menu);
+//        return true;
+//    }
 
     @Override
     public void onBackPressed() {
