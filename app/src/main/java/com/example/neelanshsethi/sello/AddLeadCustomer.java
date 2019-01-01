@@ -43,7 +43,9 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -67,6 +69,7 @@ public class AddLeadCustomer extends Activity {
     SimpleDateFormat iso8061 = new SimpleDateFormat("yyyyMMdd");
     private String contact_email;
     private String contact_number;
+    List<String> productslist = new ArrayList<String>();
 
 
     @Override
@@ -77,7 +80,7 @@ public class AddLeadCustomer extends Activity {
         materialSpinner = findViewById(R.id.spinner);
 
 //        c.setTimeZone(TimeZone.getTimeZone("UTC"));
-        get_spinner_data();
+        get_spinner_products();
 
         client_details=findViewById(R.id.crm_name_text);
         price=findViewById(R.id.crm_price_text);
@@ -205,7 +208,7 @@ public class AddLeadCustomer extends Activity {
 
         JSONObject json = new JSONObject();
         try {
-            json.put("seller_uuid",mUser.getUid());
+            json.put("seller_uuid", mUser != null ? mUser.getUid() : null);
             json.put("deadline_time",iso8061.format(date));
             json.put("industry_uuid","");
             json.put("contact_name",client_details.getText().toString().trim());
@@ -317,29 +320,30 @@ public class AddLeadCustomer extends Activity {
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error retreiving contact", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Error retrieving contact", Toast.LENGTH_LONG).show();
             client_details.setText("");
         }
     }
 
-    private void get_spinner_data() {
-        String[] options = {"Andha Paisa", "Andhi Daaru", "Sutta", "Maal", "Andhi Chaudh"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, options);
+    private void get_spinner_data(List<String> list) {
+        //String[] options = {"Andha Paisa", "Andhi Daaru", "Sutta", "Maal", "Andhi Chaudh"};
+        Collections.sort(list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         materialSpinner.setAdapter(adapter);
 
-        materialSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//        materialSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //                price.requestFocus();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -347,6 +351,74 @@ public class AddLeadCustomer extends Activity {
         super.onBackPressed();
         finish();
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+
+    private void get_spinner_products() {
+
+        JSONObject json = new JSONObject();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"product/list", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("zzz", APIURL.url+"product/list"+"\nonResponse: "+response);
+
+                        try {
+                            JSONArray array= response.getJSONArray("data");
+                            Log.d("zzzarray",array.toString());
+
+//                            List<ProductModel> temp = new ArrayList<ProductModel>();
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    JSONObject productDetails = array.getJSONObject(i);
+                                    Log.d("zzzobjct",productDetails.toString());
+
+                                    String broucher = productDetails.getString("broucher");
+                                    String video = productDetails.getString("video");
+                                    String to_date = productDetails.getString("to_date");
+                                    String good_time_to_sell = productDetails.getString("good_time_to_sell");
+                                    String category = productDetails.getString("category");
+                                    String title = productDetails.getString("title");
+                                    String upfront_commission = productDetails.getString("upfront_commission");
+                                    String from_date = productDetails.getString("from_date");
+                                    String location_of_sell = productDetails.getString("location_of_sell");
+                                    String target_customer = productDetails.getString("target_customer");
+                                    String type = productDetails.getString("type");
+                                    String price_on_x = productDetails.getString("price_on_x");
+                                    String companyy_uuid = productDetails.getString("company_uuid");
+                                    String total_commission = productDetails.getString("total_commission");
+                                    String tips_to_sell = productDetails.getString("tips_to_sell");
+                                    String customer_data_needed = productDetails.getString("customer_data_needed");
+                                    String product_details = productDetails.getString("product_details");
+                                    String payment_type = productDetails.getString("payment_type");
+                                    String product_uuid = productDetails.getString("product_uuid");
+
+                                    //ProductModel productModel = new ProductModel(broucher,video,to_date,good_time_to_sell,category,title,upfront_commission,from_date,location_of_sell,target_customer,type,price_on_x,companyy_uuid,total_commission,tips_to_sell,customer_data_needed,product_details,payment_type,product_uuid);
+                                    //productslist.add(productModel);
+                                    productslist.add(title);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            get_spinner_data(productslist);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
     }
 
 }
