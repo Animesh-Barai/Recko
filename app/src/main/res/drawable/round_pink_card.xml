@@ -5,12 +5,12 @@
         <shape
             android:shape="rectangle">
             <corners
-                android:radius="100dp"
+                android:radius="12dp"
                 />
             <gradient
                 android:angle="0"
-                android:endColor="#037ef3"
-                android:startColor="#1da2ff"
+                android:endColor="#C62C70"
+                android:startColor="#FF0070"
                 android:type="linear"
                 />
             <padding
@@ -20,8 +20,8 @@
                 android:bottom="0dp"
                 />
             <size
-                android:width="340dp"
-                android:height="60dp"
+                android:width="244dp"
+                android:height="78dp"
                 />
         </shape>
     </item>

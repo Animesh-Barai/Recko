@@ -16,6 +16,7 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,8 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.neelanshsethi.sello.Model.Company_InCategoryAndCompanyModel;
-import com.example.neelanshsethi.sello.Model.ProductModel;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -66,10 +67,11 @@ public class AddLeadCustomer extends Activity {
     Button save;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MM yyyy");
     SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd MMM yyyy");
-    SimpleDateFormat iso8061 = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat iso8061 = new SimpleDateFormat("yyyy-MM-dd");
     private String contact_email;
     private String contact_number;
-    List<String> productslist = new ArrayList<String>();
+    private String product_uuid;
+    List<Pair<String,String>> productslist = new ArrayList<Pair<String, String>>();
 
 
     @Override
@@ -162,7 +164,9 @@ public class AddLeadCustomer extends Activity {
                                 final int newmonth = monthOfYear+1;
                                 try {
                                     date = simpleDateFormat.parse(dayOfMonth+" "+newmonth+" "+year);
+                                    String iso = iso8061.format(date);
                                     Log.d("zzz",date.toString());
+                                    Log.d("zzziso",iso);
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -214,8 +218,18 @@ public class AddLeadCustomer extends Activity {
             json.put("contact_name",client_details.getText().toString().trim());
             json.put("contact_no",contact_number);
             json.put("email",contact_email);
-//            json.put("product_uuid","");
             json.put("comment",notes.getText().toString().trim());
+            for(Pair <String,String> temp : productslist)
+            {
+                if(temp.first.equals(materialSpinner.getSelectedItem().toString())) {
+                    product_uuid = temp.second;
+                    Log.d("zzz prodid",product_uuid);
+                    break;
+                }
+            }
+            if(product_uuid!=null)
+                json.put("product_uuid", product_uuid);
+
             Log.d("zzz json", json.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -262,7 +276,7 @@ public class AddLeadCustomer extends Activity {
                 intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
                 startActivityForResult(intent, PICK_CONTACT);
             } else {
-                Toast.makeText(this, "Until you grant the permission, we canot display the names", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Until you grant the permission, we cannot display the names", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -325,25 +339,22 @@ public class AddLeadCustomer extends Activity {
         }
     }
 
-    private void get_spinner_data(List<String> list) {
+    private void get_spinner_data(List<Pair<String,String>> list) {
         //String[] options = {"Andha Paisa", "Andhi Daaru", "Sutta", "Maal", "Andhi Chaudh"};
-        Collections.sort(list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, list);
+        Collections.sort(list, new Comparator<Pair<String, String>>() {
+            @Override
+            public int compare(Pair<String, String> stringStringPair, Pair<String, String> t1) {
+                return stringStringPair.first.compareToIgnoreCase(t1.first);
+            }
+        });
+        List<String> temp = new ArrayList<String>();
+        for(int i = 0; i < list.size();i++) {
+            temp.add(list.get(i).first);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, temp);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         materialSpinner.setAdapter(adapter);
-
-//        materialSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                price.requestFocus();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
     }
 
     @Override
@@ -396,7 +407,7 @@ public class AddLeadCustomer extends Activity {
 
                                     //ProductModel productModel = new ProductModel(broucher,video,to_date,good_time_to_sell,category,title,upfront_commission,from_date,location_of_sell,target_customer,type,price_on_x,companyy_uuid,total_commission,tips_to_sell,customer_data_needed,product_details,payment_type,product_uuid);
                                     //productslist.add(productModel);
-                                    productslist.add(title);
+                                    productslist.add(new Pair<String,String>(title,product_uuid));
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

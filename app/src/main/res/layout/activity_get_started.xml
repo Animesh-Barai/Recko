@@ -35,7 +35,6 @@
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
-        android:inputType="textMultiLine"
         android:text="Recommend products &amp; \nEarn commission"
         android:textColor="@color/heading_dark"
         android:textSize="24sp"
@@ -73,6 +72,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTagline" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTagline"
+        tools:targetApi="lollipop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
