@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.neelanshsethi.sello.Adapters.ActiveLeadsAdapter;
 import com.example.neelanshsethi.sello.Adapters.ManageMissedLeadsAdapter;
 import com.example.neelanshsethi.sello.Adapters.VideoListAdapter;
 import com.example.neelanshsethi.sello.Model.ManageLeadsModel;
@@ -50,12 +51,15 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     private Button addlead;
 
     private List miised_follow_ups_list;
+    private List active_leads_list;
     private ManageMissedLeadsAdapter manageMissedLeadsAdapter;
+    private ActiveLeadsAdapter activeLeadsAdapter;
     private RecyclerView rv_missed_followups;
     private RecyclerView rv_active_leads;
     private Activity thisActivity;
 
     TextView heading_missed_followups;
+    TextView heading_upcoming_followups;
     ConstraintLayout cv;
 
     public FragmentCRM() {
@@ -91,13 +95,21 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         thisActivity=(Activity)getActivity();
         cv = v.findViewById(R.id.cv);
         heading_missed_followups = v.findViewById(R.id.heading_missed_followups);
+        heading_upcoming_followups = v.findViewById(R.id.heading_active_leads);
         miised_follow_ups_list = new ArrayList();
+        active_leads_list = new ArrayList();
         rv_missed_followups.setHasFixedSize(true);
         rv_missed_followups.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         manageMissedLeadsAdapter=new ManageMissedLeadsAdapter(getActivity(),miised_follow_ups_list,thisActivity);
         rv_missed_followups.setAdapter(manageMissedLeadsAdapter);
+
+        rv_active_leads.setHasFixedSize(true);
+        rv_active_leads.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        activeLeadsAdapter=new ActiveLeadsAdapter(getActivity(),active_leads_list,thisActivity);
+        rv_active_leads.setAdapter(activeLeadsAdapter);
+
         get_followups();
-        if(!miised_follow_ups_list.isEmpty())
+        if(!miised_follow_ups_list.isEmpty() || !active_leads_list.isEmpty())
             cv.setVisibility(View.GONE);
 
         addlead.setOnClickListener(new View.OnClickListener() {
@@ -126,16 +138,27 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     }
 
     private void get_followups() {
-        ManageLeadsModel manageLeadsModel = new ManageLeadsModel("haha","haha","haha","haha","haha","haha","haha","haha","haha","haha");
+        ManageLeadsModel manageLeadsModel = new ManageLeadsModel("haha","haha","haha","Abhishek Singh","haha","haha","haha","haha","haha","Class 9th-Topper");
         miised_follow_ups_list.clear();
-        miised_follow_ups_list.add(manageLeadsModel);
-        miised_follow_ups_list.add(manageLeadsModel);
+        active_leads_list.clear();
+
+//        miised_follow_ups_list.add(manageLeadsModel);
+//        miised_follow_ups_list.add(manageLeadsModel);
+//
+//        active_leads_list.add(manageLeadsModel);
+//        active_leads_list.add(manageLeadsModel);
 
 
         if(miised_follow_ups_list.isEmpty())
             heading_missed_followups.setVisibility(View.GONE);
+        if(active_leads_list.isEmpty())
+            heading_upcoming_followups.setVisibility(View.GONE);
+
+        if(active_leads_list.isEmpty() && miised_follow_ups_list.isEmpty())
+            cv.setVisibility(View.VISIBLE);
 
         manageMissedLeadsAdapter.notifyDataSetChanged();
+        activeLeadsAdapter.notifyDataSetChanged();
     }
 
     public void onButtonPressed(Uri uri) {
