@@ -142,11 +142,11 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         miised_follow_ups_list.clear();
         active_leads_list.clear();
 
-//        miised_follow_ups_list.add(manageLeadsModel);
-//        miised_follow_ups_list.add(manageLeadsModel);
-//
-//        active_leads_list.add(manageLeadsModel);
-//        active_leads_list.add(manageLeadsModel);
+        miised_follow_ups_list.add(manageLeadsModel);
+        miised_follow_ups_list.add(manageLeadsModel);
+
+        active_leads_list.add(manageLeadsModel);
+        active_leads_list.add(manageLeadsModel);
 
 
         if(miised_follow_ups_list.isEmpty())

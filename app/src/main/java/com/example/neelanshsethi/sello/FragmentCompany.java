@@ -177,8 +177,9 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
                                          String product_details = productDetails.getString("product_details");
                                          String payment_type = productDetails.getString("payment_type");
                                          String product_uuid = productDetails.getString("product_uuid");
+                                         String mrp = productDetails.getString("mrp");
 
-                                        ProductModel productModel = new ProductModel(broucher,video,to_date,good_time_to_sell,category,title,upfront_commission,from_date,location_of_sell,target_customer,type,price_on_x,companyy_uuid,total_commission,tips_to_sell,customer_data_needed,product_details,payment_type,product_uuid);
+                                        ProductModel productModel = new ProductModel(broucher,video,to_date,good_time_to_sell,category,title,upfront_commission,from_date,location_of_sell,target_customer,type,price_on_x,companyy_uuid,total_commission,tips_to_sell,customer_data_needed,product_details,payment_type,product_uuid,  mrp);
                                         temp.add(productModel);
 
                                     }

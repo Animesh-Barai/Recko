@@ -23,8 +23,12 @@ public class ProductModel implements Serializable{
     private String product_details;
     private String payment_type;
     private String product_uuid;
+    private String mrp;
 
-    public ProductModel(String broucher, String video, String to_date, String good_time_to_sell, String category, String title, String upfront_commission, String from_date, String location_of_sell, String target_customer, String type, String price_on_x, String company_uuid, String total_commission, String tips_to_sell, String customer_data_needed, String product_details, String payment_type, String product_uuid) {
+
+
+
+    public ProductModel(String broucher, String video, String to_date, String good_time_to_sell, String category, String title, String upfront_commission, String from_date, String location_of_sell, String target_customer, String type, String price_on_x, String company_uuid, String total_commission, String tips_to_sell, String customer_data_needed, String product_details, String payment_type, String product_uuid, String mrp) {
         this.broucher = broucher;
         this.video = video;
         this.to_date = to_date;
@@ -44,6 +48,15 @@ public class ProductModel implements Serializable{
         this.product_details = product_details;
         this.payment_type = payment_type;
         this.product_uuid = product_uuid;
+        this.mrp = mrp;
+    }
+
+    public String getMrp() {
+        return mrp;
+    }
+
+    public void setMrp(String mrp) {
+        this.mrp = mrp;
     }
 
     public String getBroucher() {
