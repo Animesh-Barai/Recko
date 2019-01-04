@@ -1,13 +1,16 @@
 package com.example.neelanshsethi.sello;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.neelanshsethi.sello.Adapters.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NavigationDashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     CustomViewPager viewPager;
+    ViewPagerAdapter viewpageradapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +30,16 @@ public class NavigationDashboard extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
-        ViewPagerAdapter adapter = new ViewPagerAdapter (getSupportFragmentManager());
-        adapter.addFragment(new FragmentLearn(), "Learn");
-        adapter.addFragment(new FragmentExplore(), "Explore");
-        adapter.addFragment(new FragmentForYou(), "ForYou");
-        adapter.addFragment(new FragmentCRM(), "CRM");
-        adapter.addFragment(new FragmentSettings(), "Settings");
+        viewpageradapter = new ViewPagerAdapter (getSupportFragmentManager());
+        viewpageradapter.addFragment(new FragmentLearn(), "Learn");
+        viewpageradapter.addFragment(new FragmentExplore(), "Explore");
+        viewpageradapter.addFragment(new FragmentForYou(), "ForYou");
+        viewpageradapter.addFragment(new FragmentCRM(), "CRM");
+        viewpageradapter.addFragment(new FragmentSettings(), "Settings");
 
         viewPager.setPagingEnabled(false);
         viewPager.setOffscreenPageLimit(4);
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(viewpageradapter);
         bottomNavigationView.setSelectedItemId(R.id.action_for_you);
 
     }
@@ -53,6 +57,7 @@ public class NavigationDashboard extends AppCompatActivity {
                 case R.id.action_explore:
 //                    fragment=new FragmentExplore();
                             viewPager.setCurrentItem(1, false);
+
                     break;
                 case R.id.action_for_you:
 //                    fragment=new FragmentForYou();
@@ -91,5 +96,10 @@ public class NavigationDashboard extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d("zzz restart","restart");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

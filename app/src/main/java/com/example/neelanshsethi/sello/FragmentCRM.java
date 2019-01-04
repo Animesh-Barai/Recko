@@ -1,14 +1,30 @@
 package com.example.neelanshsethi.sello;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.neelanshsethi.sello.Adapters.ManageMissedLeadsAdapter;
+import com.example.neelanshsethi.sello.Adapters.VideoListAdapter;
+import com.example.neelanshsethi.sello.Model.ManageLeadsModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -33,19 +49,19 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
 
     private Button addlead;
 
+    private List miised_follow_ups_list;
+    private ManageMissedLeadsAdapter manageMissedLeadsAdapter;
+    private RecyclerView rv_missed_followups;
+    private RecyclerView rv_active_leads;
+    private Activity thisActivity;
+
+    TextView heading_missed_followups;
+    ConstraintLayout cv;
+
     public FragmentCRM() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentCRM.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentCRM newInstance(String param1, String param2) {
         FragmentCRM fragment = new FragmentCRM();
         Bundle args = new Bundle();
@@ -70,20 +86,58 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_crm, container, false);
         addlead = v.findViewById(R.id.addFirstLead);
+        rv_missed_followups=v.findViewById(R.id.rv_missedfollowups);
+        rv_active_leads=v.findViewById(R.id.rv_active_leads);
+        thisActivity=(Activity)getActivity();
+        cv = v.findViewById(R.id.cv);
+        heading_missed_followups = v.findViewById(R.id.heading_missed_followups);
+        miised_follow_ups_list = new ArrayList();
+        rv_missed_followups.setHasFixedSize(true);
+        rv_missed_followups.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        manageMissedLeadsAdapter=new ManageMissedLeadsAdapter(getActivity(),miised_follow_ups_list,thisActivity);
+        rv_missed_followups.setAdapter(manageMissedLeadsAdapter);
+        get_followups();
+        if(!miised_follow_ups_list.isEmpty())
+            cv.setVisibility(View.GONE);
 
         addlead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(),AddLeadCustomer.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(intent,7);
             }
         });
 
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==Activity.RESULT_OK)
+        {
+            cv.setVisibility(View.GONE);
+            get_followups();
+            Log.d("zzz activity result","Zzzzzzzzzzzzz in fragment");
+            Toast.makeText(getContext(),"Zzzzzzzzzzzzzzzz",Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private void get_followups() {
+        ManageLeadsModel manageLeadsModel = new ManageLeadsModel("haha","haha","haha","haha","haha","haha","haha","haha","haha","haha");
+        miised_follow_ups_list.clear();
+        miised_follow_ups_list.add(manageLeadsModel);
+        miised_follow_ups_list.add(manageLeadsModel);
+
+
+        if(miised_follow_ups_list.isEmpty())
+            heading_missed_followups.setVisibility(View.GONE);
+
+        manageMissedLeadsAdapter.notifyDataSetChanged();
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -97,16 +151,6 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

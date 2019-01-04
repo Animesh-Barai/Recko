@@ -246,6 +246,9 @@ public class AddLeadCustomer extends Activity {
                             String msg = response.getString("msg");
                             if (code.equals("200") && msg.equals("Done")) {
                                 Toast.makeText(getApplicationContext(), "Details Saved", Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent();
+                                intent.putExtra("MESSAGE","hey");
+                                setResult(RESULT_OK,intent);
                                 finish();
                             }
                         } catch (JSONException e) {
@@ -360,6 +363,7 @@ public class AddLeadCustomer extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        setResult(RESULT_CANCELED);
         finish();
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }

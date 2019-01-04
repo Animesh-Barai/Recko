@@ -1,8 +1,8 @@
 package com.example.neelanshsethi.sello.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,81 +19,64 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ManageMissedLeadsAdapter extends RecyclerView.Adapter<ManageMissedLeadsAdapter.LeadsViewHolder>
 {
     private Context mctx;
-    private List manageleadsList;
+    private List manage_missed_followupsList;
+    Activity mActivity;
+    public static final int VIEW_TYPE_NORMAL = 1;
 
 
-    public ManageMissedLeadsAdapter(Context mctx, List manageleadsList, Display disp) {
+    public ManageMissedLeadsAdapter(Context mctx, List manage_missed_followupsList, Activity mActivity) {
         this.mctx = mctx;
-        this.manageleadsList = manageleadsList;
+        this.manage_missed_followupsList = manage_missed_followupsList;
+        this.mActivity=mActivity;
 
     }
 
     @NonNull
     @Override
     public ManageMissedLeadsAdapter.LeadsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater;
-        View view;
-        switch (viewType)
-        {
-            case 0:inflater=LayoutInflater.from(mctx);
-                view=inflater.inflate(R.layout.crm_rv_manageleads_dates,parent,false);
-                return new ManageMissedLeadsAdapter.LeadsViewHolder(view,viewType);
-            default:inflater=LayoutInflater.from(mctx);
-                view=inflater.inflate(R.layout.missed_follow_ups_card,parent,false);
-                return new ManageMissedLeadsAdapter.LeadsViewHolder(view,viewType);
-        }
+
+        LayoutInflater inflater = LayoutInflater.from(mctx);
+        View v = inflater.inflate(R.layout.missed_follow_ups_card, null);
+        return new LeadsViewHolder(v);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ManageMissedLeadsAdapter.LeadsViewHolder holder, int position) {
-        ManageLeadsModel manageLeadsModel = (ManageLeadsModel) manageleadsList.get(position);
 
+        if(manage_missed_followupsList!=null) {
+            ManageLeadsModel manageLeadsModel = (ManageLeadsModel) manage_missed_followupsList.get(position);
 
-        if(position==0)
-        {
-            holder.missedFollowUpHeading.setText("Missed Follow-ups");
-        }
-        else
-        {
             holder.name.setText(manageLeadsModel.getContact_name());
             holder.description.setText(manageLeadsModel.getProduct_name());
+
         }
     }
 
     @Override
     public int getItemCount() {
-        return manageleadsList.size();
+        if (manage_missed_followupsList != null && manage_missed_followupsList.size() > 0) {
+            return manage_missed_followupsList.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
-        int viewType=1;
-        if(position==0)
-        {
-            viewType=0;
-        }
-        return viewType;
+        return VIEW_TYPE_NORMAL;
     }
 
     class LeadsViewHolder extends RecyclerView.ViewHolder
     {
-
-        TextView missedFollowUpHeading;
         TextView name,description;
 
-        public LeadsViewHolder(View itemView,int viewType) {
+        public LeadsViewHolder(View itemView) {
             super(itemView);
 
-            if(viewType==0)
-            {
-                missedFollowUpHeading=itemView.findViewById(R.id.crm_manage_leads_date);
-            }
-            else
-            {
-                name=itemView.findViewById(R.id.name);
-                description=itemView.findViewById(R.id.description);
-            }
+            name=itemView.findViewById(R.id.name);
+            description=itemView.findViewById(R.id.description);
+
         }
     }
 }
