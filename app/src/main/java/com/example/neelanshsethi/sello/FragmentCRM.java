@@ -98,12 +98,13 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         heading_upcoming_followups = v.findViewById(R.id.heading_active_leads);
         miised_follow_ups_list = new ArrayList();
         active_leads_list = new ArrayList();
-        rv_missed_followups.setHasFixedSize(true);
+
+//        rv_missed_followups.setHasFixedSize(true);
         rv_missed_followups.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         manageMissedLeadsAdapter=new ManageMissedLeadsAdapter(getActivity(),miised_follow_ups_list,thisActivity);
         rv_missed_followups.setAdapter(manageMissedLeadsAdapter);
 
-        rv_active_leads.setHasFixedSize(true);
+//        rv_active_leads.setHasFixedSize(true);
         rv_active_leads.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         activeLeadsAdapter=new ActiveLeadsAdapter(getActivity(),active_leads_list,thisActivity);
         rv_active_leads.setAdapter(activeLeadsAdapter);
@@ -116,6 +117,9 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(),AddLeadCustomer.class);
+
+//                this statement caused error
+//                activity gives result before starting
 //                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(intent,7);
             }

@@ -18,12 +18,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,18 +37,14 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class AddLeadCustomer extends Activity {
@@ -117,7 +111,6 @@ public class AddLeadCustomer extends Activity {
                 }
                 else
                     save_details();
-
             }
         });
 
@@ -218,6 +211,7 @@ public class AddLeadCustomer extends Activity {
             json.put("contact_no",contact_number);
             json.put("email",contact_email);
             json.put("comment",notes.getText().toString().trim());
+            json.put("amount_communicated",price.getText().toString().trim());
             for(Pair <String,String> temp : productslist)
             {
                 if(temp.first.equals(materialSpinner.getSelectedItem().toString())) {
