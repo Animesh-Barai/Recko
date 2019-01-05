@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,8 +19,9 @@
             android:name=".MainActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity android:name=".VerifyPhoneNumber" />
-        <activity android:name=".ProfileActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +61,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ProductsInCategory" />
         <activity android:name=".ProductsInCompany" />
+        <activity android:name=".ProductDetails"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

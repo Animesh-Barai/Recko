@@ -27,6 +27,11 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="WhatsappChipAppearance2">
+        <item name="android:fontFamily">@font/brandontext_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TablayoutText">
         <item name="android:fontFamily">@font/brandontext_medium</item>
         <item name="android:textSize">18sp</item>
