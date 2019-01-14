@@ -18,6 +18,7 @@ import com.example.neelanshsethi.sello.Adapters.ActiveLeadsAdapter;
 import com.example.neelanshsethi.sello.Adapters.ManageMissedLeadsAdapter;
 import com.example.neelanshsethi.sello.Adapters.VideoListAdapter;
 import com.example.neelanshsethi.sello.Model.ManageLeadsModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,8 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     TextView heading_upcoming_followups;
     ConstraintLayout cv;
 
+    FloatingActionButton floatingActionButton;
+
     public FragmentCRM() {
         // Required empty public constructor
     }
@@ -99,6 +102,8 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         miised_follow_ups_list = new ArrayList();
         active_leads_list = new ArrayList();
 
+        floatingActionButton = v.findViewById(R.id.floatingActionButton);
+
 //        rv_missed_followups.setHasFixedSize(true);
         rv_missed_followups.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         manageMissedLeadsAdapter=new ManageMissedLeadsAdapter(getActivity(),miised_follow_ups_list,thisActivity);
@@ -122,6 +127,15 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
 //                activity gives result before starting
 //                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivityForResult(intent,7);
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getActivity(),AddLeadCustomer.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
