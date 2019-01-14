@@ -2,6 +2,7 @@ package com.example.neelanshsethi.sello.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.Model.Company_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.sello.Model.ProductModel;
+import com.example.neelanshsethi.sello.ProductDetails;
 import com.example.neelanshsethi.sello.R;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_InCategoryAdapter.ResultViewHolder> {
@@ -54,19 +57,16 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
             holder.textView.setText(productModel.getTitle());
         }
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //yet to be decided
-
-//                Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
-//                intent.putExtra("kuch ayega yahan",category_inCategoryAndCompanyModel.getCategory_uuid());
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                mctx.startActivity(intent);
-//                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-//                ProductModel productModel = company_inCategoryAndCompanyModel.getList().get(0);
-//                Toast.makeText(mctx,productModel.getTitle()+productModel.getTotal_commission(),Toast.LENGTH_SHORT).show();
+                ProductModel temp = (ProductModel) productlist.get(position);
+                Intent intent= new Intent(mctx,ProductDetails.class);
+                intent.putExtra("product_model",temp);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mctx.startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
             }
         });
@@ -90,11 +90,13 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
 
         private ImageView imageView;
         private TextView textView;
+        private CardView cardView;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
+            cardView=itemView.findViewById(R.id.categorycard);
         }
     }
 

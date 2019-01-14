@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,9 +19,13 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +35,10 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.neelanshsethi.sello.Model.ProductModel;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,7 +56,22 @@ public class ProductDetails extends AppCompatActivity {
 
     androidx.appcompat.widget.Toolbar toolbar;
     Chip whatsapp,brochure;
+    ProductModel productModel;
 
+    ImageView video_thumbnail;
+    TextView product_name;
+    TextView brochure_subheading;
+    TextView brochure_link;
+    TextView download_link;
+    TextView actual_price;
+    TextView offer_price;
+    TextView final_price;
+    TextInputEditText offer_discount_price;
+    Chip chip_discount1;
+    Chip chip_discount2;
+    Chip chip_discount3;
+    Chip chip_discount4;
+    Button earn_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +79,83 @@ public class ProductDetails extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
         toolbar=findViewById(R.id.toolbar);
         whatsapp = findViewById(R.id.chip_whatsapp);
+
+        ImageView video_thumbnail = findViewById(R.id.video_thumbnail);
+        TextView product_name = findViewById(R.id.product_name);
+        TextView brochure_subheading = findViewById(R.id.brochure_subheading);
+        TextView brochure_link = findViewById(R.id.brochure_link);
+        TextView download_link = findViewById(R.id.download_link);
+        final TextView actual_price = findViewById(R.id.actual_price);
+        TextView offer_price = findViewById(R.id.offer_price);
+        final TextView final_price = findViewById(R.id.final_price);
+        final TextInputEditText offer_discount_price = findViewById(R.id.offer_discount_price);
+        Chip chip_discount1 = findViewById(R.id.chip_discount1);
+        Chip chip_discount2 = findViewById(R.id.chip_discount2);
+        Chip chip_discount3 = findViewById(R.id.chip_discount3);
+        Chip chip_discount4 = findViewById(R.id.chip_discount4);
+        Button earn_button = findViewById(R.id.earn_button);
+
+        productModel = (ProductModel) this.getIntent().getSerializableExtra("product_model");
+
+
+//        Glide.with(this)
+//                    .load(productModel.getImage_url())
+//                    .into(video_thumbnail);
+        product_name.setText(productModel.getTitle());
+        brochure_subheading.setText("Get to know more\n" + "about all the products\n" + "from " + productModel.getTitle());
+//        brochure_link =
+        download_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!InternetConnection.checkConnection(ProductDetails.this)) {
+                    Snackbar.make(findViewById(android.R.id.content), "Internet Connection Not Available", Snackbar.LENGTH_LONG).show();
+                } else
+                {
+                    Toast.makeText(getApplicationContext(), "Downloading the brochure", Toast.LENGTH_SHORT).show();
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(productModel.getBroucher()));
+                    request.allowScanningByMediaScanner();
+                    request.setDescription("Downloading...");
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                    DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                    downloadManager.enqueue(request);
+                }
+            }
+        });
+
+        actual_price.setText(productModel.getMrp());
+        offer_price.setText(productModel.getPrice_on_x());
+
+        final_price.setText(productModel.getPrice_on_x());
+
+        offer_discount_price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (offer_discount_price.getText().toString().trim().equals(""))
+                    final_price.setText(productModel.getPrice_on_x());
+                else {
+                    if (Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()) > Integer.parseInt(productModel.getPrice_on_x()))
+                        final_price.setText(Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        earn_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Yo Man!",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSupportActionBar(toolbar);
@@ -72,6 +172,9 @@ public class ProductDetails extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
+
 
         whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
