@@ -56,7 +56,6 @@ public class ProductDetails extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
         toolbar=findViewById(R.id.toolbar);
         whatsapp = findViewById(R.id.chip_whatsapp);
-        brochure = findViewById(R.id.chip_download);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSupportActionBar(toolbar);
