@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:divider="@color/heading_dark">
-    <PreferenceCategory
-        android:title="klklklk"
-        android:summary="lllll">
-    <CheckBoxPreference
-        android:iconSpaceReserved="true"
-        android:icon="@drawable/date_picker"
-        android:key="checkbox"
-        android:summary="Tap to check if on or off"
-        android:title="Checkbox Preference" />
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditTextPreference
-        android:iconSpaceReserved="true"
-        android:dialogTitle="Enter a text"
-        android:key="text"
-        android:summary="Click to show a text entry dialog"
-        android:title="EditText Preference"
-        tools:targetApi="o" />
-    <ListPreference
-        android:dialogTitle="Select duration"
-        android:key="list"
-        android:summary="Click to show a list to choose from"
-        android:title="List Preference" />
+
     <SwitchPreference
         android:key="switch"
-        android:title="Switch Preference"
-        android:summary="Click to switch on or off"
-        android:defaultValue="true"/>
+        android:title="Notifications"
+        android:textSize="40sp"
+        android:textColor="@color/heading_dark"
+        android:fontFamily="@font/brandontext_medium"
+        android:icon="@drawable/ic_notifications"
+        android:defaultValue="true">
+    </SwitchPreference>
+
     <Preference
         android:title="Profile"
-        android:summary="Edit profile details">
+        android:textSize="20sp"
+        android:textColor="@color/heading_dark"
+        android:fontFamily="@font/brandontext_medium"
+        android:icon="@drawable/profile_circle">
 
         <intent
-        android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-        android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
-        android:targetPackage="com.example.neelanshsethi.sello" />
-
+            android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+            android:targetPackage="com.example.neelanshsethi.sello" />
 
     </Preference>
-    </PreferenceCategory>
+
+    <Preference
+        android:title="Accounts"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/brandontext_medium"
+        android:icon="@drawable/ic_account_balance">
+
+        <intent
+            android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+            android:targetPackage="com.example.neelanshsethi.sello" />
+
+    </Preference>
+
+    <Preference
+        android:title="Refer and Earn"
+        android:textSize="20sp"
+        android:textColor="@color/heading_dark"
+        android:fontFamily="@font/brandontext_medium"
+        android:icon="@drawable/ic_people">
+
+        <intent
+            android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+            android:targetPackage="com.example.neelanshsethi.sello" />
+
+    </Preference>
+
+    <Preference
+        android:title="Terms and Conditions"
+        android:textSize="20sp"
+        android:textColor="@color/heading_dark"
+        android:fontFamily="@font/brandontext_medium"
+        android:icon="@drawable/ic_terms_and_conditions">
+
+        <intent
+            android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+            android:targetPackage="com.example.neelanshsethi.sello" />
+
+    </Preference>
+
 </PreferenceScreen>
