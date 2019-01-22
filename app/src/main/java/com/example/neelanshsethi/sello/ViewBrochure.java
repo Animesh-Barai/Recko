@@ -51,7 +51,7 @@ public class ViewBrochure extends AppCompatActivity {
         toolbar=findViewById(R.id.toolbar);
         whatsapp = findViewById(R.id.chip_whatsapp);
         brochure_thumbnail = findViewById(R.id.brochure_thumbnail);
-        toolbar.setTitle(getIntent().getStringExtra("product_name") + "Offer Pamphlet");
+        toolbar.setTitle(getIntent().getStringExtra("product_name") + " Offer Pamphlet");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSupportActionBar(toolbar);
