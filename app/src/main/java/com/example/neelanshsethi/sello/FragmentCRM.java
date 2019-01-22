@@ -185,7 +185,6 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         }
     }
 
-
     @Override
     public void onDetach() {
         super.onDetach();

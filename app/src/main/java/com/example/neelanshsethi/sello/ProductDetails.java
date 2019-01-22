@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -61,8 +62,7 @@ public class ProductDetails extends AppCompatActivity {
     ImageView video_thumbnail;
     TextView product_name;
     TextView brochure_subheading;
-    TextView brochure_link;
-    TextView download_link;
+
     TextView actual_price;
     TextView offer_price;
     TextView final_price;
@@ -72,6 +72,7 @@ public class ProductDetails extends AppCompatActivity {
     Chip chip_discount3;
     Chip chip_discount4;
     Button earn_button;
+    ImageView brochure_thumbnail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,21 +80,21 @@ public class ProductDetails extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
         toolbar=findViewById(R.id.toolbar);
         whatsapp = findViewById(R.id.chip_whatsapp);
+        brochure = findViewById(R.id.chip_brochure);
+        video_thumbnail = findViewById(R.id.video_thumbnail);
+        product_name = findViewById(R.id.product_name);
+        brochure_subheading = findViewById(R.id.brochure_subheading);
 
-        ImageView video_thumbnail = findViewById(R.id.video_thumbnail);
-        TextView product_name = findViewById(R.id.product_name);
-        TextView brochure_subheading = findViewById(R.id.brochure_subheading);
-        TextView brochure_link = findViewById(R.id.brochure_link);
-        TextView download_link = findViewById(R.id.download_link);
-        final TextView actual_price = findViewById(R.id.actual_price);
-        TextView offer_price = findViewById(R.id.offer_price);
-        final TextView final_price = findViewById(R.id.final_price);
-        final TextInputEditText offer_discount_price = findViewById(R.id.offer_discount_price);
-        Chip chip_discount1 = findViewById(R.id.chip_discount1);
-        Chip chip_discount2 = findViewById(R.id.chip_discount2);
-        Chip chip_discount3 = findViewById(R.id.chip_discount3);
-        Chip chip_discount4 = findViewById(R.id.chip_discount4);
-        Button earn_button = findViewById(R.id.earn_button);
+        actual_price = findViewById(R.id.actual_price);
+        offer_price = findViewById(R.id.offer_price);
+        final_price = findViewById(R.id.final_price);
+        offer_discount_price = findViewById(R.id.offer_discount_price);
+        chip_discount1 = findViewById(R.id.chip_discount1);
+        chip_discount2 = findViewById(R.id.chip_discount2);
+        chip_discount3 = findViewById(R.id.chip_discount3);
+        chip_discount4 = findViewById(R.id.chip_discount4);
+        earn_button = findViewById(R.id.earn_button);
+        brochure_thumbnail= findViewById(R.id.brochure_thumbnail);
 
         productModel = (ProductModel) this.getIntent().getSerializableExtra("product_model");
 
@@ -103,25 +104,34 @@ public class ProductDetails extends AppCompatActivity {
 //                    .into(video_thumbnail);
         product_name.setText(productModel.getTitle());
         brochure_subheading.setText("Get to know more\n" + "about all the products\n" + "from " + productModel.getTitle());
-//        brochure_link =
-        download_link.setOnClickListener(new View.OnClickListener() {
+        Glide.with(this)
+                .load("https://storage.googleapis.com/ehimages/2018/1/7/img_8a9f448b813cf35915bc0bfd1355d281_1515313874521_original.jpg")
+                .into(brochure_thumbnail);
+        brochure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!InternetConnection.checkConnection(ProductDetails.this)) {
-                    Snackbar.make(findViewById(android.R.id.content), "Internet Connection Not Available", Snackbar.LENGTH_LONG).show();
-                } else
-                {
-                    Toast.makeText(getApplicationContext(), "Downloading the brochure", Toast.LENGTH_SHORT).show();
-                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(productModel.getBroucher()));
-                    request.allowScanningByMediaScanner();
-                    request.setDescription("Downloading...");
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-                    DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                    downloadManager.enqueue(request);
-                }
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")));
             }
         });
+
+//        download_link.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (!InternetConnection.checkConnection(ProductDetails.this)) {
+//                    Snackbar.make(findViewById(android.R.id.content), "Internet Connection Not Available", Snackbar.LENGTH_LONG).show();
+//                } else
+//                {
+//                    Toast.makeText(getApplicationContext(), "Downloading the brochure", Toast.LENGTH_SHORT).show();
+//                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(productModel.getBroucher()));
+//                    request.allowScanningByMediaScanner();
+//                    request.setDescription("Downloading...");
+//                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//
+//                    DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//                    downloadManager.enqueue(request);
+//                }
+//            }
+//        });
 
         actual_price.setText(productModel.getMrp());
         offer_price.setText(productModel.getPrice_on_x());
