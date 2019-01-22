@@ -8,30 +8,30 @@
         android:id="@+id/action_learn"
         android:enabled="true"
         android:icon="@drawable/icon_learn"
-        android:title="Learn"
+        android:title="@string/learn"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_explore"
         android:enabled="true"
         android:icon="@drawable/icon_explore"
-        android:title="Explore"
+        android:title="@string/explore"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_for_you"
         android:enabled="true"
         android:icon="@drawable/icon_for_you"
-        android:title="For You"
+        android:title="@string/for_you"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_crm"
         android:enabled="true"
         android:icon="@drawable/icon_crm"
-        android:title="CRM"
+        android:title="@string/crm"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:enabled="true"
         android:icon="@drawable/icon_settings"
-        android:title="Settings"
+        android:title="@string/settings"
         app:showAsAction="never" />
 </menu>

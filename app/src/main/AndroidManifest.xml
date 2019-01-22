@@ -61,8 +61,10 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ProductsInCategory" />
         <activity android:name=".ProductsInCompany" />
-        <activity android:name=".ProductDetails"
-            android:exported="true"></activity>
+        <activity
+            android:name=".ProductDetails"
+            android:exported="true" />
+        <activity android:name=".ViewBrochure"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    tools:context=".ViewBrochure">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:elevation="4dp"
+        tools:targetApi="lollipop">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:theme="@style/CustomToolbar"
+            app:navigationIcon="@drawable/back_white"
+            app:title="BYJU's Offer Pamphlet"
+            app:titleTextAppearance="@style/BrandonTextAppearance"
+            app:titleTextColor="@color/white">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:layout_above="@+id/chip_whatsapp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:transitionName="brochure_thumbnail"
+            android:src="@drawable/sample3"
+            android:scaleType="fitCenter"
+            tools:targetApi="lollipop" />
+    </LinearLayout>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_whatsapp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.MaterialComponents.Chip.Action"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:checkable="false"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/share_with_client"
+        android:textAppearance="@style/WhatsappChipAppearance2"
+        android:textColor="@color/white"
+        app:chipBackgroundColor="#000"
+        app:chipCornerRadius="20dp"
+        app:chipIcon="@drawable/ic_wa_logo"
+        app:chipIconTint="@color/white"
+        app:chipIconSize="25dp"
+        app:chipStartPadding="10dp"
+        app:chipStrokeColor="@color/white"
+        app:chipStrokeWidth="1dp"
+        app:iconStartPadding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:textEndPadding="25dp" />
+
+
+</RelativeLayout>

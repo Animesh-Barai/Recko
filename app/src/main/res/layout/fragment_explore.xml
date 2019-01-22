@@ -74,7 +74,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/brandontext_medium"
-                    android:text="Newly Added Companies"
+                    android:text="@string/newly_added_companies"
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 
@@ -110,7 +110,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/brandontext_medium"
-                    android:text="Browse by Industries"
+                    android:text="@string/browse_by_industries"
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 

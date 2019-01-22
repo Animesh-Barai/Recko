@@ -1,18 +1,14 @@
 package com.example.neelanshsethi.sello;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
 import android.Manifest;
-import android.app.DownloadManager;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -30,26 +26,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.manager.TargetTracker;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.transition.Transition;
+
 import com.example.neelanshsethi.sello.Model.ProductModel;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
-import java.net.URI;
-import java.net.URL;
+
 import java.util.concurrent.ExecutionException;
 
 
@@ -103,7 +89,7 @@ public class ProductDetails extends AppCompatActivity {
 //                    .load(productModel.getImage_url())
 //                    .into(video_thumbnail);
         product_name.setText(productModel.getTitle());
-        brochure_subheading.setText("Get to know more\n" + "about all the products\n" + "from " + productModel.getTitle());
+        brochure_subheading.setText(String.format("Get to know more\nabout all the products\nfrom %s", productModel.getTitle()));
         Glide.with(this)
                 .load("https://storage.googleapis.com/ehimages/2018/1/7/img_8a9f448b813cf35915bc0bfd1355d281_1515313874521_original.jpg")
                 .into(brochure_thumbnail);
@@ -113,6 +99,20 @@ public class ProductDetails extends AppCompatActivity {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")));
             }
         });
+
+        brochure_thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetails.this, ViewBrochure.class);
+                intent.putExtra("product_name",productModel.getTitle());
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ProductDetails.this,brochure_thumbnail,"brochure_thumbnail");
+                startActivity(intent, options.toBundle());
+            }
+        });
+
+
+///////        to download the pdf to system////////
 
 //        download_link.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -182,9 +182,6 @@ public class ProductDetails extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-
 
         whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override

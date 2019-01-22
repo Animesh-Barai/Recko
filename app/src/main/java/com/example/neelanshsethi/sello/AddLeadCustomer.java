@@ -319,7 +319,7 @@ public class AddLeadCustomer extends Activity {
                     emailCur.close();
 
                     //Do something with number
-                    client_details.setText(name + " " + number + " " + email);
+                    client_details.setText(String.format("%s %s %s", name, number, email));
                     client_details.setFocusableInTouchMode(false);
                     client_details.clearFocus();
                     //materialSpinner.requestFocus(View.FOCUS_DOWN);

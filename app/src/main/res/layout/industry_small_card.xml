@@ -47,18 +47,19 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
-            android:text="BYJU's"
+            android:text="@string/byjus"
             android:textColor="@color/heading_dark"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categorycard" />
+            app:layout_constraintTop_toBottomOf="@+id/categorycard"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/earnupto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/brandontext_regular"
-            android:text="100+ Products"
+            android:text="@string/_100_products"
             android:textColor="#8b8b8b"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/title_small_industry"

@@ -47,7 +47,7 @@
             android:fontFamily="@font/brandontext_medium"
             android:maxLines="2"
             android:singleLine="false"
-            android:text="Video Text"
+            android:text="@string/video_text"
             android:textColor="@color/heading_dark"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/cardView"

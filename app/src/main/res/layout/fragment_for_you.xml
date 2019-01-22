@@ -66,7 +66,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/brandontext_medium"
-                    android:text="Videos to help you sell better"
+                    android:text="@string/videos_to_help_you_sell_better"
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 
@@ -110,7 +110,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/brandontext_medium"
-                    android:text="Your Industries"
+                    android:text="@string/your_industries"
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 

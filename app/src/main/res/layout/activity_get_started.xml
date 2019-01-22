@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgReccomend"
-        android:text="No Investment. Only Commission" />
+        android:text="@string/no_investment_only_commission" />
 
     <TextView
         android:id="@+id/txtReccomend"
@@ -35,7 +35,7 @@
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
-        android:text="Recommend products &amp; \nEarn commission"
+        android:text="@string/recommend_products_amp_nearn_commission"
         android:textColor="@color/heading_dark"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/imgReccomend"
@@ -65,7 +65,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/brandontext_bold"
-        android:text="Get Started for FREE"
+        android:text="@string/get_started_for_free"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp"

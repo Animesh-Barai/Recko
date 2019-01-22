@@ -8,20 +8,20 @@
         android:id="@+id/action_learn"
         android:enabled="true"
         android:icon="@drawable/icon_learn"
-        android:title="Learn"
+        android:title="@string/learn"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_explore"
         android:enabled="true"
         android:icon="@drawable/icon_explore"
-        android:title="Explore"
+        android:title="@string/explore"
         app:showAsAction="never" />
     <item
         android:id="@+id/search"
         android:enabled="true"
         android:iconTint="@color/colorPrimary"
         android:icon="@drawable/icon_explore"
-        android:title="Explore"
+        android:title="@string/explore"
         app:showAsAction="always" />
 
 </menu>
