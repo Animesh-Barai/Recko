@@ -9,7 +9,9 @@
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <item name="android:autofilledHighlight" tools:targetApi="o">@android:color/transparent</item>
         <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/PrefsTheme</item>
+
+
 
     </style>
 
@@ -50,6 +52,14 @@
         <item name="android:textColor">@color/heading_lighter</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/brandontext_regular</item>
+    </style>
+
+    <style name="PrefsTheme" parent="PreferenceThemeOverlay.v14.Material">
+        <item name="android:divider">@android:drawable/divider_horizontal_dark</item>
+        <item name="android:textColor">@color/heading_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:dividerHeight">10dp</item>
+        <item name="android:fontFamily">@font/brandontext_medium</item>
     </style>
 
 </resources>
