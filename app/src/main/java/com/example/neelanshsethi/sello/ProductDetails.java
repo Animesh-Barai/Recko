@@ -5,8 +5,10 @@ import androidx.core.app.ActivityOptionsCompat;
 
 import android.Manifest;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 
 import android.net.Uri;
@@ -146,12 +148,21 @@ public class ProductDetails extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (offer_discount_price.getText().toString().trim().equals(""))
-                    final_price.setText(productModel.getPrice_on_x());
-                else {
-                    if (Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()) > Integer.parseInt(productModel.getPrice_on_x()))
-                        final_price.setText(Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()));
+
+                if (!offer_discount_price.getText().toString().trim().equals("")) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_dark, getTheme())));
+                    }
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_lighter, getTheme())));
+
                 }
+//                if (offer_discount_price.getText().toString().trim().equals(""))
+//                    final_price.setText(productModel.getPrice_on_x());
+//                else {
+//                    if (Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()) > Integer.parseInt(productModel.getPrice_on_x()))
+//                        final_price.setText(Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()));
+//                }
             }
 
             @Override
@@ -221,6 +232,7 @@ public class ProductDetails extends AppCompatActivity {
             return null;
         }
 
+        @SuppressLint("WrongThread")
         @Override
         protected void onPostExecute(Void result) {
             if(bm!=null)
