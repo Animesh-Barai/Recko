@@ -14,7 +14,7 @@
         android:layout_marginEnd="36dp"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="39sp"
-        android:text="@string/sello"
+        android:text="Recko"
         android:textColor="#ffffff"
         android:textSize="98sp"
         android:fontFamily="@font/brandontext_bold"
