@@ -130,7 +130,8 @@ public class UserInfo extends AppCompatActivity {
                     try {
                         json.put("seller_uuid", mUser.getUid());
                         json.put("seller_name", NAME);
-                        json.put("seller_mobile_no", LOCATION);
+                        json.put("seller_mobile_no", mUser.getPhoneNumber());
+                        json.put("seller_location", LOCATION);
                         json.put("firebase_token", idToken);
                         Log.d("zzz json", json.toString());
                     } catch (JSONException e) {
