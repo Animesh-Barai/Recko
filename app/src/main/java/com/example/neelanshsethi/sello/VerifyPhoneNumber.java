@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.raycoarana.codeinputview.CodeInputView;
+import com.raycoarana.codeinputview.OnCodeCompleteListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,6 +77,12 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         mobile = intent.getStringExtra("mobile");
         sendVerificationCode(mobile);
 
+        codeInputView.addOnCompleteListener(new OnCodeCompleteListener() {
+            @Override
+            public void onCompleted(String code) {
+                codeInputView.setEditable(true);
+            }
+        });
 
         //if the automatic sms detection did not work, user can also enter the code manually
         //so adding a click listener to the button

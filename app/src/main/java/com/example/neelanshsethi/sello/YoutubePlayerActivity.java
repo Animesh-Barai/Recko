@@ -75,7 +75,7 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity implements YouTub
 
                     //If you want the video should play automatically then uncomment below comment
                     youTubePlayer.play();
-
+                    youTubePlayer.setFullscreen(true);
                     //If you want to control the full screen event you can uncomment the below code
                     //Tell the player you want to control the fullscreen change
                  /*  youTubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
