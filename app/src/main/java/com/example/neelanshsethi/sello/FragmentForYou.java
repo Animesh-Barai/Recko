@@ -327,6 +327,14 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                             String no_of_products = String.valueOf(object2.getInt("no_of_product"));
                                             String image_url = object2.getString("image_url");
 
+                                            // Try to remove decimal places from max_commission
+                                            try {
+                                                float tmp_max_commission = Float.parseFloat(max_commission.replaceAll("\\s+",""));
+                                                max_commission = Integer.toString((int) Math.ceil(tmp_max_commission));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
                                             temp1.add(max_commission);
                                             temp2.add(name);
                                             temp3.add(industry);

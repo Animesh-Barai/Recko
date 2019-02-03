@@ -51,9 +51,9 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
         if(!videoslist.isEmpty()) {
             videosModel= (VideosModel) videoslist.get(position);
-            Glide.with(mctx)
-                    .load(videosModel.getThumbnail_url())
-                    .into(holder.imageView);
+            //Glide.with(mctx)
+            //        .load(videosModel.getThumbnail_url())
+            //        .into(holder.imageView);
             holder.textView.setText(videosModel.getTitle());
         }
 

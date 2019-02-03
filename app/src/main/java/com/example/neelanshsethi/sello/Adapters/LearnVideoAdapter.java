@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.sello.Model.VideosModel;
 import com.example.neelanshsethi.sello.R;
 import com.example.neelanshsethi.sello.YoutubePlayerActivity;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -52,9 +55,14 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
         if (!videolist.isEmpty()) {
             videosModel = (VideosModel) videolist.get(position);
-            Glide.with(mctx)
-                    .load(videosModel.getThumbnail_url())
-                    .into(holder.imageView);
+            Log.d("zzzz: ", "setting video in learn");
+            if (!StringUtils.isEmpty(videosModel.getThumbnail_url())) {
+                Glide.with(mctx)
+                        .load(videosModel.getThumbnail_url())
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageResource(R.drawable.sample2);
+            }
             holder.textView.setText(videosModel.getTitle());
 
 
