@@ -18,6 +18,8 @@ import com.example.neelanshsethi.sello.Model.VideosModel;
 import com.example.neelanshsethi.sello.R;
 import com.example.neelanshsethi.sello.YoutubePlayerActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ResultViewHolder> {
@@ -51,9 +53,14 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
         if(!videoslist.isEmpty()) {
             videosModel= (VideosModel) videoslist.get(position);
-            //Glide.with(mctx)
-            //        .load(videosModel.getThumbnail_url())
-            //        .into(holder.imageView);
+            if (!StringUtils.isEmpty(videosModel.getThumbnail_url())) {
+                Glide.with(mctx)
+                        .load(videosModel.getThumbnail_url())
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageResource(R.drawable.sample2);
+            }
+
             holder.textView.setText(videosModel.getTitle());
         }
 
