@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.ResultViewHolder> {
@@ -78,6 +79,21 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
                 }
             });
+
+            if (holder.mainViewHolder != null) {
+                holder.mainViewHolder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mctx, YoutubePlayerActivity.class);
+                        intent.putExtra("video_id", videosModel.getVideo_url());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mctx.startActivity(intent);
+                        mActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+                    }
+                });
+            }
+
         }
     }
 
@@ -99,11 +115,13 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
         private ImageView imageView;
         private TextView textView;
+        private ConstraintLayout mainViewHolder;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
+            mainViewHolder = itemView.findViewById(R.id.learnVideoCardHolder);
         }
     }
 
