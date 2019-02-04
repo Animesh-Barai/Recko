@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.neelanshsethi.sello">
+    package="com.example.neelanshsethi.recko">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,55 +15,59 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.CodelessDebugLogEnabled"
+            android:value="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.neelanshsethi.recko.MainActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".VerifyPhoneNumber" />
+        <activity android:name="com.example.neelanshsethi.recko.VerifyPhoneNumber" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.example.neelanshsethi.recko.ProfileActivity"
             android:exported="true" />
-        <activity android:name=".SplashScreen">
+        <activity android:name="com.example.neelanshsethi.recko.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GetStarted" />
+        <activity android:name="com.example.neelanshsethi.recko.GetStarted" />
         <activity
-            android:name=".UserInfo"
+            android:name="com.example.neelanshsethi.recko.UserInfo"
             android:exported="true"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".LearnHowItWorks"
+            android:name="com.example.neelanshsethi.recko.LearnHowItWorks"
             android:exported="true" />
         <activity
-            android:name=".Industries"
+            android:name="com.example.neelanshsethi.recko.Industries"
             android:exported="true" />
         <activity
-            android:name=".VideoListDemoActivity"
+            android:name="com.example.neelanshsethi.recko.VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true" />
         <activity
-            android:name=".YoutubePlayerActivity"
+            android:name="com.example.neelanshsethi.recko.YoutubePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name=".AwwSnap" />
+        <activity android:name="com.example.neelanshsethi.recko.AwwSnap" />
         <activity
-            android:name=".NavigationDashboard"
+            android:name="com.example.neelanshsethi.recko.NavigationDashboard"
             android:exported="true" />
         <activity
-            android:name=".CategoryAndCompany"
+            android:name="com.example.neelanshsethi.recko.CategoryAndCompany"
             android:exported="true" />
         <activity
-            android:name=".AddLeadCustomer"
+            android:name="com.example.neelanshsethi.recko.AddLeadCustomer"
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ProductsInCategory" />
-        <activity android:name=".ProductsInCompany" />
+        <activity android:name="com.example.neelanshsethi.recko.ProductsInCategory" />
+        <activity android:name="com.example.neelanshsethi.recko.ProductsInCompany" />
         <activity
-            android:name=".ProductDetails"
+            android:name="com.example.neelanshsethi.recko.ProductDetails"
             android:exported="true" />
-        <activity android:name=".ViewBrochure">
+        <activity android:name="com.example.neelanshsethi.recko.ViewBrochure">
         </activity>
     </application>
 

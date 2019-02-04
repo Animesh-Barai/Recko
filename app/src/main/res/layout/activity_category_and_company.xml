@@ -52,11 +52,11 @@
         android:layout_height="match_parent"
         android:layout_below="@id/appbar">
 
-        <com.example.neelanshsethi.sello.CustomViewPager
+        <com.example.neelanshsethi.recko.CustomViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_container">
-        </com.example.neelanshsethi.sello.CustomViewPager>
+        </com.example.neelanshsethi.recko.CustomViewPager>
     </FrameLayout>
 
 </RelativeLayout>
