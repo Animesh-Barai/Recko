@@ -48,6 +48,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
@@ -75,10 +76,13 @@ public class UserInfo extends AppCompatActivity {
     private LocationRequest mLocationRequest;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         setContentView(R.layout.activity_user_info);
 
         name = findViewById(R.id.name);
@@ -149,6 +153,10 @@ public class UserInfo extends AppCompatActivity {
                                     try {
 
                                         if (response.getString("code").equals("200")) {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                            mFirebaseAnalytics.logEvent("user_info_saved", bundle);
+
                                             Intent intent = new Intent(UserInfo.this, Industries.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);

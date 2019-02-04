@@ -3,6 +3,7 @@ package com.example.neelanshsethi.sello.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.sello.Model.VideosModel;
 import com.example.neelanshsethi.sello.R;
 import com.example.neelanshsethi.sello.YoutubePlayerActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -32,8 +35,10 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
     public static final int VIEW_TYPE_NORMAL = 1;
     private VideosModel videosModel;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public LearnVideoAdapter(Context mctx,List videolist, Activity mActivity) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mctx);
         this.mctx = mctx;
         this.videolist=videolist;
         this.mActivity=mActivity;
@@ -81,6 +86,11 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
             });
 
             if (holder.mainViewHolder != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                bundle.putString("video_id",videosModel.getVideo_url());
+                mFirebaseAnalytics.logEvent("click_video_from_learn", bundle);
+
                 holder.mainViewHolder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

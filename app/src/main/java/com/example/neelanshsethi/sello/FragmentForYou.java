@@ -26,6 +26,7 @@ import com.example.neelanshsethi.sello.Model.CarouselModel;
 import com.example.neelanshsethi.sello.Model.CategoryListModel;
 import com.example.neelanshsethi.sello.Model.IndustryCardModel;
 import com.example.neelanshsethi.sello.Model.VideosModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -84,6 +85,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private List carousel_images;
     private List videoslist;
     private List cardindustrylist;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public FragmentForYou() {
 
@@ -101,6 +103,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

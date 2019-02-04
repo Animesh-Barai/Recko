@@ -1,6 +1,7 @@
 package com.example.neelanshsethi.sello;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 
 import android.Manifest;
@@ -87,6 +88,7 @@ public class ProductDetails extends AppCompatActivity {
         productModel = (ProductModel) this.getIntent().getSerializableExtra("product_model");
 
 
+        toolbar.setTitle(productModel.getTitle());
 //        Glide.with(this)
 //                    .load(productModel.getImage_url())
 //                    .into(video_thumbnail);

@@ -3,6 +3,7 @@ package com.example.neelanshsethi.sello.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.example.neelanshsethi.sello.Model.Company_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.sello.Model.ProductModel;
 import com.example.neelanshsethi.sello.ProductDetails;
 import com.example.neelanshsethi.sello.R;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -30,8 +33,10 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
     private ProductModel productModel;
 
     public static final int VIEW_TYPE_NORMAL = 1;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public Products_InCategoryAdapter(Context mctx, List productlist, Activity mActivity) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mctx);
         this.mctx = mctx;
         this.productlist=productlist;
         this.mActivity=mActivity;
@@ -64,6 +69,13 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
                 ProductModel temp = (ProductModel) productlist.get(position);
                 Intent intent= new Intent(mctx,ProductDetails.class);
                 intent.putExtra("product_model",temp);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                bundle.putString("product_uuid",temp.getProduct_uuid());
+                bundle.putString("product_title",temp.getTitle());
+                mFirebaseAnalytics.logEvent("product_clicked_in_category", bundle);
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mctx.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

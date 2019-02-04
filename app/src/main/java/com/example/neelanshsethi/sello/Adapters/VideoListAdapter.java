@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.Model.VideosModel;
 import com.example.neelanshsethi.sello.R;
 import com.example.neelanshsethi.sello.YoutubePlayerActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -30,9 +33,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
     List videoslist;
     VideosModel videosModel;
     public static final int VIEW_TYPE_NORMAL = 1;
-
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public VideoListAdapter(Context mctx, List videoslist, Activity mActivity) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mctx);
         this.mctx = mctx;
         this.mActivity=mActivity;
         this.videoslist=videoslist;
@@ -69,6 +73,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                bundle.putString("video_id",videosModel.getVideo_url());
+                mFirebaseAnalytics.logEvent("click_video_from_for_you", bundle);
+
                 Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
                 intent.putExtra("video_id",videosModel.getVideo_url());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
