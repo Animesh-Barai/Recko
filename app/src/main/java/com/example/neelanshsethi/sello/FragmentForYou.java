@@ -26,6 +26,7 @@ import com.example.neelanshsethi.sello.Model.CarouselModel;
 import com.example.neelanshsethi.sello.Model.CategoryListModel;
 import com.example.neelanshsethi.sello.Model.IndustryCardModel;
 import com.example.neelanshsethi.sello.Model.VideosModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -84,6 +85,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private List carousel_images;
     private List videoslist;
     private List cardindustrylist;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public FragmentForYou() {
 
@@ -101,6 +103,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -326,6 +329,14 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                             String category_uuid = object2.getString("category_uuid");
                                             String no_of_products = String.valueOf(object2.getInt("no_of_product"));
                                             String image_url = object2.getString("image_url");
+
+                                            // Try to remove decimal places from max_commission
+                                            try {
+                                                float tmp_max_commission = Float.parseFloat(max_commission.replaceAll("\\s+",""));
+                                                max_commission = Integer.toString((int) Math.ceil(tmp_max_commission));
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
 
                                             temp1.add(max_commission);
                                             temp2.add(name);

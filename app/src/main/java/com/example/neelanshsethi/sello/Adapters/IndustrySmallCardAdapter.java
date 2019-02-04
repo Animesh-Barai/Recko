@@ -3,6 +3,7 @@ package com.example.neelanshsethi.sello.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.CategoryAndCompany;
 import com.example.neelanshsethi.sello.Model.IndustryCardModel;
 import com.example.neelanshsethi.sello.R;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -29,8 +32,10 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
 
     public static final int VIEW_TYPE_NORMAL = 1;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public IndustrySmallCardAdapter( Context mctx, List cardindustrylist,Activity mActivity) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mctx);
         this.mctx = mctx;
         this.cardindustrylist=cardindustrylist;
         this.mActivity=mActivity;
@@ -62,6 +67,14 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
             @Override
             public void onClick(View view) {
                 IndustryCardModel temp = (IndustryCardModel) cardindustrylist.get(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                bundle.putString("industry_uuid",temp.getIndustry_uuid());
+                bundle.putString("industry_name",temp.getName());
+                mFirebaseAnalytics.logEvent("click_industry_from_main_page", bundle);
+
+
                 Intent intent= new Intent(mctx,CategoryAndCompany.class);
                 intent.putExtra("industry_uuid",temp.getIndustry_uuid());
                 intent.putExtra("industry_name",temp.getName());

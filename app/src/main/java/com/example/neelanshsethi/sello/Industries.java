@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
@@ -54,10 +55,12 @@ public class Industries extends AppCompatActivity {
     Button next;
     private String idToken;
     private static List<String> selectedChips = new ArrayList<String>();
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setContentView(R.layout.activity_industries);
         next= findViewById(R.id.Next);
         gridView=findViewById(R.id.gridview);
@@ -176,7 +179,7 @@ public class Industries extends AppCompatActivity {
                     }
                 });
 
-        JSONArray industries = new JSONArray(selectedChips);
+        final JSONArray industries = new JSONArray(selectedChips);
         JSONObject json = new JSONObject();
 
         try {
@@ -198,7 +201,10 @@ public class Industries extends AppCompatActivity {
                         try {
                             if(response.getString("code").equals("200"))
                             {
-
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                    bundle.putInt("user_industry_count", industries.length());
+                                    mFirebaseAnalytics.logEvent("industries_saved", bundle);
                                     Intent intent = new Intent(Industries.this, LearnHowItWorks.class);
                                     startActivity(intent);
                                     Log.d("zzz", selectedChips.toString());

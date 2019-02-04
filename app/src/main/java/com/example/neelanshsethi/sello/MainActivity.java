@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,11 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText editTextMobile;
     private boolean should_allow_navigation_to_next_page = false;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+        setContentView(R.layout.activity_main);
         editTextMobile = findViewById(R.id.phonenumber);
 
         findViewById(R.id.buttonContinue).setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
             //startActivity(intent);
             //finish();
             Log.d("zzz MainActivity","user is logged in");
+            Bundle bundle = new Bundle();
+            bundle.putString("user_id", user.getUid());
+            mFirebaseAnalytics.logEvent("already_logged_in", bundle);
             fetch_details();
         } else {
             should_allow_navigation_to_next_page = true;
@@ -121,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 if (StringUtils.isAnyEmpty(name, location)){
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                    bundle.putInt("quit_before_user_info", 1);
+                                    mFirebaseAnalytics.logEvent("quit_before_user_info", bundle);
+
                                     // We don't have name/location send him/her to UserInfo page.
                                     Intent intent = new Intent(getApplicationContext(), UserInfo.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -130,12 +142,19 @@ public class MainActivity extends AppCompatActivity {
                                     JSONArray industries = null;
                                     try {
                                         industries =  data.getJSONArray("industries");
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        mFirebaseAnalytics.logEvent("relogin", bundle);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
                                     if (industries!=null && industries.length() > 0) {
                                         goto_navigation();
                                     } else {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        mFirebaseAnalytics.logEvent("quit_before_industries", bundle);
+
                                         // We don't have industry list for user send him/her to pick industries page.
                                         Intent intent = new Intent(getApplicationContext(), Industries.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

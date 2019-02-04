@@ -19,6 +19,8 @@ import com.example.neelanshsethi.sello.Adapters.ManageMissedLeadsAdapter;
 import com.example.neelanshsethi.sello.Adapters.VideoListAdapter;
 import com.example.neelanshsethi.sello.Model.ManageLeadsModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,7 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     ConstraintLayout cv;
 
     FloatingActionButton floatingActionButton;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public FragmentCRM() {
         // Required empty public constructor
@@ -81,6 +84,7 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -156,6 +160,10 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     }
 
     private void get_followups() {
+        Bundle bundle = new Bundle();
+        bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        mFirebaseAnalytics.logEvent("fetch_followups_called", bundle);
+
         ManageLeadsModel manageLeadsModel = new ManageLeadsModel("haha","haha","haha","Abhishek Singh","haha","haha","haha","haha","haha","Class 9th-Topper");
         miised_follow_ups_list.clear();
         active_leads_list.clear();

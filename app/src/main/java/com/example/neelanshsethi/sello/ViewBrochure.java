@@ -15,6 +15,7 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +24,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,10 +38,12 @@ public class ViewBrochure extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar;
     Chip whatsapp;
     ImageView brochure_thumbnail;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -103,6 +108,13 @@ public class ViewBrochure extends AppCompatActivity {
 
         String text = "Wowww";
         String link = "https://www.google.es/images/srpr/logo11w.png";
+
+        Bundle bundle = new Bundle();
+        bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        bundle.putString("text", text);
+        bundle.putString("link", link);
+        mFirebaseAnalytics.logEvent("share_brochure_whatsapp", bundle);
+
         new LoadImage(text,link).execute();
     }
 

@@ -3,6 +3,7 @@ package com.example.neelanshsethi.sello.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.example.neelanshsethi.sello.CategoryAndCompany;
 import com.example.neelanshsethi.sello.Model.CategoryModel;
 import com.example.neelanshsethi.sello.ProductsInCategory;
 import com.example.neelanshsethi.sello.R;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.cardview.widget.CardView;
 
@@ -26,8 +29,10 @@ public class CategoryAdapter extends BaseAdapter {
     private Context mctx;
     private Activity mActivity;
     private CategoryModel categoryModel;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public CategoryAdapter(Context mctx, CategoryModel categoryModel, Activity mActivity) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mctx);
         this.mctx = mctx;
         this.categoryModel=categoryModel;
         this.mActivity=mActivity;
@@ -91,6 +96,12 @@ public class CategoryAdapter extends BaseAdapter {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                bundle.putString("category_uuid",categoryModel.getCategoryuuid().get(i));
+                bundle.putString("category_name",categoryModel.getCategoryname().get(i));
+                mFirebaseAnalytics.logEvent("click_category_from_main_page", bundle);
+
                 Intent intent= new Intent(mctx,ProductsInCategory.class);
                 intent.putExtra("category_uuid",categoryModel.getCategoryuuid().get(i));
                 intent.putExtra("category_name",categoryModel.getCategoryname().get(i));

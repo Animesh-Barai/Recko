@@ -3,21 +3,28 @@ package com.example.neelanshsethi.sello.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.sello.Model.Category_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.sello.Model.VideosModel;
 import com.example.neelanshsethi.sello.R;
 import com.example.neelanshsethi.sello.YoutubePlayerActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.ResultViewHolder> {
@@ -28,8 +35,10 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
     public static final int VIEW_TYPE_NORMAL = 1;
     private VideosModel videosModel;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public LearnVideoAdapter(Context mctx,List videolist, Activity mActivity) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mctx);
         this.mctx = mctx;
         this.videolist=videolist;
         this.mActivity=mActivity;
@@ -52,9 +61,14 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
         if (!videolist.isEmpty()) {
             videosModel = (VideosModel) videolist.get(position);
-            Glide.with(mctx)
-                    .load(videosModel.getThumbnail_url())
-                    .into(holder.imageView);
+            Log.d("zzzz: ", "setting video in learn");
+            if (!StringUtils.isEmpty(videosModel.getThumbnail_url())) {
+                Glide.with(mctx)
+                        .load(videosModel.getThumbnail_url())
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageResource(R.drawable.sample2);
+            }
             holder.textView.setText(videosModel.getTitle());
 
 
@@ -70,6 +84,26 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
                 }
             });
+
+            if (holder.mainViewHolder != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                bundle.putString("video_id",videosModel.getVideo_url());
+                mFirebaseAnalytics.logEvent("click_video_from_learn", bundle);
+
+                holder.mainViewHolder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mctx, YoutubePlayerActivity.class);
+                        intent.putExtra("video_id", videosModel.getVideo_url());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mctx.startActivity(intent);
+                        mActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+                    }
+                });
+            }
+
         }
     }
 
@@ -91,11 +125,13 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
 
         private ImageView imageView;
         private TextView textView;
+        private ConstraintLayout mainViewHolder;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
+            mainViewHolder = itemView.findViewById(R.id.learnVideoCardHolder);
         }
     }
 

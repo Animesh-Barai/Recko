@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -53,11 +54,13 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     //firebase auth object
     private FirebaseAuth mAuth;
     PhoneAuthProvider.ForceResendingToken mResendToken;
-
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         setContentView(R.layout.activity_verify_phone_number);
         codeInputView = findViewById(R.id.codeInput);
         resend=findViewById(R.id.resendCode);
@@ -214,6 +217,9 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             FirebaseUser user= task.getResult().getUser();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("user_id", user.getUid());
+                            mFirebaseAnalytics.logEvent("logged_in_or_signup", bundle);
                             //verification successful we will start the profile activity
                             Intent intent = new Intent(VerifyPhoneNumber.this, UserInfo.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

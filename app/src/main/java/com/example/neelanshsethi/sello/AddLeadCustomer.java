@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -66,11 +67,12 @@ public class AddLeadCustomer extends Activity {
     private String contact_number;
     private String product_uuid;
     List<Pair<String,String>> productslist = new ArrayList<Pair<String, String>>();
-
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setContentView(R.layout.activity_add_lead_customer);
         save = findViewById(R.id.crm_save);
         materialSpinner = findViewById(R.id.spinner);
@@ -92,6 +94,7 @@ public class AddLeadCustomer extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(client_details.getText().toString().trim().equals("")) {
                     Toast.makeText(getApplicationContext(), "Select Client Details", Toast.LENGTH_SHORT).show();
                     return;
@@ -203,6 +206,27 @@ public class AddLeadCustomer extends Activity {
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         JSONObject json = new JSONObject();
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        bundle.putString("deadline_time",iso8061.format(date));
+        bundle.putString("industry_uuid","");
+        bundle.putString("contact_name",client_details.getText().toString().trim());
+        bundle.putString("contact_no",contact_number);
+        bundle.putString("email",contact_email);
+        bundle.putString("comment",notes.getText().toString().trim());
+        bundle.putString("amount_communicated",price.getText().toString().trim());
+        for(Pair <String,String> temp : productslist)
+        {
+            if(temp.first.equals(materialSpinner.getSelectedItem().toString())) {
+                product_uuid = temp.second;
+                break;
+            }
+        }
+        bundle.putString("product_uuid", product_uuid != null ? product_uuid : "");
+        mFirebaseAnalytics.logEvent("add_lead", bundle);
+
         try {
             json.put("seller_uuid", mUser != null ? mUser.getUid() : null);
             json.put("deadline_time",iso8061.format(date));
