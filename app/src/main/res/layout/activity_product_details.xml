@@ -363,7 +363,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.example.neelanshsethi.sello.CustomTextInputLayout
+                <com.example.neelanshsethi.recko.CustomTextInputLayout
                     android:id="@+id/offer_discount_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -391,7 +391,7 @@
                         android:textColorHint="@color/heading_lighter"
                         android:textSize="18sp"
                         tools:targetApi="o" />
-                </com.example.neelanshsethi.sello.CustomTextInputLayout>
+                </com.example.neelanshsethi.recko.CustomTextInputLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl5"

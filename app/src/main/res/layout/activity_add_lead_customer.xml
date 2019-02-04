@@ -99,7 +99,7 @@
                     app:ms_multiline="false" />
 
 
-                <com.example.neelanshsethi.sello.CustomTextInputLayout
+                <com.example.neelanshsethi.recko.CustomTextInputLayout
                     android:id="@+id/crm_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                         android:textColor="@color/heading_dark"
                         android:textColorHint="@color/heading_lighter"
                         android:textSize="18sp" />
-                </com.example.neelanshsethi.sello.CustomTextInputLayout>
+                </com.example.neelanshsethi.recko.CustomTextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/crm_followup_date"
