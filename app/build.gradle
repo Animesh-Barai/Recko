@@ -63,6 +63,8 @@ dependencies {
     //tab-layout
     implementation 'com.github.Andy671:Dachshund-Tab-Layout:v0.3.3'
 
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
     //spinner material
     implementation('com.github.ganfra:material-spinner:2.0.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
