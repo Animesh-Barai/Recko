@@ -19,6 +19,10 @@
         <meta-data
             android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_cqaJDphyOlEaqG"
+            />
         <activity
             android:name="com.example.neelanshsethi.recko.MainActivity"
             android:windowSoftInputMode="stateVisible" />
@@ -69,6 +73,7 @@
             android:exported="true" />
         <activity android:name="com.example.neelanshsethi.recko.ViewBrochure">
         </activity>
+        <activity android:name="com.example.neelanshsethi.recko.PaymentActivity" />
     </application>
 
 </manifest>
