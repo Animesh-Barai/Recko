@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.Company_InCategoryAndCompanyModel;
 import com.example.neelanshsethi.recko.ProductsInCompany;
 import com.example.neelanshsethi.recko.R;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -52,9 +55,14 @@ public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Co
 
         if (!companylist.isEmpty()) {
             company_inCategoryAndCompanyModel = (Company_InCategoryAndCompanyModel) companylist.get(position);
-            Glide.with(mctx)
-                    .load(company_inCategoryAndCompanyModel.getImage_url())
-                    .into(holder.imageView);
+            if (Constants.isValidURL(company_inCategoryAndCompanyModel.getImage_url())) {
+                Glide.with(mctx)
+                        .load(company_inCategoryAndCompanyModel.getImage_url())
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageResource(R.drawable.industry1);
+            }
+
             holder.textView.setText(company_inCategoryAndCompanyModel.getCompany_name());
         }
 
