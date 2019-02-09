@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.recko.CategoryAndCompany;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.IndustryCardModel;
 import com.example.neelanshsethi.recko.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -55,9 +58,14 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
 
         if (!cardindustrylist.isEmpty()) {
             industryCardModel = (IndustryCardModel) cardindustrylist.get(position);
-            Glide.with(mctx)
-                    .load(industryCardModel.getImage_url())
-                    .into(holder.imageView);
+            if (Constants.isValidURL(industryCardModel.getImage_url())) {
+                Glide.with(mctx)
+                        .load(industryCardModel.getImage_url())
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageResource(R.drawable.industry1);
+            }
+
             holder.textView.setText(industryCardModel.getName());
         }
 

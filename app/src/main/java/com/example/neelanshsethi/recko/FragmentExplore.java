@@ -29,6 +29,7 @@ import com.example.neelanshsethi.recko.Misc.RecyclerViewCustom;
 import com.example.neelanshsethi.recko.Model.CarouselModel;
 import com.example.neelanshsethi.recko.Model.CategoryListModel;
 import com.example.neelanshsethi.recko.Model.Company_InCategoryAndCompanyModel;
+import com.example.neelanshsethi.recko.Model.IndustryCardModel;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -85,6 +86,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private IndustrySmallCardAdapter industrySmallCardAdapter2;
     private Company_InCategoryAndCompanyAdapter companyInCategoryAndCompanyAdapter;
     private List companylist;
+    private List cardindustrylist;
     private Products_InCategoryAdapter products_inCategoryAdapter;
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
@@ -152,6 +154,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         small_card_list2 = new ArrayList();
         productslist = new ArrayList();
         companylist = new ArrayList();
+        cardindustrylist = new ArrayList();
 
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
         carousel=v.findViewById(R.id.carousel);
@@ -223,12 +226,13 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
 
         rv_small_industry2.setHasFixedSize(true);
         rv_small_industry2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
-//        industrySmallCardAdapter2=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
-//        rv_small_industry2.setAdapter(industrySmallCardAdapter2);
+        industrySmallCardAdapter2=new IndustrySmallCardAdapter(getActivity(),cardindustrylist,getActivity());
+        rv_small_industry2.setAdapter(industrySmallCardAdapter2);
 //        industrySmallCardAdapter2.notifyDataSetChanged();
 
         get_rv_categorylist();
         get_carousel_images();
+        get_smallcard_industry();
         layout.requestFocus();
         return v;
     }
@@ -492,6 +496,60 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         }
         rv_companyexp1.setMaxHeight(Constants.max_company_height_in_explore);
         companyInCategoryAndCompanyAdapter.notifyDataSetChanged();
+    }
+
+    private void get_smallcard_industry() {
+
+        final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("seller_uuid",mUser.getUid());
+            Log.d("zzz json", json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/list_industries", json,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("zzz", APIURL.url + "user/list_industries" + "\nonResponse: " + response);
+
+                        try {
+                            JSONArray array1 = response.getJSONArray("data");
+                            Log.d("zzzarray", array1.toString());
+                            for (int i = 0; i < array1.length(); i++) {
+                                try {
+                                    JSONObject object = array1.getJSONObject(i);
+                                    String image_url = object.getString("image_url");
+                                    String industry_uuid = object.getString("industry_uuid");
+                                    String name = object.getString("name");
+
+                                    Log.d("zzzarray", object.toString());
+
+                                    IndustryCardModel industryCardModel=new IndustryCardModel(image_url,name,industry_uuid);
+                                    industryCardModel.setShould_use_large_image(true);
+                                    cardindustrylist.add(industryCardModel);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            industrySmallCardAdapter2.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
