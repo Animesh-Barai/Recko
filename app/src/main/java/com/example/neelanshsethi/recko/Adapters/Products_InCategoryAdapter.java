@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.example.neelanshsethi.recko.ProductDetails;
 import com.example.neelanshsethi.recko.R;
@@ -17,6 +18,9 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import android.util.Log;
+
+import org.apache.commons.lang3.StringUtils;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -37,6 +41,7 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
         this.mctx = mctx;
         this.productlist=productlist;
         this.mActivity=mActivity;
+        Log.d("zzzkkk ", productlist.size()>0?"non-empty":"empty");
     }
 
     @NonNull
@@ -51,8 +56,18 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
     @Override
     public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
+        Log.d("zzzk ", productlist.size()>0?"non-empty":"empty");
+
         if (!productlist.isEmpty()) {
             productModel = (ProductModel) productlist.get(position);
+            holder.imageView.setImageResource(R.drawable.sample2);
+            /*if (!StringUtils.isEmpty(productModel.getImage_url())) {
+                Glide.with(mctx)
+                        .load(productModel.getImage_url())
+                        .into(holder.imageView);
+            } else {
+                holder.imageView.setImageResource(R.drawable.sample2);
+            }*/
 //            Glide.with(mctx)
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);
@@ -62,7 +77,7 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.d("zzzkk ", productlist.size()>0?"non-empty":"empty");
                 ProductModel temp = (ProductModel) productlist.get(position);
                 Intent intent= new Intent(mctx,ProductDetails.class);
                 intent.putExtra("product_model",temp);
