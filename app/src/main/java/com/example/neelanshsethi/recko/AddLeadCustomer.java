@@ -29,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.example.neelanshsethi.recko.Model.ManageLeadsModel;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,6 +65,7 @@ public class AddLeadCustomer extends Activity {
     private String contact_email;
     private String contact_number;
     private String product_uuid;
+    private String contact_name;
     List<Pair<String,String>> productslist = new ArrayList<Pair<String, String>>();
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -210,7 +212,7 @@ public class AddLeadCustomer extends Activity {
         bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
         bundle.putString("deadline_time",iso8061.format(date));
         bundle.putString("industry_uuid","");
-        bundle.putString("contact_name",client_details.getText().toString().trim());
+        bundle.putString("contact_name",contact_name);
         bundle.putString("contact_no",contact_number);
         bundle.putString("email",contact_email);
         bundle.putString("comment",notes.getText().toString().trim());
@@ -229,7 +231,7 @@ public class AddLeadCustomer extends Activity {
             json.put("seller_uuid", mUser != null ? mUser.getUid() : null);
             json.put("deadline_time",iso8061.format(date));
             json.put("industry_uuid","");
-            json.put("contact_name",client_details.getText().toString().trim());
+            json.put("contact_name",contact_name);
             json.put("contact_no",contact_number);
             json.put("email",contact_email);
             json.put("comment",notes.getText().toString().trim());
@@ -249,6 +251,8 @@ public class AddLeadCustomer extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        final JSONObject json_req = json;
+        final String product_name = materialSpinner.getSelectedItem().toString();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"lead/insert", json,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -259,11 +263,24 @@ public class AddLeadCustomer extends Activity {
                         try {
                             String code = response.getString("code");
                             String msg = response.getString("msg");
+                            Log.d("zzz added ", "in 2");
                             if (code.equals("200") && msg.equals("Done")) {
+                                Log.d("zzz added ", "in 2");
                                 Toast.makeText(getApplicationContext(), "Details Saved", Toast.LENGTH_SHORT).show();
+                                Log.d("zzz added ", "in 2");
+                                ManageLeadsModel lead_added = new ManageLeadsModel(json_req);
+                                Log.d("zzz added ", "in 2");
+                                lead_added.setLead_uuid(response.getString("lead_uuid"));
+                                Log.d("zzz added ", response.getString("lead_uuid"));
+                                Log.d("zzz added ", "in 5");
+                                lead_added.setProduct_name(product_name);
+                                Log.d("zzz added ", "in 6");
                                 Intent intent=new Intent();
                                 intent.putExtra("MESSAGE","hey");
+                                intent.putExtra("added_lead", lead_added);
+                                Log.d("zzz added ", "in 2");
                                 setResult(RESULT_OK,intent);
+                                Log.d("zzz added ", "in 2");
                                 finish();
                             }
                         } catch (JSONException e) {
@@ -341,6 +358,7 @@ public class AddLeadCustomer extends Activity {
                     emailCur.close();
 
                     //Do something with number
+                    contact_name = name;
                     client_details.setText(String.format("%s %s %s", name, number, email));
                     client_details.setFocusableInTouchMode(false);
                     client_details.clearFocus();

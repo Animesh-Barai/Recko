@@ -99,6 +99,7 @@ public class NavigationDashboard extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d("zzz navigation activity", "got activity result");
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

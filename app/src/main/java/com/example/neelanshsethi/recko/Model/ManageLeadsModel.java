@@ -1,6 +1,11 @@
 package com.example.neelanshsethi.recko.Model;
 
-public class ManageLeadsModel {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+public class ManageLeadsModel implements Serializable {
 
     public String getComment() {
         return comment;
@@ -107,7 +112,36 @@ public class ManageLeadsModel {
     }
 
 
-
+    public ManageLeadsModel(JSONObject data) throws JSONException {
+        /*      "creation_time": "2019-02-10T09:20:35.412231",
+                "seller": "3493",
+                "comment": null,
+                "lead_uuid": "lead-805090150a4c46cfa8fa45cdea24534c",
+                "product": null,
+                "deadline_time": "2019-02-08T00:00:00",
+                "contact_name": "Khagesh",
+                "amount_communicated": null,
+                "product_uuid": null,
+                "contact_no": null,
+                "hidden": false,
+                "email": null
+        */
+        this.comment = !data.has("comment")?"null":data.getString("comment");
+        this.lead_uuid = !data.has("lead_uuid")?"null":data.getString("lead_uuid");
+        this.contact_no = !data.has("contact_no")?"null":data.getString("contact_no");
+        this.contact_name = !data.has("contact_name")?"null":data.getString("contact_name");
+        this.deadline_time = !data.has("deadline_time")?"null":data.getString("deadline_time");
+        this.creation_time = !data.has("creation_time")?"null":data.getString("creation_time");;
+        this.seller = !data.has("seller")?"null":data.getString("seller");
+        this.email = !data.has("email")?"null":data.getString("email");
+        this.product_uuid = !data.has("product_uuid")?"null":data.getString("product_uuid");
+        try {
+            JSONObject product = data.getJSONObject("product");
+            this.product_name = product.getString("title");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
