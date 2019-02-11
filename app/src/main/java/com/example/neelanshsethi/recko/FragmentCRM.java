@@ -125,7 +125,7 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
 
 //        rv_missed_followups.setHasFixedSize(true);
         rv_missed_followups.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        manageMissedLeadsAdapter=new ManageMissedLeadsAdapter(getActivity(),miised_follow_ups_list,thisActivity);
+        manageMissedLeadsAdapter=new ManageMissedLeadsAdapter(getActivity(),miised_follow_ups_list,thisActivity, this);
         rv_missed_followups.setAdapter(manageMissedLeadsAdapter);
 
 //        rv_active_leads.setHasFixedSize(true);
@@ -167,6 +167,8 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.edit_active_lead_request_id) {
             activeLeadsAdapter.onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == Constants.edit_missed_lead_request_id) {
+            manageMissedLeadsAdapter.onActivityResult(requestCode, resultCode, data);
         }
 
         if(resultCode==Activity.RESULT_OK)

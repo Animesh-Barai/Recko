@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sello</string>
+    <string name="app_name">Recko</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
     <!-- TODO: Remove or change this placeholder text -->
