@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +80,34 @@ public class ActiveLeadsAdapter extends RecyclerView.Adapter<ActiveLeadsAdapter.
                         fragment.startActivityForResult(intent, Constants.edit_active_lead_request_id);
                     else
                         ((Activity)mctx).startActivityForResult(intent, Constants.edit_active_lead_request_id);
+                }
+            });
+
+            holder.call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String uri = "tel:" + manageLeadsModel.getContact_no();
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse(uri));
+                    mctx.startActivity(intent);
+                }
+            });
+
+            holder.whatsapp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String contact = manageLeadsModel.getContact_no();
+                    String url = "https://api.whatsapp.com/send?phone=" + contact;
+                    try {
+                        PackageManager pm = mctx.getPackageManager();
+                        pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        mctx.startActivity(i);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        Toast.makeText(mctx, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
                 }
             });
         }
