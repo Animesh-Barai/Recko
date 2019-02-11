@@ -87,6 +87,14 @@ public class ManageLeadsModel implements Serializable {
         this.product_name = product_name;
     }
 
+    public String getAmount_communicated() {
+        return amount_communicated;
+    }
+
+    public void setAmount_communicated(String amount_communicated) {
+        this.amount_communicated = amount_communicated;
+    }
+
     String comment;
     String lead_uuid;
     String contact_no;
@@ -97,6 +105,7 @@ public class ManageLeadsModel implements Serializable {
     String email;
     String product_uuid;
     String product_name;
+    String amount_communicated;
 
     public ManageLeadsModel(String comment, String lead_uuid, String contact_no, String contact_name, String deadline_time, String creation_time, String seller, String email, String product_uuid, String product_name) {
         this.comment = comment;
@@ -135,6 +144,7 @@ public class ManageLeadsModel implements Serializable {
         this.seller = !data.has("seller")?"null":data.getString("seller");
         this.email = !data.has("email")?"null":data.getString("email");
         this.product_uuid = !data.has("product_uuid")?"null":data.getString("product_uuid");
+        this.amount_communicated = !data.has("amount_communicated")?"null":data.getString("amount_communicated");
         try {
             JSONObject product = data.getJSONObject("product");
             this.product_name = product.getString("title");

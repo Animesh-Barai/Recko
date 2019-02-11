@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ManageLeadsModel;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,10 +70,12 @@ public class AddLeadCustomer extends Activity {
     private String contact_name;
     List<Pair<String,String>> productslist = new ArrayList<Pair<String, String>>();
     private FirebaseAnalytics mFirebaseAnalytics;
+    ManageLeadsModel edit_lead_model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        edit_lead_model = (ManageLeadsModel) getIntent().getSerializableExtra("edit_lead_model");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setContentView(R.layout.activity_add_lead_customer);
         save = findViewById(R.id.crm_save);
@@ -94,12 +98,11 @@ public class AddLeadCustomer extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(client_details.getText().toString().trim().equals("")) {
                     Toast.makeText(getApplicationContext(), "Select Client Details", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if(materialSpinner.getSelectedItem()==null) {
+                else if(getSelectedProduct()==null) {
                     Toast.makeText(getApplicationContext(), "Select Product Details", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -119,6 +122,7 @@ public class AddLeadCustomer extends Activity {
 
 
         toolbar=findViewById(R.id.toolbar);
+        if (is_editing()) toolbar.setTitle(Constants.edit_lead_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,6 +203,8 @@ public class AddLeadCustomer extends Activity {
             public void afterTextChanged(Editable editable) {
             }
         });
+
+        fill_existing_data();
     }
 
     private void save_details() {
@@ -219,7 +225,7 @@ public class AddLeadCustomer extends Activity {
         bundle.putString("amount_communicated",price.getText().toString().trim());
         for(Pair <String,String> temp : productslist)
         {
-            if(temp.first.equals(materialSpinner.getSelectedItem().toString())) {
+            if(temp.first.equals(getSelectedProduct().toString())) {
                 product_uuid = temp.second;
                 break;
             }
@@ -236,9 +242,10 @@ public class AddLeadCustomer extends Activity {
             json.put("email",contact_email);
             json.put("comment",notes.getText().toString().trim());
             json.put("amount_communicated",price.getText().toString().trim());
+            if (is_editing()) json.put("lead_uuid", edit_lead_model.getLead_uuid());
             for(Pair <String,String> temp : productslist)
             {
-                if(temp.first.equals(materialSpinner.getSelectedItem().toString())) {
+                if(temp.first.equals(getSelectedProduct().toString())) {
                     product_uuid = temp.second;
                     Log.d("zzz prodid",product_uuid);
                     break;
@@ -252,7 +259,7 @@ public class AddLeadCustomer extends Activity {
             e.printStackTrace();
         }
         final JSONObject json_req = json;
-        final String product_name = materialSpinner.getSelectedItem().toString();
+        final String product_name = getSelectedProduct().toString();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"lead/insert", json,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -282,6 +289,8 @@ public class AddLeadCustomer extends Activity {
                                 setResult(RESULT_OK,intent);
                                 Log.d("zzz added ", "in 2");
                                 finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -363,7 +372,7 @@ public class AddLeadCustomer extends Activity {
                     client_details.setFocusableInTouchMode(false);
                     client_details.clearFocus();
                     //materialSpinner.requestFocus(View.FOCUS_DOWN);
-                    materialSpinner.performClick();
+                    if (getSelectedProduct() == null) materialSpinner.performClick();
                     cursor.close();
                 }
                 }
@@ -389,7 +398,6 @@ public class AddLeadCustomer extends Activity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, temp);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         materialSpinner.setAdapter(adapter);
     }
 
@@ -452,6 +460,7 @@ public class AddLeadCustomer extends Activity {
                                 }
                             }
                             get_spinner_data(productslist);
+                            fill_existing_data_after_product_fetch();
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
@@ -468,6 +477,48 @@ public class AddLeadCustomer extends Activity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private boolean is_editing() {return edit_lead_model != null;}
+
+    private void fill_existing_data() {
+        if (!is_editing()) return;
+        client_details.setText(edit_lead_model.getContact_name());
+        price.setText(edit_lead_model.getAmount_communicated());
+        notes.setText(edit_lead_model.getComment());
+        contact_name = edit_lead_model.getContact_name();
+        contact_number = edit_lead_model.getContact_no();
+        contact_email = edit_lead_model.getEmail();
+
+        String followupDate = edit_lead_model.getDeadline_time().split("T")[0];
+        Log.d("zzz fill edit lead", followupDate);
+        try {
+            date = iso8061.parse(followupDate);
+            followup_date.setText(simpleDateFormat2.format(date));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object getSelectedProduct() {
+        if (materialSpinner.getSelectedItem()!=null) return materialSpinner.getSelectedItem();
+        if (is_editing()) return edit_lead_model.getProduct_name();
+        return null;
+    }
+
+    private void fill_existing_data_after_product_fetch() {
+        if (!is_editing()) return;
+        int i =0;
+        for(Pair <String,String> temp : productslist)
+        {
+
+            if(temp.second.equals(edit_lead_model.getProduct_uuid())) {
+
+                materialSpinner.setHint(temp.first);
+                break;
+            }
+            i++;
+        }
     }
 
 }

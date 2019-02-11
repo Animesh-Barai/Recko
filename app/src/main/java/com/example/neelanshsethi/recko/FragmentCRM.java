@@ -130,7 +130,7 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
 
 //        rv_active_leads.setHasFixedSize(true);
         rv_active_leads.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        activeLeadsAdapter=new ActiveLeadsAdapter(getActivity(),active_leads_list,thisActivity);
+        activeLeadsAdapter=new ActiveLeadsAdapter(getActivity(),active_leads_list,thisActivity,this);
         rv_active_leads.setAdapter(activeLeadsAdapter);
 
         get_followups();
@@ -165,16 +165,21 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d("zzz activity result", "get called");
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.edit_active_lead_request_id) {
+            activeLeadsAdapter.onActivityResult(requestCode, resultCode, data);
+        }
+
         if(resultCode==Activity.RESULT_OK)
         {
-            cv.setVisibility(View.GONE);
-            ManageLeadsModel lead = (ManageLeadsModel) data.getSerializableExtra("added_lead");
-            active_leads_list.add(lead);
-            activeLeadsAdapter.notifyDataSetChanged();
-            //get_followups();
-            Log.d("zzz activity result","Zzzzzzzzzzzzz in fragment");
-            //Toast.makeText(getContext(),"Zzzzzzzzzzzzzzzz",Toast.LENGTH_SHORT).show();
-
+            if (requestCode == Constants.add_lead_request_id) {
+                cv.setVisibility(View.GONE);
+                ManageLeadsModel lead = (ManageLeadsModel) data.getSerializableExtra("added_lead");
+                active_leads_list.add(lead);
+                activeLeadsAdapter.notifyDataSetChanged();
+                //get_followups();
+                Log.d("zzz activity result", "Zzzzzzzzzzzzz in fragment");
+                //Toast.makeText(getContext(),"Zzzzzzzzzzzzzzzz",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
