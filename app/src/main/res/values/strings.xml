@@ -81,4 +81,7 @@
     <string name="facebook_app_id">247050259518411</string>
     <string name="fb_login_protocol_scheme">fb247050259518411</string>
 
+    <string name="refer_msg_top"> Help your friends and family earn money
+        by recommending good product to those in need</string>
+
 </resources>

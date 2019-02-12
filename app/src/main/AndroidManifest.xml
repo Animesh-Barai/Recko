@@ -71,9 +71,14 @@
         <activity
             android:name="com.example.neelanshsethi.recko.ProductDetails"
             android:exported="true" />
-        <activity android:name="com.example.neelanshsethi.recko.ViewBrochure">
-        </activity>
+        <activity android:name="com.example.neelanshsethi.recko.ViewBrochure"/>
         <activity android:name="com.example.neelanshsethi.recko.PaymentActivity" />
+        <activity android:name="com.example.neelanshsethi.recko.ReferActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.Refer" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

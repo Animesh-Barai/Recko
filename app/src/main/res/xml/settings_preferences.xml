@@ -40,8 +40,8 @@
             android:icon="@drawable/ic_people">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+                android:action="android.intent.action.Refer"
+                android:targetClass="com.example.neelanshsethi.recko.ReferActivity"
                 android:targetPackage="com.example.neelanshsethi.sello" />
 
         </Preference>

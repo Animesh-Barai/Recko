@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReferActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="4dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:theme="@style/CustomToolbar"
+                app:navigationIcon="@drawable/back"
+                app:title="Refer a friend"
+                app:titleTextAppearance="@style/BrandonTextAppearance"
+                app:titleTextColor="@color/heading_dark"></androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/text_refer_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/brandontext_medium"
+            android:text="@string/refer_msg_top"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/crm_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/crm_save"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="70dp"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/text_refer_msg"
+            app:layout_constraintTop_toBottomOf="@+id/text_refer_msg">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/crm_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/contact_picker"
+                android:fontFamily="@font/brandontext_regular"
+                android:hint="@string/select_client_details"
+                android:inputType="none"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/heading_dark"
+                android:textColorHint="@color/heading_lighter"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/crm_save"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/round_button"
+            android:fontFamily="@font/brandontext_bold"
+            android:stateListAnimator="@animator/button_animator"
+            android:text="@string/save"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/crm_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>
