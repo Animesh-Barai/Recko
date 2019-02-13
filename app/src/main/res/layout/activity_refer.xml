@@ -85,7 +85,7 @@
             android:background="@drawable/round_button"
             android:fontFamily="@font/brandontext_bold"
             android:stateListAnimator="@animator/button_animator"
-            android:text="@string/save"
+            android:text="Refer"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="#fff"
