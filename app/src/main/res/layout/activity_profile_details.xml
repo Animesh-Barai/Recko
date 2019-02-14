@@ -20,25 +20,25 @@
             app:layout_constraintTop_toTopOf="@+id/acc_detail" />
 
         <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="4dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:theme="@style/CustomToolbar"
-            app:navigationIcon="@drawable/back"
-            app:title="Accounts"
-            app:titleTextAppearance="@style/BrandonTextAppearance"
-            app:titleTextColor="@color/heading_dark"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="4dp">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:theme="@style/CustomToolbar"
+                app:navigationIcon="@drawable/back"
+                app:title="Profile"
+                app:titleTextAppearance="@style/BrandonTextAppearance"
+                app:titleTextColor="@color/heading_dark"></androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
             android:id="@+id/acc_detail"
@@ -47,7 +47,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/brandontext_medium"
-            android:text="Account Details"
+            android:text="User Details"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appbar" />
@@ -58,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/brandontext_regular"
-            android:text="Payee Name"
+            android:text="Name"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/acc_detail"
             app:layout_constraintTop_toBottomOf="@+id/acc_detail" />
 
@@ -66,9 +67,10 @@
             android:id="@+id/seller_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_regular"
-            android:text="A/C Number"
+            android:text="Khagesh Patel"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -78,7 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/brandontext_regular"
-            android:text="Bank"
+            android:text="Mobile Number"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/seller_name"
             app:layout_constraintTop_toBottomOf="@+id/seller_name" />
 
@@ -86,52 +89,34 @@
             android:id="@+id/seller_mobile_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_regular"
-            android:text="IFSC"
+            android:text="9005799934"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:fontFamily="@font/brandontext_medium"
-            android:text="Khagesh Patel"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/brandontext_regular"
+            android:text="Location"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toTopOf="@+id/textView14" />
+            app:layout_constraintStart_toStartOf="@+id/seller_mobile_no"
+            app:layout_constraintTop_toBottomOf="@+id/seller_mobile_no" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/seller_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/brandontext_medium"
-            android:text="20098223672"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/textView18"
-            app:layout_constraintTop_toTopOf="@+id/seller_name" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/brandontext_medium"
-            android:text="SBI"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/textView19"
-            app:layout_constraintTop_toTopOf="@+id/textView16" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/brandontext_medium"
-            android:text="IFSC000001"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/textView20"
-            app:layout_constraintTop_toTopOf="@+id/seller_mobile_no" />
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/brandontext_regular"
+            android:text="Bellandur, Banglore"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <View
             android:id="@+id/SplitLine_hor1"
@@ -143,7 +128,7 @@
             android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+            app:layout_constraintTop_toBottomOf="@+id/seller_location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
