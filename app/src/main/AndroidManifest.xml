@@ -91,6 +91,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.example.neelanshsethi.recko.ProfileInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.ProfileInfo"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -18,8 +18,8 @@
             android:icon="@drawable/profile_circle">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+                android:action="android.intent.action.recko.ProfileInfo"
+                android:targetClass="com.example.neelanshsethi.recko.ProfileInfoActivity"
                 android:targetPackage="com.example.neelanshsethi.sello" />
 
         </Preference>
