@@ -79,6 +79,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.neelanshsethi.recko.AccountActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.Account"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.neelanshsethi.recko.TermsWebViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.Terms"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

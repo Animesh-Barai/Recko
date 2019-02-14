@@ -201,13 +201,16 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onSuccess(Location l) {
                 if (l != null)
-
                     Log.d("zzz coordinates","Latitude = " + l.getLatitude() + " Longitude = " + l.getLongitude());
                 try {
-                    coordinatesToAddress(l.getLatitude(),l.getLongitude());
+                    if (l!=null)
+                        coordinatesToAddress(l.getLatitude(),l.getLongitude());
+                    else
+                        Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                location.setOnFocusChangeListener(null);
             }
         });
     }

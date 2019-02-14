@@ -29,8 +29,8 @@
             android:icon="@drawable/ic_account_balance">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+                android:action="android.intent.action.recko.Account"
+                android:targetClass="com.example.neelanshsethi.recko.AccountActivity"
                 android:targetPackage="com.example.neelanshsethi.sello" />
 
         </Preference>
@@ -51,8 +51,8 @@
             android:icon="@drawable/ic_terms_and_conditions">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
+                android:action="android.intent.action.recko.Terms"
+                android:targetClass="com.example.neelanshsethi.recko.TermsWebViewActivity"
                 android:targetPackage="com.example.neelanshsethi.sello" />
 
         </Preference>
