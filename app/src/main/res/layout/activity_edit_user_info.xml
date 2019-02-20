@@ -19,17 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/icon_edit"
-            android:tint="@color/heading_lighter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/acc_detail" />
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
@@ -116,13 +105,12 @@
             app:layout_constraintStart_toStartOf="@+id/seller_mobile_no"
             app:layout_constraintTop_toBottomOf="@+id/seller_mobile_no" />
 
-        <TextView
+        <EditText
             android:id="@+id/seller_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
-            android:inputType="textMultiLine|textNoSuggestions"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -138,26 +126,35 @@
             app:layout_constraintStart_toStartOf="@+id/seller_email"
             app:layout_constraintTop_toBottomOf="@+id/seller_email" />
 
-        <View
-            android:id="@+id/SplitLine_hor1"
-            android:layout_width="300dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seller_location" />
-
-        <TextView
+        <EditText
             android:id="@+id/seller_location"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
+            android:inputType="textMultiLine|textNoSuggestions"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/testView12"
             app:layout_constraintTop_toBottomOf="@+id/testView12" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_button"
+            android:fontFamily="@font/brandontext_bold"
+            android:stateListAnimator="@animator/button_animator"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seller_location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
