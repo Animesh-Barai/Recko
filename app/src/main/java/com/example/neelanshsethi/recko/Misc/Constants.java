@@ -15,6 +15,7 @@ public class Constants {
     public static final int edit_active_lead_request_id = 100;
     public static final int edit_missed_lead_request_id = 101;
     public static final int edit_user_info_request_id = 102;
+    public static final int edit_account_info_request_id = 103;
 
     public static boolean isValidURL(String url) {
         return !StringUtils.isEmpty(url) && !url.equals("null");

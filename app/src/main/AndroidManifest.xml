@@ -98,6 +98,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.neelanshsethi.recko.EditUserInfoActivity"/>
+        <activity android:name="com.example.neelanshsethi.recko.AccountEditActivity"/>
     </application>
 
 </manifest>

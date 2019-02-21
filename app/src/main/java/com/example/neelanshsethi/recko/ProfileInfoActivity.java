@@ -88,7 +88,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
     }
 
     private void fetch_details() {
-
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         JSONObject json = new JSONObject();

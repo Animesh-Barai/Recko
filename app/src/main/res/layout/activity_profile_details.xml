@@ -75,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/acc_detail" />
 
         <TextView
-            android:id="@+id/seller_name"
+            android:id="@+id/payee_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -92,11 +92,11 @@
             android:fontFamily="@font/brandontext_regular"
             android:text="Mobile Number"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/seller_name"
-            app:layout_constraintTop_toBottomOf="@+id/seller_name" />
+            app:layout_constraintStart_toStartOf="@+id/payee_name"
+            app:layout_constraintTop_toBottomOf="@+id/payee_name" />
 
         <TextView
-            android:id="@+id/seller_mobile_no"
+            android:id="@+id/account_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -113,11 +113,11 @@
             android:fontFamily="@font/brandontext_regular"
             android:text="Email"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/seller_mobile_no"
-            app:layout_constraintTop_toBottomOf="@+id/seller_mobile_no" />
+            app:layout_constraintStart_toStartOf="@+id/account_no"
+            app:layout_constraintTop_toBottomOf="@+id/account_no" />
 
         <TextView
-            android:id="@+id/seller_email"
+            android:id="@+id/bank_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -135,8 +135,8 @@
             android:fontFamily="@font/brandontext_regular"
             android:text="Location"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/seller_email"
-            app:layout_constraintTop_toBottomOf="@+id/seller_email" />
+            app:layout_constraintStart_toStartOf="@+id/bank_name"
+            app:layout_constraintTop_toBottomOf="@+id/bank_name" />
 
         <View
             android:id="@+id/SplitLine_hor1"
@@ -147,10 +147,10 @@
             android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seller_location" />
+            app:layout_constraintTop_toBottomOf="@+id/ifsc_code" />
 
         <TextView
-            android:id="@+id/seller_location"
+            android:id="@+id/ifsc_code"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
