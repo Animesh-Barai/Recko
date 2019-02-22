@@ -20,7 +20,7 @@
             <intent
                 android:action="android.intent.action.recko.ProfileInfo"
                 android:targetClass="com.example.neelanshsethi.recko.ProfileInfoActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:targetPackage="com.example.neelanshsethi.recko" />
 
         </Preference>
 
@@ -31,7 +31,7 @@
             <intent
                 android:action="android.intent.action.recko.Account"
                 android:targetClass="com.example.neelanshsethi.recko.AccountActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:targetPackage="com.example.neelanshsethi.recko" />
 
         </Preference>
 
@@ -42,7 +42,7 @@
             <intent
                 android:action="android.intent.action.Refer"
                 android:targetClass="com.example.neelanshsethi.recko.ReferActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:targetPackage="com.example.neelanshsethi.recko" />
 
         </Preference>
 
@@ -53,8 +53,18 @@
             <intent
                 android:action="android.intent.action.recko.Terms"
                 android:targetClass="com.example.neelanshsethi.recko.TermsWebViewActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:targetPackage="com.example.neelanshsethi.recko" />
 
+        </Preference>
+
+        <Preference
+            android:title="Logout"
+            android:icon="@drawable/ic_logout">
+
+            <intent
+                android:action="android.intent.action.recko.Logout"
+                android:targetClass="com.example.neelanshsethi.recko.LogoutActivity"
+                android:targetPackage="com.example.neelanshsethi.recko" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

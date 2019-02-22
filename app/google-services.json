@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "214859008451",
-    "firebase_url": "https://sello-54d1f.firebaseio.com",
-    "project_id": "sello-54d1f",
-    "storage_bucket": "sello-54d1f.appspot.com"
+    "project_number": "767365669680",
+    "firebase_url": "https://recko-d1713.firebaseio.com",
+    "project_id": "recko-d1713",
+    "storage_bucket": "recko-d1713.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:214859008451:android:dd6d070e5b284987",
+        "mobilesdk_app_id": "1:767365669680:android:c647846cd01a2bd2",
         "android_client_info": {
-          "package_name": "com.example.neelanshsethi.sello"
+          "package_name": "com.example.neelanshsethi.recko"
         }
       },
       "oauth_client": [
         {
-          "client_id": "214859008451-7r3qfg8ovp2jfj0jg7gu5inp3gvf2ko6.apps.googleusercontent.com",
+          "client_id": "767365669680-610rj67838put8rrmesd9qd2eo8n5pjn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.neelanshsethi.sello",
-            "certificate_hash": "e1de421953d378b8d980c09fe206eb93d4487171"
+            "package_name": "com.example.neelanshsethi.recko",
+            "certificate_hash": "03aa677b4a1e23ef7fb60e266fc1ab011b88a187"
           }
         },
         {
-          "client_id": "214859008451-k0do7tgegfcau71llidsnt18865d8vt5.apps.googleusercontent.com",
+          "client_id": "767365669680-7uk05o0u0cmqjovnone0d5vkfj3vqk7i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDnZIk23mdXxoHv4WTbx1D0jmdd7RndL0Y"
+          "current_key": "AIzaSyD5E6dvN01HTt9DBtnaG_wbrggfxTBw6VA"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "214859008451-k0do7tgegfcau71llidsnt18865d8vt5.apps.googleusercontent.com",
+              "client_id": "767365669680-7uk05o0u0cmqjovnone0d5vkfj3vqk7i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

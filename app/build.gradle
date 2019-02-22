@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.neelanshsethi.sello"
+        applicationId "com.example.neelanshsethi.recko"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -84,6 +84,7 @@ dependencies {
     // loading animation
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
     implementation 'com.elyeproj.libraries:loaderviewlibrary:1.5.0'
+    //implementation 'com.google.firebase:firebase-auth:16.0.1:15.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
