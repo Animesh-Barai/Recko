@@ -101,7 +101,10 @@ public class ProductDetails extends AppCompatActivity {
         brochure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")));
+                Intent intent = new Intent(ProductDetails.this, TermsWebViewActivity.class);
+                //intent.putExtra("url", "http://soluciones.toshiba.com/media/downloads/products/4555c-5055cBrochure.pdf");
+                intent.putExtra("url", "http://www.africau.edu/images/default/sample.pdf");
+                startActivity(intent);
             }
         });
 

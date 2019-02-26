@@ -1,5 +1,6 @@
 package com.example.neelanshsethi.recko;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -33,6 +34,19 @@ public class TermsWebViewActivity extends AppCompatActivity {
                 //findViewById(R.id.webView1).setVisibility(View.VISIBLE);
             }
         });
-        webView.loadUrl("https://www.paypal.com/in/webapps/mpp/ua/useragreement-full");
+        Intent intent = getIntent();
+
+        webView.getSettings().setBuiltInZoomControls(true);
+        if (intent.hasExtra("url")) {
+            String url = intent.getStringExtra("url");
+            if (url.endsWith(".pdf"))
+                    url = "http://docs.google.com/gview?embedded=true&url=" + url;
+            webView.getSettings().setJavaScriptEnabled(true);
+            //webView.getSettings().setLoadWithOverviewMode(true);
+            //webView.getSettings().setUseWideViewPort(true);
+            webView.loadUrl(url);
+        } else {
+            webView.loadUrl("https://www.paypal.com/in/webapps/mpp/ua/useragreement-full");
+        }
     }
 }
