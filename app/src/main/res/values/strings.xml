@@ -7,9 +7,18 @@
     <string name="actual_market_price">Actual Market Price</string>
     <string name="our_offer_price">Our Offer Price</string>
     <string name="u20b915000">₹15000</string>
-    <string name="u20b913000">₹13000</string>
-    <string name="enter_price_pitched_to_the_user">Enter price pitched to the user</string>
+    <string name="u20b913000">₹1300</string>
+    <string name="enter_price_pitched_to_the_user">Enter discount you want to offer</string>
     <string name="u20b9100">₹100</string>
+
+    <string name="dis100">₹100</string>
+    <string name="dis200">₹200</string>
+    <string name="dis500">₹500</string>
+    <string name="dis1000">₹1000</string>
+    <string name="dis100_val">100</string>
+    <string name="dis200_val">200</string>
+    <string name="dis500_val">500</string>
+    <string name="dis1000_val">1000</string>
 
     <string name="select_client_details">Select Client Details</string>
     <string name="follow_up_date">Follow-up date</string>
@@ -34,6 +43,7 @@
     <string name="share_with_client">Share with client</string>
     <string name="your_customer_pays">Your Customer Pays:</string>
     <string name="earn_u20b91500_on_this_product">Earn ₹1500 on this Product</string>
+    <string name="earn_dash_on_this_product">Earn %1$s on this Product</string>
     <string name="name">Name</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="e_mail">E-mail</string>

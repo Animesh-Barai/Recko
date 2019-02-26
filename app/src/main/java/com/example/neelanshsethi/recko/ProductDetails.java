@@ -62,6 +62,8 @@ public class ProductDetails extends AppCompatActivity {
     Button earn_button;
     ImageView brochure_thumbnail;
 
+    int actual_price_val;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +140,35 @@ public class ProductDetails extends AppCompatActivity {
 
         actual_price.setText(productModel.getMrp());
         offer_price.setText(productModel.getPrice_on_x());
-
         final_price.setText(productModel.getPrice_on_x());
+
+        chip_discount1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offer_discount_price.setText(getString(R.string.dis100_val));
+            }
+        });
+
+        chip_discount2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offer_discount_price.setText(getString(R.string.dis200_val));
+            }
+        });
+
+        chip_discount3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offer_discount_price.setText(getString(R.string.dis500_val));
+            }
+        });
+
+        chip_discount4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offer_discount_price.setText(getString(R.string.dis1000_val));
+            }
+        });
 
         offer_discount_price.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,21 +178,20 @@ public class ProductDetails extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (!offer_discount_price.getText().toString().trim().equals("")) {
+                String discount_offered = offer_discount_price.getText().toString().trim();
+                if (!discount_offered.equals("")) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_dark, getTheme())));
                     }
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_lighter, getTheme())));
-
+                    if (!productModel.setDiscount(discount_offered)) {
+                        Toast.makeText(getApplicationContext(), "Please enter valid number", Toast.LENGTH_SHORT).show();
+                    }
+                } else  {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                        offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_lighter, getTheme())));
+                    productModel.setDiscount(0);
                 }
-//                if (offer_discount_price.getText().toString().trim().equals(""))
-//                    final_price.setText(productModel.getPrice_on_x());
-//                else {
-//                    if (Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()) > Integer.parseInt(productModel.getPrice_on_x()))
-//                        final_price.setText(Integer.parseInt(productModel.getPrice_on_x()) - Integer.parseInt(charSequence.toString()));
-//                }
+                final_price.setText(productModel.getUserPriceString());
             }
 
             @Override
@@ -171,6 +199,15 @@ public class ProductDetails extends AppCompatActivity {
             }
         });
 
+        String productTotalCommission  = productModel.getTotal_commission();
+        try {
+            float tmp_max_commission = Float.parseFloat(productTotalCommission.replaceAll("\\s+",""));
+            productTotalCommission = Integer.toString((int) Math.ceil(tmp_max_commission));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String earn_text = getString(R.string.earn_dash_on_this_product, productTotalCommission);
+        earn_button.setText(earn_text);
         earn_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

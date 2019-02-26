@@ -24,7 +24,7 @@ public class ProductModel implements Serializable{
     private String payment_type;
     private String product_uuid;
     private String mrp;
-
+    private float discount;
 
 
 
@@ -211,5 +211,28 @@ public class ProductModel implements Serializable{
         this.product_uuid = product_uuid;
     }
 
+    public float getPrice_on_x_float() {
+        float price_float = Float.parseFloat(getPrice_on_x());
+        return price_float;
+    }
 
+    public void setDiscount(float val) {discount = val;}
+
+    public boolean setDiscount(String val) {
+        try {
+            float tmp = Float.parseFloat(val);
+            discount = tmp;
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public float getUserPriceFloat() {
+        return  getPrice_on_x_float() - discount;
+    }
+
+    public String getUserPriceString() {
+        return Float.toString(getUserPriceFloat());
+    }
 }
