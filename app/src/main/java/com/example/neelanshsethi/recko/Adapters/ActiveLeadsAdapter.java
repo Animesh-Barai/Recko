@@ -25,6 +25,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,6 +87,8 @@ public class ActiveLeadsAdapter extends RecyclerView.Adapter<ActiveLeadsAdapter.
             holder.call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String contact_no  = manageLeadsModel.getContact_no();
+                    if (contact_no.length()>10) contact_no = contact_no.substring(contact_no.length()-10);
                     String uri = "tel:" + manageLeadsModel.getContact_no();
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse(uri));
@@ -108,6 +111,14 @@ public class ActiveLeadsAdapter extends RecyclerView.Adapter<ActiveLeadsAdapter.
                         Toast.makeText(mctx, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
+                }
+            });
+
+            holder.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                        Toast.makeText(mctx, "Open details", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -156,6 +167,7 @@ public class ActiveLeadsAdapter extends RecyclerView.Adapter<ActiveLeadsAdapter.
         TextView name,description;
         Chip call,whatsapp;
         ImageView edit;
+        CardView card;
 
         public LeadsViewHolder(View itemView) {
             super(itemView);
@@ -165,7 +177,7 @@ public class ActiveLeadsAdapter extends RecyclerView.Adapter<ActiveLeadsAdapter.
             call = itemView.findViewById(R.id.chip_call);
             whatsapp = itemView.findViewById(R.id.chip_whatsapp);
             edit = itemView.findViewById(R.id.edit);
-
+            card = itemView.findViewById(R.id.lead_card);
         }
     }
 }

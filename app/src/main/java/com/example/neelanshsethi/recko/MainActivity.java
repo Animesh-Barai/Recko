@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("user_id", user.getUid());
             mFirebaseAnalytics.logEvent("already_logged_in", bundle);
-            fetch_details();
+            //fetch_details();
         } else {
             should_allow_navigation_to_next_page = true;
            Log.d("zzz MainActivity", "user is not logged in");
