@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.neelanshsethi.recko.AddLeadCustomer;
+import com.example.neelanshsethi.recko.LeadInfoActivity;
 import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ManageLeadsModel;
 import com.example.neelanshsethi.recko.R;
@@ -117,8 +118,9 @@ public class ActiveLeadsAdapter extends RecyclerView.Adapter<ActiveLeadsAdapter.
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                        Toast.makeText(mctx, "Open details", Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(mctx,LeadInfoActivity.class);
+                    intent.putExtra("lead_model", manageLeadsModel);
+                    mctx.startActivity(intent);
                 }
             });
         }

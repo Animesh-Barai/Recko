@@ -23,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.neelanshsethi.recko.APIURL;
 import com.example.neelanshsethi.recko.AddLeadCustomer;
+import com.example.neelanshsethi.recko.LeadInfoActivity;
 import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ManageLeadsModel;
 import com.example.neelanshsethi.recko.R;
@@ -42,6 +43,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -125,6 +127,15 @@ public class ManageMissedLeadsAdapter extends RecyclerView.Adapter<ManageMissedL
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+            }
+        });
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(mctx,LeadInfoActivity.class);
+                intent.putExtra("lead_model", (ManageLeadsModel) manage_missed_followupsList.get(position));
+                mctx.startActivity(intent);
             }
         });
     }
@@ -246,6 +257,7 @@ public class ManageMissedLeadsAdapter extends RecyclerView.Adapter<ManageMissedL
     {
         TextView name,description;
         ImageView edit,delete;
+        ConstraintLayout card;
 
         public LeadsViewHolder(View itemView) {
             super(itemView);
@@ -254,7 +266,7 @@ public class ManageMissedLeadsAdapter extends RecyclerView.Adapter<ManageMissedL
             description=itemView.findViewById(R.id.description);
             edit = itemView.findViewById(R.id.edit);
             delete = itemView.findViewById(R.id.delete);
-
+            card = itemView.findViewById(R.id.lead_card);
         }
     }
 }
