@@ -38,12 +38,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 /**
@@ -83,6 +85,10 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
     FloatingActionButton floatingActionButton;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    private AtomicInteger remaining_callbacks;
+
     public FragmentCRM() {
         // Required empty public constructor
     }
@@ -104,6 +110,8 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        remaining_callbacks = new AtomicInteger();
+        remaining_callbacks.set(0);
     }
 
     @Override
@@ -158,6 +166,17 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
             }
         });
 
+        // Top down refresh
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                remaining_callbacks.set(1);
+                get_followups();
+                Log.d("zzz FragForYou", "pull down refresh");
+            }
+        });
+
         return v;
     }
 
@@ -185,6 +204,12 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
         }
     }
 
+    private void maybeStopRefresh() {
+        if (remaining_callbacks.get() == 0) return;
+        int remaining = remaining_callbacks.decrementAndGet();
+        if (remaining == 0) swipeRefreshLayout.setRefreshing(false);
+    }
+
     private void get_followups(String auth_token) {
         Bundle bundle = new Bundle();
         bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -208,6 +233,7 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
                         try {
                             String code = response.getString("code");
                             if (code.equals("200")) {
+                                maybeStopRefresh();
                                 JSONObject data = response.getJSONObject("data");
                                 JSONArray missed = data.getJSONArray("missed");
                                 JSONArray active = data.getJSONArray("active");
@@ -242,7 +268,7 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
