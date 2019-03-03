@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.widget.PullRefreshLayout;
 import com.example.neelanshsethi.recko.Adapters.CategoryListAdapter;
 import com.example.neelanshsethi.recko.Adapters.IndustrySmallCardAdapter;
 import com.example.neelanshsethi.recko.Adapters.SliderAdapter;
@@ -36,9 +37,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 
@@ -85,6 +88,9 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     private List videoslist;
     private List cardindustrylist;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    private AtomicInteger remaining_callbacks;
 
     public FragmentForYou() {
 
@@ -107,6 +113,8 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        remaining_callbacks = new AtomicInteger();
+        remaining_callbacks.set(0);
     }
 
     @Override
@@ -122,6 +130,20 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         dotsIndicator = (DotsIndicator) v.findViewById(R.id.dots_indicator);
         carousel=v.findViewById(R.id.carousel);
         carousel.setPageTransformer(true, new DepthPageTransformer());
+
+        // Top down refresh
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                remaining_callbacks.set(4);
+                get_smallcard_industry();
+                get_carousel_images();
+                get_rv_categorylist();
+                get_rv_videolist();
+                Log.d("zzz FragForYou", "pull down refresh");
+            }
+        });
 
         carousel_images=new ArrayList();
         categorylist=new ArrayList();
@@ -182,6 +204,12 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
     }
 
+    private void maybeStopRefresh() {
+        if (remaining_callbacks.get() == 0) return;
+        int remaining = remaining_callbacks.decrementAndGet();
+        if (remaining == 0) swipeRefreshLayout.setRefreshing(false);
+    }
+
     private void get_smallcard_industry() {
 
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -198,8 +226,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("zzz", APIURL.url + "user/list_industries" + "\nonResponse: " + response);
+                        maybeStopRefresh();
 
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            cardindustrylist.clear();
                             JSONArray array1 = response.getJSONArray("data");
                             Log.d("zzzarray", array1.toString());
                             for (int i = 0; i < array1.length(); i++) {
@@ -243,8 +278,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                     public void onResponse(JSONObject response) {
 
                         Log.d("zzz", APIURL.url+"carousel/list"+"\nonResponse: "+response);
+                        maybeStopRefresh();
 
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            carousel_images.clear();
                             JSONArray array= response.getJSONArray("data");
                             Log.d("zzzarray",array.toString());
                             for (int i = 0; i < array.length(); i++) {
@@ -299,8 +341,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("zzz", APIURL.url + "user/front_page_categories" + "\nonResponse: " + response);
+                        maybeStopRefresh();
 
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            categorylist.clear();
                             JSONArray array1 = response.getJSONArray("data");
                             Log.d("zzzarray", array1.toString());
                             for (int i = 0; i < array1.length(); i++) {
@@ -384,8 +433,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                     public void onResponse(JSONObject response) {
 
                         Log.d("zzz", APIURL.url+"video/list"+"\nonResponse: "+response);
+                        maybeStopRefresh();
 
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            videoslist.clear();
                             JSONArray array= response.getJSONArray("data");
                             Log.d("zzzarray",array.toString());
                             for (int i = 0; i < array.length(); i++) {

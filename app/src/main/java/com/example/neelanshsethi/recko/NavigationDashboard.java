@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.content.Intent;
@@ -18,6 +19,7 @@ public class NavigationDashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     CustomViewPager viewPager;
     ViewPagerAdapter viewpageradapter;
+    SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,18 @@ public class NavigationDashboard extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(viewpageradapter);
         bottomNavigationView.setSelectedItemId(R.id.action_for_you);
+
+        /*swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("zzz refresh called", "Navigation dashboard");
+            }
+        });
+        swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);*/
 
     }
 
