@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -30,23 +29,32 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rellayout1"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        android:padding="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
         <TextView
             android:id="@+id/acc_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
             android:text="User Details"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_regular"
             android:text="Name"
             android:textSize="16sp"
@@ -55,7 +63,7 @@
 
         <EditText
             android:id="@+id/end_user_name"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
@@ -67,7 +75,7 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/brandontext_regular"
             android:text="Mobile Number"
             android:textSize="16sp"
@@ -76,7 +84,7 @@
 
         <EditText
             android:id="@+id/end_user_mobile_no"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
@@ -88,7 +96,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/brandontext_regular"
             android:text="Email"
             android:textSize="16sp"
@@ -97,7 +105,7 @@
 
         <EditText
             android:id="@+id/end_user_email"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
@@ -109,7 +117,7 @@
             android:id="@+id/testView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/brandontext_regular"
             android:text="Amount Communicated"
             android:textSize="16sp"
@@ -118,8 +126,8 @@
 
         <EditText
             android:id="@+id/amount_communicated"
-            android:layout_width="300dp"
-            android:layout_height="38dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandontext_medium"
             android:inputType="numberDecimal|textNoSuggestions"
@@ -146,5 +154,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/amount_communicated" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
