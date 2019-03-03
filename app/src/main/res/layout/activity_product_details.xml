@@ -282,7 +282,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="112dp"
                         android:layout_height="131dp"
-                        android:layout_marginStart="24dp"
+                        android:layout_marginStart="8dp"
                         android:foreground="@drawable/ic_zoom_in"
                         android:foregroundGravity="center"
                         app:cardCornerRadius="12dp"
@@ -293,11 +293,11 @@
 
                         <ImageView
                             android:id="@+id/brochure_thumbnail"
-                            android:layout_gravity="fill"
-                            android:transitionName="brochure_thumbnail"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
+                            android:layout_gravity="fill"
+                            android:scaleType="centerCrop"
+                            android:transitionName="brochure_thumbnail" />
 
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
