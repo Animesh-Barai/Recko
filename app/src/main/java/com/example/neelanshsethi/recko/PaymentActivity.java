@@ -1,11 +1,19 @@
 package com.example.neelanshsethi.recko;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.razorpay.Checkout;
@@ -29,17 +38,52 @@ public class PaymentActivity extends Activity implements PaymentResultListener {
     private String productUUID;
     private String sellerUUID;
     private ProductModel productModel;
+    androidx.appcompat.widget.Toolbar toolbar;
+    private EditText end_user_name, end_user_mobile_no, end_user_email, amount_communicated;
+    private boolean picked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_end_user_sell_info);
 
+        picked = false;
         Intent intent = getIntent();
         sellerUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         productModel = (ProductModel) intent.getSerializableExtra("product_model");
         productUUID = productModel.getProduct_uuid();
+
+        end_user_name = findViewById(R.id.end_user_name_text);
+        end_user_mobile_no = findViewById(R.id.end_user_mobile_no);
+        end_user_email = findViewById(R.id.end_user_email);
+        amount_communicated = findViewById(R.id.amount_communicated);
+
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        end_user_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                end_user_name.setOnClickListener(null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, 100);
+                }
+                else
+                {
+                    Uri uri = Uri.parse("content://contacts");
+                    Intent intent = new Intent(Intent.ACTION_PICK, uri);
+                    intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+                    startActivityForResult(intent, Constants.pick_contact_request_id);
+                }
+
+            }
+        });
 
         /*
          To ensure faster loading of the Checkout form,
@@ -53,7 +97,19 @@ public class PaymentActivity extends Activity implements PaymentResultListener {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createInvoice();
+
+                if(getEndUserAmountCommunicated().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please provide amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(getEndUserName().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please provide valid name", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if(getEndUserMobileNo().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please provide valid mobile number", Toast.LENGTH_SHORT).show();
+                    return;
+                } else
+                 createInvoice();
             }
         });
     }
@@ -63,16 +119,16 @@ public class PaymentActivity extends Activity implements PaymentResultListener {
         try {
             // '{"seller_uuid":"3493","customer_name":"Khagesh","customer_mobile_no":"9005799934","items":[{"amount":"100","product_uuid":"prod-ca6079b3386242c5aa860dbaae7c7ddc"}]}'
             json.put("seller_uuid", sellerUUID);
-            json.put("customer_name", "Khagesh");
-            json.put("customer_mobile_no", "9005799934");
-            json.put("customer_email", "khageshpatel93@gmail.com");
+            json.put("customer_name", getEndUserName());
+            json.put("customer_mobile_no", getEndUserMobileNo());
+            json.put("customer_email", getEndUserEmail());
             JSONArray items = new JSONArray();
             JSONObject item = new JSONObject();
-            item.put("amount", "100");
+            item.put("amount", getEndUserAmountCommunicated());
             item.put("product_uuid", productUUID);
             items.put(item);
             json.put("items", items);
-            Log.d("zzz PaymentActivity json", json.toString());
+            Log.d("zzz PaymentAct json", json.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -126,11 +182,11 @@ public class PaymentActivity extends Activity implements PaymentResultListener {
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", "100");
+            options.put("amount", getEndUserAmountCommunicated());
 
             JSONObject preFill = new JSONObject();
-            preFill.put("email", "khageshpatel93@gmail.com");
-            preFill.put("contact", "9005799934");
+            preFill.put("email", getEndUserEmail());
+            preFill.put("contact", getEndUserMobileNo());
             options.put("prefill", preFill);
 
             co.open(activity, options);
@@ -170,4 +226,69 @@ public class PaymentActivity extends Activity implements PaymentResultListener {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
     }
+
+    private String getEndUserName() {return end_user_name.getText().toString().trim();}
+    private String getEndUserMobileNo() {return end_user_mobile_no.getText().toString().trim();}
+    private String getEndUserEmail() {return end_user_email.getText().toString().trim();}
+    private String getEndUserAmountCommunicated() {return amount_communicated.getText().toString().trim();}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            String contact_number = "", contact_email = "", contact_name = "";
+            if (requestCode == Constants.pick_contact_request_id) {
+                if (resultCode == RESULT_OK) {
+                    Uri contactData = data.getData();
+                    String number = "";
+                    String name = "";
+                    String email = "";
+                    Cursor cursor = getContentResolver().query(contactData, null, null, null, null);
+                    cursor.moveToFirst();
+                    String hasPhone = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                    String contactId = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                    if (hasPhone.equals("1")) {
+                        Cursor phones = getContentResolver().query
+                                (ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+                                                + " = " + contactId, null, null);
+                        if (phones != null) {
+                            while (phones.moveToNext()) {
+                                number = phones.getString(phones.getColumnIndex
+                                        (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
+                                contact_number=number;
+                                name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                            }
+                        }
+                        phones.close();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "This contact has no phone number", Toast.LENGTH_LONG).show();
+                    }
+
+                    Cursor emailCur = getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{contactId}, null);
+                    if (emailCur != null) {
+                        while (emailCur.moveToNext()) {
+                            email = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                            contact_email=email;
+                        }
+                    }
+                    emailCur.close();
+
+                    //Do something with number
+                    end_user_mobile_no.setText(contact_number);
+                    end_user_email.setText(contact_email);
+                    end_user_name.setText(name);
+                    //end_user_name.setFocusableInTouchMode(false);
+                    end_user_name.clearFocus();
+                    cursor.close();
+                }
+            }
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error retrieving contact", Toast.LENGTH_LONG).show();
+            end_user_name.setText("");
+        }
+    }
+
 }

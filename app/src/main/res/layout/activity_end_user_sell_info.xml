@@ -61,7 +61,33 @@
             app:layout_constraintStart_toStartOf="@+id/acc_detail"
             app:layout_constraintTop_toBottomOf="@+id/acc_detail" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/end_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/end_user_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/contact_picker"
+                android:fontFamily="@font/brandontext_regular"
+                android:hint="@string/select_client_details"
+                android:inputType="none"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/heading_dark"
+                android:textColorHint="@color/heading_lighter"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!---->
+        <!--<EditText
             android:id="@+id/end_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +95,7 @@
             android:fontFamily="@font/brandontext_medium"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />-->
 
         <TextView
             android:id="@+id/textView16"
@@ -87,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:inputType="phone"
             android:fontFamily="@font/brandontext_medium"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textView16"
@@ -136,7 +163,7 @@
             app:layout_constraintTop_toBottomOf="@+id/testView12" />
 
         <Button
-            android:id="@+id/save"
+            android:id="@+id/btn_pay"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
@@ -146,7 +173,7 @@
             android:background="@drawable/round_button"
             android:fontFamily="@font/brandontext_bold"
             android:stateListAnimator="@animator/button_animator"
-            android:text="@string/save"
+            android:text="Recommend"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="22sp"
