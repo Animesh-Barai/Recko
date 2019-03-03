@@ -41,10 +41,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 
@@ -109,7 +111,8 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private List small_card_list2;
 
 
-
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private AtomicInteger remaining_callbacks;
 
     public FragmentExplore() {
         // Required empty public constructor
@@ -131,7 +134,8 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        remaining_callbacks = new AtomicInteger();
+        remaining_callbacks.set(0);
     }
 
     @Override
@@ -146,6 +150,19 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         rv_companyexp1=v.findViewById(R.id.rv_companyexp1);
         rv_small_industry2=v.findViewById(R.id.rv_small_industry2);
         RelativeLayout layout = v.findViewById(R.id.top_layout);
+
+        // Top down refresh
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                remaining_callbacks.set(3);
+                get_rv_categorylist();
+                get_carousel_images();
+                get_smallcard_industry();
+                Log.d("zzz FragForYou", "pull down refresh");
+            }
+        });
 
         categorylist1 = new ArrayList();
         categorylist2 = new ArrayList();
@@ -237,6 +254,12 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         return v;
     }
 
+    private void maybeStopRefresh() {
+        if (remaining_callbacks.get() == 0) return;
+        int remaining = remaining_callbacks.decrementAndGet();
+        if (remaining == 0) swipeRefreshLayout.setRefreshing(false);
+    }
+
     private void get_rv_categorylist() {
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         JSONObject json = new JSONObject();
@@ -251,8 +274,14 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("zzz", APIURL.url + "user/explore_page_categories" + "\nonResponse: " + response);
+                        maybeStopRefresh();
 
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             JSONArray array1 = response.getJSONArray("data");
                             Log.d("zzzarray", array1.toString());
                             for (int i = 0; i < array1.length(); i++) {
@@ -320,7 +349,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
@@ -340,6 +369,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
             JSONArray array = data.has("data")?data.getJSONArray("data"):null;
             if (array == null) return;
 
+            productslist.clear();
             Log.d("zzz explore2", "here 2");
             for (int i = 0; i<array.length(); i++) {
                 JSONObject productDetails = array.getJSONObject(i);
@@ -391,8 +421,14 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                     public void onResponse(JSONObject response) {
 
                         Log.d("zzz", APIURL.url+"carousel/list"+"\nonResponse: "+response);
-
+                        maybeStopRefresh();
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            carousel_images.clear();
                             JSONArray array= response.getJSONArray("data");
                             Log.d("zzzarray",array.toString());
                             for (int i = 0; i < array.length(); i++) {
@@ -423,7 +459,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
@@ -439,8 +475,10 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
 
         JSONArray array= data.getJSONArray("data");
         Log.d("zzzarray",array.toString());
+        companylist.clear();
         for (int i = 0; i < array.length(); i++) {
             try {
+
                 JSONObject object = array.getJSONObject(i);
                 JSONObject company_detail = object.getJSONObject("company");
                 Log.d("zzzobjct companydetails",company_detail.toString());
@@ -514,8 +552,14 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("zzz", APIURL.url + "user/list_industries" + "\nonResponse: " + response);
-
+                        maybeStopRefresh();
                         try {
+                            String code = response.getString("code");
+                            if (!code.equals("200")) {
+                                Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            cardindustrylist.clear();
                             JSONArray array1 = response.getJSONArray("data");
                             Log.d("zzzarray", array1.toString());
                             for (int i = 0; i < array1.length(); i++) {
@@ -543,7 +587,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
