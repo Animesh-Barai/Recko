@@ -215,7 +215,8 @@ public class ProductDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getApplicationContext(),"Yo Man!",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ProductDetails.this, PaymentActivity.class);
+                Intent intent = new Intent(ProductDetails.this, PaymentDynamicActivity.class);
+                //Intent intent = new Intent(ProductDetails.this, PaymentActivity.class);
                 intent.putExtra("product_model",productModel);
                 startActivity(intent);
             }

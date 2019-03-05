@@ -106,6 +106,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.neelanshsethi.recko.LeadInfoActivity"/>
+        <activity android:name="com.example.neelanshsethi.recko.PaymentDynamicActivity"/>
     </application>
 
 </manifest>

@@ -72,28 +72,30 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);
             holder.textView.setText(productModel.getTitle());
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("zzzkk ", productlist.size()>0?"non-empty":"empty");
+                    ProductModel temp = (ProductModel) productlist.get(position);
+                    Intent intent= new Intent(mctx,ProductDetails.class);
+                    intent.putExtra("product_model",temp);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    bundle.putString("product_uuid",temp.getProduct_uuid());
+                    bundle.putString("product_title",temp.getTitle());
+                    mFirebaseAnalytics.logEvent("product_clicked_in_category", bundle);
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mctx.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+                }
+            });
         }
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("zzzkk ", productlist.size()>0?"non-empty":"empty");
-                ProductModel temp = (ProductModel) productlist.get(position);
-                Intent intent= new Intent(mctx,ProductDetails.class);
-                intent.putExtra("product_model",temp);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                bundle.putString("product_uuid",temp.getProduct_uuid());
-                bundle.putString("product_title",temp.getTitle());
-                mFirebaseAnalytics.logEvent("product_clicked_in_category", bundle);
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mctx.startActivity(intent);
-                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-
-            }
-        });
     }
 
     @Override
