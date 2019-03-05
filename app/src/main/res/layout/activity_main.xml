@@ -17,7 +17,6 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/brandontext_medium"
         android:gravity="center_horizontal"
-        android:inputType="textMultiLine"
         android:text="@string/enter_mobile_number"
         android:textColor="@color/heading_dark"
         android:textSize="24sp"
@@ -28,7 +27,7 @@
     <EditText
         android:id="@+id/phonenumber"
         android:layout_width="332dp"
-        android:inputType="number"
+        android:inputType="number|textNoSuggestions"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@null"
