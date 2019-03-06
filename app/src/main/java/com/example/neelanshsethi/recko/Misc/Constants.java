@@ -30,4 +30,16 @@ public class Constants {
     public static boolean validateEmail(String emailStr) {
         return (!emailStr.trim().equals("") && Patterns.EMAIL_ADDRESS.matcher(emailStr).matches());
     }
+
+    public static boolean validIndianNumber(String number) {
+        if (number.trim().equals("")) return false;
+        String pattern = "^(?:(?:\\+|0{0,2})91(\\s*[\\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$";
+
+        // Create a Pattern object
+        Pattern r = Pattern.compile(pattern);
+
+        // Now create matcher object.
+        Matcher m = r.matcher(number);
+        return m.matches();
+    }
 }
