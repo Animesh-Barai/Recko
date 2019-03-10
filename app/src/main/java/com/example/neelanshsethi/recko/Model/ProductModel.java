@@ -27,6 +27,9 @@ public class ProductModel implements Serializable{
     private String product_uuid;
     private String mrp;
     private float discount;
+    private String img_url;
+
+
 
 
 
@@ -242,4 +245,13 @@ public class ProductModel implements Serializable{
         return Constants.fixDoubleString(
                 Double.toString(Double.parseDouble(getTotal_commission()) - discount));
     }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
 }

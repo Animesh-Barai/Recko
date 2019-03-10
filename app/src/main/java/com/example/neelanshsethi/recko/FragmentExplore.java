@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.neelanshsethi.recko.Adapters.CategoryListAdapter;
 import com.example.neelanshsethi.recko.Adapters.Company_InCategoryAndCompanyAdapter;
 import com.example.neelanshsethi.recko.Adapters.IndustrySmallCardAdapter;
+import com.example.neelanshsethi.recko.Adapters.ProductListGridAdapter;
 import com.example.neelanshsethi.recko.Adapters.Products_InCategoryAdapter;
 import com.example.neelanshsethi.recko.Adapters.SliderAdapter;
 import com.example.neelanshsethi.recko.Misc.Constants;
@@ -89,7 +90,10 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private Company_InCategoryAndCompanyAdapter companyInCategoryAndCompanyAdapter;
     private List companylist;
     private List cardindustrylist;
+
     private Products_InCategoryAdapter products_inCategoryAdapter;
+    private ProductListGridAdapter productListGridAdapter;
+
     //    String[] list={"nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0","nCgQDjiotG0"};
     private List<String> rv_videos= new ArrayList<String>();
     private List<String> rv_videos_title= new ArrayList<String>();
@@ -220,8 +224,8 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         rv_productlist1.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false);
         rv_productlist1.setLayoutManager(linearLayoutManager);
-        products_inCategoryAdapter =new Products_InCategoryAdapter(getActivity(),productslist,getActivity());
-        rv_productlist1.setAdapter(products_inCategoryAdapter);
+        productListGridAdapter =new ProductListGridAdapter(getActivity(),productslist,getActivity());
+        rv_productlist1.setAdapter(productListGridAdapter);
 
 //        categoryListAdapter1 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
 //        rv_productlist1.setAdapter(categoryListAdapter1);
@@ -402,7 +406,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
             }
 
             Log.d("zzz explore2", "invoking data changegd");
-            products_inCategoryAdapter.notifyDataSetChanged();
+            productListGridAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }

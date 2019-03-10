@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/productcard"
+            android:layout_width="170dp"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,144:168"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgproduct"
+                    android:layout_width="170dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/sample2"
+                    app:layout_constraintDimensionRatio="h,16:8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/titleproduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/brandontext_medium"
+                    android:text="@string/car_loan"
+                    android:textColor="@color/heading_dark"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/earnupto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgproduct" />
+
+                <TextView
+                    android:id="@+id/earnupto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/brandontext_regular"
+                    android:text="@string/_10_products_sold"
+                    android:textColor="#8b8b8b"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/titleproduct"
+                    app:layout_constraintTop_toBottomOf="@+id/titleproduct" />
+
+                <TextView
+                    android:id="@+id/amountproduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:fontFamily="@font/brandontext_medium"
+                    android:text="@string/_10_000"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/rupee_symbol"
+                    app:layout_constraintStart_toEndOf="@+id/rupee_symbol" />
+
+                <TextView
+                    android:id="@+id/saleproduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sale"
+                    android:textColor="#8b8b8b"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/amountproduct"
+                    app:layout_constraintStart_toEndOf="@+id/amountproduct" />
+
+                <TextView
+                    android:id="@+id/rupee_symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/u20b9"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/brandontext_regular"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/upto"
+                    app:layout_constraintStart_toEndOf="@+id/upto" />
+
+                <TextView
+                    android:id="@+id/upto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/brandontext_regular"
+                    android:text="@string/upto"
+                    android:textColor="#8b8b8b"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/earnupto" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
