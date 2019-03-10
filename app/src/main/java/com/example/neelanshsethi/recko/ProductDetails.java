@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
@@ -141,35 +142,47 @@ public class ProductDetails extends AppCompatActivity {
 //            }
 //        });
 
-        actual_price.setText(productModel.getMrp());
-        offer_price.setText(productModel.getPrice_on_x());
-        final_price.setText(productModel.getPrice_on_x());
+        actual_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getMrp())));
+        offer_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getPrice_on_x())));
+        final_price.setText(Constants.fixDoubleString(productModel.getPrice_on_x()));
 
         chip_discount1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offer_discount_price.setText(getString(R.string.dis100_val));
+                offer_discount_price.setText(
+                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+                                getString(R.string.dis100_val)));
+                //offer_discount_price.setText(getString(R.string.dis100_val));
             }
         });
 
         chip_discount2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offer_discount_price.setText(getString(R.string.dis200_val));
+                offer_discount_price.setText(
+                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+                                getString(R.string.dis200_val)));
+                //offer_discount_price.setText(getString(R.string.dis200_val));
             }
         });
 
         chip_discount3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offer_discount_price.setText(getString(R.string.dis500_val));
+                offer_discount_price.setText(
+                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+                                getString(R.string.dis500_val)));
+                //offer_discount_price.setText(getString(R.string.dis500_val));
             }
         });
 
         chip_discount4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offer_discount_price.setText(getString(R.string.dis1000_val));
+                offer_discount_price.setText(
+                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+                                getString(R.string.dis1000_val)));
+                //offer_discount_price.setText(getString(R.string.dis1000_val));
             }
         });
 
@@ -186,6 +199,13 @@ public class ProductDetails extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_dark, getTheme())));
                     }
+
+                    if (Double.parseDouble(discount_offered)>Double.parseDouble(productModel.getTotal_commission())) {
+                        offer_discount_price.setText(productModel.getTotal_commission());
+                        Toast.makeText(getApplicationContext(), "Sorry you cant give discount more then commission", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (!productModel.setDiscount(discount_offered)) {
                         Toast.makeText(getApplicationContext(), "Please enter valid number", Toast.LENGTH_SHORT).show();
                     }
@@ -195,6 +215,8 @@ public class ProductDetails extends AppCompatActivity {
                     productModel.setDiscount(0);
                 }
                 final_price.setText(productModel.getUserPriceString());
+                String earn_text = getString(R.string.earn_dash_on_this_product, productModel.commissionAfterDiscount());
+                earn_button.setText(earn_text);
             }
 
             @Override

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -63,6 +64,8 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
     ProgressBar progressBar;
     Button send;
     int noOfFields;
+    Switch behalf_switch;
+    androidx.appcompat.widget.Toolbar toolbar;
 
     Map<String, Integer> tagToIndexMap;
 
@@ -89,6 +92,15 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
 
         send = findViewById(R.id.send);
 
+        behalf_switch = findViewById(R.id.switch_one);
+
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +161,7 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
             item.put("product_uuid", productUUID);
             items.put(item);
             json.put("items", items);
-            json.put("payed_by_seller", true);
+            json.put("payed_by_seller", behalf_switch.isChecked());
             Log.d("zzz PaymentAct json", json.toString());
         } catch (JSONException e) {
             e.printStackTrace();

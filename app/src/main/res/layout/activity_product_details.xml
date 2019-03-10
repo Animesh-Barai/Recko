@@ -405,7 +405,7 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_discount1"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginTop="8dp"
                         android:checkable="false"
@@ -421,7 +421,6 @@
                         app:chipBackgroundColor="#F5F5F5"
                         app:chipCornerRadius="20dp"
                         app:chipIconSize="25dp"
-                        app:chipStartPadding="10dp"
                         app:layout_constraintEnd_toStartOf="@+id/chip_discount2"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -431,7 +430,7 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_discount2"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:checkable="false"
                         android:clickable="true"
@@ -446,22 +445,24 @@
                         app:chipBackgroundColor="#F5F5F5"
                         app:chipCornerRadius="20dp"
                         app:chipIconSize="25dp"
-                        app:chipStartPadding="10dp"
                         app:layout_constraintEnd_toStartOf="@+id/chip_discount3"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/chip_discount1"
                         app:layout_constraintTop_toTopOf="@+id/chip_discount1"
                         app:textStartPadding="10dp" />
 
+                    <!--
+                        app:chipStartPadding="10dp"-->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_discount3"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:checkable="false"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
+
                         android:paddingLeft="-5dp"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
@@ -471,7 +472,6 @@
                         app:chipBackgroundColor="#F5F5F5"
                         app:chipCornerRadius="20dp"
                         app:chipIconSize="25dp"
-                        app:chipStartPadding="10dp"
                         app:layout_constraintEnd_toStartOf="@+id/chip_discount4"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/chip_discount2"
@@ -481,7 +481,7 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_discount4"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:checkable="false"
                         android:clickable="true"
@@ -496,7 +496,6 @@
                         app:chipBackgroundColor="#F5F5F5"
                         app:chipCornerRadius="20dp"
                         app:chipIconSize="25dp"
-                        app:chipStartPadding="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/chip_discount3"

@@ -42,4 +42,16 @@ public class Constants {
         Matcher m = r.matcher(number);
         return m.matches();
     }
+
+    public static String percentageValueDiscount(String val, String per) {
+        Double tVal = Double.parseDouble(val);
+        Double tPer = Double.parseDouble(per);
+        return fixDoubleString(Double.toString(tVal*((tPer)/100.0)));
+    }
+
+    public static String fixDoubleString(String str) {
+        Double val = Double.parseDouble(str);
+        int val_int = (int)Math.ceil(val);
+        return Integer.toString(val_int);
+    }
 }

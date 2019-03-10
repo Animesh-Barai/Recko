@@ -11,14 +11,16 @@
     <string name="enter_price_pitched_to_the_user">Enter discount you want to offer</string>
     <string name="u20b9100">₹100</string>
 
-    <string name="dis100">₹100</string>
-    <string name="dis200">₹200</string>
-    <string name="dis500">₹500</string>
-    <string name="dis1000">₹1000</string>
-    <string name="dis100_val">100</string>
-    <string name="dis200_val">200</string>
-    <string name="dis500_val">500</string>
-    <string name="dis1000_val">1000</string>
+    <string name="rstart_template">₹%1$s</string>
+
+    <string name="dis100">20%</string>
+    <string name="dis200">40%</string>
+    <string name="dis500">60%</string>
+    <string name="dis1000">80%</string>
+    <string name="dis100_val">20</string>
+    <string name="dis200_val">40</string>
+    <string name="dis500_val">60</string>
+    <string name="dis1000_val">80</string>
 
     <string name="select_client_details">Select Client Details</string>
     <string name="follow_up_date">Follow-up date</string>

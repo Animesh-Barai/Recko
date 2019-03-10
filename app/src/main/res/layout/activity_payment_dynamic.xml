@@ -66,7 +66,19 @@
                 android:id="@+id/recyclerView"
                 android:descendantFocusability="beforeDescendants" />
 
-                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <Switch
+                android:id="@+id/switch_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/brandontext_medium"
+                android:text="Pay on behalf of customer"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/rellayout1"

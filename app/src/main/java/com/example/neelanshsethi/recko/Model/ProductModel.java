@@ -1,5 +1,7 @@
 package com.example.neelanshsethi.recko.Model;
 
+import com.example.neelanshsethi.recko.Misc.Constants;
+
 import java.io.Serializable;
 
 public class ProductModel implements Serializable{
@@ -234,5 +236,10 @@ public class ProductModel implements Serializable{
 
     public String getUserPriceString() {
         return Float.toString(getUserPriceFloat());
+    }
+
+    public String commissionAfterDiscount() {
+        return Constants.fixDoubleString(
+                Double.toString(Double.parseDouble(getTotal_commission()) - discount));
     }
 }
