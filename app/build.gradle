@@ -92,6 +92,9 @@ dependencies {
     // Dynamic forms
     implementation 'me.riddhimanadib.form-master:form-master:1.1.0'
 
+    // Youtube player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

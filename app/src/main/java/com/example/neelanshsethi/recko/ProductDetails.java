@@ -1,5 +1,6 @@
 package com.example.neelanshsethi.recko;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 
@@ -33,6 +34,12 @@ import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,7 +59,7 @@ public class ProductDetails extends AppCompatActivity {
     TextView product_name;
     TextView brochure_subheading;
 
-    TextView actual_price;
+    TextView actual_price, video_thumbnail_text;
     TextView offer_price;
     TextView final_price;
     TextInputEditText offer_discount_price;
@@ -62,6 +69,8 @@ public class ProductDetails extends AppCompatActivity {
     Chip chip_discount4;
     Button earn_button;
     ImageView brochure_thumbnail;
+    View translucent, video_thumbnail_container;
+    YouTubePlayerView youTubePlayerView;
 
     int actual_price_val;
 
@@ -87,7 +96,45 @@ public class ProductDetails extends AppCompatActivity {
         earn_button = findViewById(R.id.earn_button);
         brochure_thumbnail= findViewById(R.id.brochure_thumbnail);
 
+        // This is used to make foreground slightly translucent.
+        translucent = findViewById(R.id.translucent);
+        translucent.getBackground().setAlpha(128);
+
+
         productModel = (ProductModel) this.getIntent().getSerializableExtra("product_model");
+
+        // Set text over thumbnail
+        video_thumbnail_text = findViewById(R.id.video_thumbnail_text);
+        video_thumbnail_text.setText(productModel.getTitle() + " " + "Product Video");
+
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
+        getLifecycle().addObserver(youTubePlayerView);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                if (productModel.getYoutube_video_id()!=null && !productModel.getYoutube_video_id().trim().equals("")){
+                    String videoId = productModel.getYoutube_video_id();
+                    youTubePlayer.cueVideo(videoId, 0);
+                }
+            }
+        });
+        youTubePlayerView.setVisibility(View.INVISIBLE);
+
+        
+        video_thumbnail_container = findViewById(R.id.cardView);
+        video_thumbnail_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
+                    @Override
+                    public void onYouTubePlayer(@NotNull YouTubePlayer youTubePlayer) {
+                        video_thumbnail_container.setVisibility(View.INVISIBLE);
+                        youTubePlayerView.setVisibility(View.VISIBLE);
+                        youTubePlayer.play();
+                    }
+                });
+            }
+        });
 
 
         toolbar.setTitle(productModel.getTitle());

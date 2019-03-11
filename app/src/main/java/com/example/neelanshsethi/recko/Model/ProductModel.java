@@ -28,7 +28,7 @@ public class ProductModel implements Serializable{
     private String mrp;
     private float discount;
     private String img_url;
-
+    private String youtube_video_id;
 
 
 
@@ -254,4 +254,8 @@ public class ProductModel implements Serializable{
         this.img_url = img_url;
     }
 
+
+    public String getYoutube_video_id() {
+        return youtube_video_id;
+    }
 }
