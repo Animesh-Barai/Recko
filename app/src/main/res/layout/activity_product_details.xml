@@ -54,18 +54,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                        android:id="@+id/youtube_player_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:videoId="hxHZSedHbP4"
-                        app:autoPlay="false"
-                        app:showFullScreenButton="false"
-                        app:showYouTubeButton="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
                         android:layout_width="0dp"

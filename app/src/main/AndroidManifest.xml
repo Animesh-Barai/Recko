@@ -107,6 +107,7 @@
         </activity>
         <activity android:name="com.example.neelanshsethi.recko.LeadInfoActivity"/>
         <activity android:name="com.example.neelanshsethi.recko.PaymentDynamicActivity"/>
+        <activity android:screenOrientation="portrait" android:name="com.example.neelanshsethi.recko.YoutubePlayerCustomActivity"/>
     </application>
 
 </manifest>

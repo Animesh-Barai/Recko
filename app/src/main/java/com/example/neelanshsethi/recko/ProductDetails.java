@@ -70,7 +70,6 @@ public class ProductDetails extends AppCompatActivity {
     Button earn_button;
     ImageView brochure_thumbnail;
     View translucent, video_thumbnail_container;
-    YouTubePlayerView youTubePlayerView;
 
     int actual_price_val;
 
@@ -107,32 +106,19 @@ public class ProductDetails extends AppCompatActivity {
         video_thumbnail_text = findViewById(R.id.video_thumbnail_text);
         video_thumbnail_text.setText(productModel.getTitle() + " " + "Product Video");
 
-        youTubePlayerView = findViewById(R.id.youtube_player_view);
-        getLifecycle().addObserver(youTubePlayerView);
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                if (productModel.getYoutube_video_id()!=null && !productModel.getYoutube_video_id().trim().equals("")){
-                    String videoId = productModel.getYoutube_video_id();
-                    youTubePlayer.cueVideo(videoId, 0);
-                }
-            }
-        });
-        youTubePlayerView.setVisibility(View.INVISIBLE);
-
         
         video_thumbnail_container = findViewById(R.id.cardView);
         video_thumbnail_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
-                    @Override
-                    public void onYouTubePlayer(@NotNull YouTubePlayer youTubePlayer) {
-                        video_thumbnail_container.setVisibility(View.INVISIBLE);
-                        youTubePlayerView.setVisibility(View.VISIBLE);
-                        youTubePlayer.play();
-                    }
-                });
+                String videoId = "";
+                if (productModel.getYoutube_video_id()!=null && !productModel.getYoutube_video_id().trim().equals("")){
+                    videoId = productModel.getYoutube_video_id();
+                }
+
+                Intent i = new Intent(ProductDetails.this, YoutubePlayerCustomActivity.class);
+                i.putExtra("video_id", videoId);
+                startActivity(i);
             }
         });
 

@@ -42,9 +42,16 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity implements YouTub
         setContentView(R.layout.activity_youtube_player);
         //get the video id
         videoID = getIntent().getStringExtra("video_id");
-        youTubePlayerView = findViewById(R.id.youtube_player_view);
-        videoBox=findViewById(R.id.video_box);
-        initializeYoutubePlayer();
+
+        //Passing this to new UI will delete this ui later to improve performace.
+        Intent i = new Intent(this, YoutubePlayerCustomActivity.class);
+        i.putExtra("video_id", videoID);
+        startActivity(i);
+        return;
+
+        //youTubePlayerView = findViewById(R.id.youtube_player_view);
+        //videoBox=findViewById(R.id.video_box);
+        //initializeYoutubePlayer();
     }
 
     /**
