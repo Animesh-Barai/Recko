@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
 
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -142,6 +143,8 @@ public class UserInfo extends AppCompatActivity {
                                             Bundle bundle = new Bundle();
                                             bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             mFirebaseAnalytics.logEvent("user_info_saved", bundle);
+
+                                            Constants.setSellerNameNo(NAME, mUser.getPhoneNumber());
 
                                             Intent intent = new Intent(UserInfo.this, Industries.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -119,7 +120,7 @@ public class SplashScreen extends AppCompatActivity {
 
     private void fetch_details() {
 
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         JSONObject json = new JSONObject();
         try {
@@ -163,6 +164,7 @@ public class SplashScreen extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
+                                    Constants.setSellerNameNo(name, mUser.getPhoneNumber());
                                     JSONArray industries = null;
                                     try {
                                         industries =  data.getJSONArray("industries");

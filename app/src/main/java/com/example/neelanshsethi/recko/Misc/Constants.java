@@ -1,5 +1,6 @@
 package com.example.neelanshsethi.recko.Misc;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -7,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Constants {
     public static final int max_company_height_in_explore = 300;
@@ -17,6 +20,12 @@ public class Constants {
     public static final int edit_user_info_request_id = 102;
     public static final int edit_account_info_request_id = 103;
     public static final int pick_contact_request_id = 104;
+
+    public static SharedPreferences sharedPreferences;
+
+    public static String seller_name;
+
+    public static String seller_mobile_no;
 
     public static boolean isValidURL(String url) {
         return !StringUtils.isEmpty(url) && !url.equals("null");
@@ -53,5 +62,30 @@ public class Constants {
         Double val = Double.parseDouble(str);
         int val_int = (int)Math.ceil(val);
         return Integer.toString(val_int);
+    }
+
+    public static void MaybeCreateSharedPreference(AppCompatActivity activity) {}
+
+    public static void storeUserNameInPreference() {}
+
+    public static String getSeller_mobile_no() {
+        return seller_mobile_no;
+    }
+
+    public static void setSeller_mobile_no(String seller_mobile_no) {
+        Constants.seller_mobile_no = seller_mobile_no;
+    }
+
+    public static String getSeller_name() {
+        return seller_name;
+    }
+
+    public static void setSeller_name(String seller_name) {
+        Constants.seller_name = seller_name;
+    }
+
+    public static void setSellerNameNo(String seller_name, String seller_mobile_no) {
+        Constants.setSeller_name(seller_name);
+        Constants.setSeller_mobile_no(seller_mobile_no);
     }
 }

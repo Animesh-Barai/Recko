@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,9 +23,13 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +77,7 @@ public class ProductDetails extends AppCompatActivity {
     View translucent, video_thumbnail_container;
 
     int actual_price_val;
+    View flyerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +100,15 @@ public class ProductDetails extends AppCompatActivity {
         chip_discount4 = findViewById(R.id.chip_discount4);
         earn_button = findViewById(R.id.earn_button);
         brochure_thumbnail= findViewById(R.id.brochure_thumbnail);
-
+        flyerView = findViewById(R.id.custom_image_root);
         // This is used to make foreground slightly translucent.
         translucent = findViewById(R.id.translucent);
         translucent.getBackground().setAlpha(128);
 
+        TextView name_pamplet = findViewById(R.id.name_pamplet);
+        name_pamplet.setText(Constants.seller_name);
+        TextView number_pamplet = findViewById(R.id.number_pamplet);
+        number_pamplet.setText(Constants.seller_mobile_no);
 
         productModel = (ProductModel) this.getIntent().getSerializableExtra("product_model");
 
@@ -302,6 +312,7 @@ public class ProductDetails extends AppCompatActivity {
                 share_whatsapp();
             }
         });
+
     }
 
     class LoadImage extends AsyncTask<Void, Void, Void>{
@@ -315,20 +326,61 @@ public class ProductDetails extends AppCompatActivity {
             this.link = link;
         }
 
+        LoadImage(String text, String link, Bitmap bm){
+            this.text = text;
+            this.link = link;
+            this.bm = bm;
+        }
+
         @Override
         protected Void doInBackground(Void... params) {
             Looper.prepare();
             try {
-                bm = Glide.with(getApplicationContext()).
+                Log.d("kkk ", "load image");
+                //LayoutInflater  mInflater = (LayoutInflater)getApplicationContext().getSystemService(getApplicationContext().LAYOUT_INFLATER_SERVICE);
+                //RelativeLayout view = new RelativeLayout(getApplicationContext());
+                //View view = mInflater.inflate(R.layout.custom_image_view, (ViewGroup) findViewById(R.id.product_root), true);
+                //View view = view_group.findViewById(R.id.custom_image_root);
+                //view.setVisibility(View.INVISIBLE);
+                //View view = mInflater.inflate(R.layout.custom_image_view, new LinearLayout(getApplicationContext()), true);
+
+                //Provide it with a layout params. It should necessarily be wrapping the
+                //content as we not really going to have a parent for it.
+                //view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                //        RelativeLayout.LayoutParams.WRAP_CONTENT));
+                //view.measure();
+                //Pre-measure the view so that height and width don't remain null.
+                //view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                 //       View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+                //Log.d("kkk ",  Integer.toString(view.getMeasuredHeight()));
+                //Log.d("kkk ", Integer.toString(view.getMeasuredWidth()));
+
+                //Assign a size and position to the view and all of its descendants
+                 //view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+
+
+                //bm = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+                //Canvas c = new Canvas(bm);
+
+                //view.draw(c);
+
+                //view = findViewById(R.id.cardView);
+                //view.setDrawingCacheEnabled(true);
+                 //       view.buildDrawingCache();
+                 //       bm = Bitmap.createBitmap(view.getDrawingCache());
+                //view.setDrawingCacheEnabled(false);
+
+                /*bm = Glide.with(getApplicationContext()).
                         asBitmap().
                         load(link).
                         submit().
-                        get();
-            } catch (InterruptedException e) {
+                        get();*/
+            } catch (Exception e) { //(InterruptedException e) {
+                e.printStackTrace();}
+            /*} catch (ExecutionException e) {
                 e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            }*/
             return null;
         }
 
@@ -394,7 +446,24 @@ public class ProductDetails extends AppCompatActivity {
 
         String text = "Wowww";
         String link = "https://www.google.es/images/srpr/logo11w.png";
-        new LoadImage(text,link).execute();
+
+
+        View view = flyerView;
+
+        Log.d("kkk ",  Integer.toString(view.getMeasuredHeight()));
+        Log.d("kkk ", Integer.toString(view.getMeasuredWidth()));
+
+        //View view = view_group.findViewById(R.id.custom_image_root);
+        //view.setVisibility(View.INVISIBLE);
+        Bitmap bm = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bm);
+        view.draw(c);
+        //view.setDrawingCacheEnabled(true);
+        //view.buildDrawingCache();
+        //Bitmap bm = Bitmap.createBitmap(view.getDrawingCache());
+        //view.setDrawingCacheEnabled(false);
+
+        new LoadImage(text,link, bm).execute();
     }
 
     @Override
