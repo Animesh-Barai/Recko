@@ -79,6 +79,8 @@ public class ProductDetails extends AppCompatActivity {
     int actual_price_val;
     View flyerView;
 
+    View spinner_flyer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +91,9 @@ public class ProductDetails extends AppCompatActivity {
         video_thumbnail = findViewById(R.id.video_thumbnail);
         product_name = findViewById(R.id.product_name);
         brochure_subheading = findViewById(R.id.brochure_subheading);
+
+        spinner_flyer = findViewById(R.id.spin_kit);
+        spinner_flyer.setVisibility(View.GONE);
 
         actual_price = findViewById(R.id.actual_price);
         offer_price = findViewById(R.id.offer_price);
@@ -413,6 +418,7 @@ public class ProductDetails extends AppCompatActivity {
                 whatsappIntent.setPackage("com.whatsapp");
                 try {
                     startActivity(whatsappIntent);
+                    spinner_flyer.setVisibility(View.GONE);
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(getApplicationContext(), "Whatsapp has not been installed.", Toast.LENGTH_SHORT).show();
                 }
@@ -446,6 +452,8 @@ public class ProductDetails extends AppCompatActivity {
 
         String text = "Wowww";
         String link = "https://www.google.es/images/srpr/logo11w.png";
+
+        spinner_flyer.setVisibility(View.VISIBLE);
 
 
         View view = flyerView;
