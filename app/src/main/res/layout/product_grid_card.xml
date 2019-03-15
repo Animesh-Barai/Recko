@@ -48,6 +48,7 @@
                     android:singleLine="true"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit ="marquee_forever"
+                    android:scrollHorizontally="true"
                     android:text="@string/car_loan"
                     android:textColor="@color/heading_dark"
                     android:textSize="18sp"
