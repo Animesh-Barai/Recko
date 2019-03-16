@@ -5,41 +5,37 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 
 import com.example.neelanshsethi.recko.Industries;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.IndustryChipModel;
 import com.example.neelanshsethi.recko.R;
 import com.google.android.material.chip.Chip;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class IndustryAdapter extends BaseAdapter {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class EditIndustryAdapter extends BaseAdapter {
 
 
     Context mctx;
-//    private final String industry_names;
-//    private final Drawable industry_logo;
-//    private final List<Boolean> isSelected;
     View v;
     LayoutInflater layoutInflater;
     List industryModellist;
+    Map<Integer, Chip> chipIndexMap;
 
-    // This will be true if we are showing industries in user profile so we dont need to set on click listner.
-    boolean is_user_industries;
-
-    public IndustryAdapter(Context mctx, List industryModellist) {
+    public EditIndustryAdapter(Context mctx, List industryModellist) {
         this.mctx = mctx;
         this.industryModellist=industryModellist;
-        this.is_user_industries = false;
-    }
-
-    public IndustryAdapter(Context mctx, List industryModellist, boolean is_user_industries) {
-        this.mctx = mctx;
-        this.industryModellist=industryModellist;
-        this.is_user_industries = is_user_industries;
+        chipIndexMap = new HashMap<>();
     }
 
 
@@ -56,6 +52,20 @@ public class IndustryAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    public void setAllSelectedChips() {
+        for (int ii=0;ii<industryModellist.size();ii++) {
+            IndustryChipModel industryChipModel = (IndustryChipModel) industryModellist.get(ii);
+            if (Constants.getInstance().isUserSubscribedToIndustry(industryChipModel.getIndustry_uuid()))
+            {
+
+                Chip chip = chipIndexMap.get(ii);
+                chip.performClick();
+                setSelection(chip);
+                industryChipModel.setSelected(chip.isChecked());
+            }
+        }
     }
 
 //    @Override
@@ -82,16 +92,12 @@ public class IndustryAdapter extends BaseAdapter {
             v = (View) view;
         }
         final Chip chip = v.findViewById(R.id.chip);
+        chipIndexMap.put(i, chip);
 //        Drawable drawable= mctx.getResources().getDrawable(industry_logo[i]);
 
         final IndustryChipModel industryChipModel = (IndustryChipModel) industryModellist.get(i);
         chip.setChipIcon(industryChipModel.getIndustry_logo());
         chip.setText(industryChipModel.getIndustry_name());
-        if (is_user_industries) {
-            chip.setChecked(false);
-            setSelection(chip);
-            return v;
-        }
 
         final Industries industries=new Industries();
         chip.setChecked(industryChipModel.getSelected());
@@ -101,12 +107,6 @@ public class IndustryAdapter extends BaseAdapter {
             public void onClick(View view) {
                 setSelection(chip);
                 industryChipModel.setSelected(chip.isChecked());
-                if(chip.isChecked()) {
-                    industries.selectChips(chip);
-                }
-                else{
-                    industries.removeChips(chip);
-                }
             }
         });
         return v;
@@ -125,5 +125,14 @@ public class IndustryAdapter extends BaseAdapter {
             chip.setChipIconVisible(true);
             chip.setCheckedIconVisible(false);
         }
+    }
+
+    public JSONArray getSelectedJsonArray() {
+        JSONArray data = new JSONArray();
+        for (Object chip : industryModellist) {
+            IndustryChipModel industry = (IndustryChipModel) chip;
+            if (industry.getSelected()) data.put(industry.getIndustry_uuid());
+        }
+        return data;
     }
 }

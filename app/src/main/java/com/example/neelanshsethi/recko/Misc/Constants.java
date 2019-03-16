@@ -6,12 +6,15 @@ import android.util.Patterns;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Constants {
+    private static String TAG = Constants.class.getSimpleName();
     public static final int max_company_height_in_explore = 300;
     public static final int add_lead_request_id = 7;
     public static final String edit_lead_title = "Edit Lead";
@@ -21,11 +24,46 @@ public class Constants {
     public static final int edit_account_info_request_id = 103;
     public static final int pick_contact_request_id = 104;
 
+    public static final int edit_industry_request_id = 105;
+
     public static SharedPreferences sharedPreferences;
 
     public static String seller_name;
 
     public static String seller_mobile_no;
+
+    public List<String> seller_industry_uuids;
+
+    private static Constants SINGLE_INSTANCE = null;
+
+    private Constants() {
+        seller_industry_uuids = new ArrayList<String>();
+    }
+
+    public void setIndustryUUids(List seller_industry_uuids)  {
+        synchronized(Constants.class) {
+            this.seller_industry_uuids = seller_industry_uuids;
+        }
+    }
+
+    public boolean isUserSubscribedToIndustry(String industry_uuid) {
+        synchronized(Constants.class) {
+            for (String subscribed : seller_industry_uuids) {
+                Log.d(TAG, "Comparing " + industry_uuid + " " + subscribed);
+                if (subscribed.equals(industry_uuid)) return true;
+            }
+        }
+        return false;
+    }
+
+    public static Constants getInstance() {
+        if (SINGLE_INSTANCE == null) {
+            synchronized(Constants.class) {
+                SINGLE_INSTANCE = new Constants();
+            }
+        }
+        return SINGLE_INSTANCE;
+    }
 
     public static boolean isValidURL(String url) {
         return url!=null && !StringUtils.isEmpty(url) && !url.equals("null");

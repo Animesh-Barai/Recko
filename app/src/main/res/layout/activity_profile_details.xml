@@ -15,6 +15,10 @@
         android:layout_centerVertical="true"
         app:SpinKit_Color="@color/colorAccent" />
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -159,5 +163,45 @@
             app:layout_constraintStart_toStartOf="@+id/testView12"
             app:layout_constraintTop_toBottomOf="@+id/testView12" />
 
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/brandontext_medium"
+            android:text="Your Industries"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/seller_location"
+            app:layout_constraintTop_toTopOf="@+id/SplitLine_hor1" />
+
+        <ImageView
+            android:id="@+id/edit_industries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/icon_edit"
+            android:tint="@color/heading_lighter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+        <GridView
+            android:id="@+id/industry_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:numColumns="2"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="8dp"
+            android:scrollbars="none"
+            android:textAlignment="center"
+            android:verticalSpacing="20dp"
+            app:layout_constraintStart_toStartOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -35,6 +35,19 @@
 
         </Preference>
 
+        <!--<Preference
+            android:title="Your Industries"
+            android:icon="@drawable/ic_perm_data_setting_black_24dp">
+
+            <intent
+                android:action="android.intent.action.recko.Account"
+                android:targetClass="com.example.neelanshsethi.recko.AccountActivity"
+                android:targetPackage="com.example.neelanshsethi.recko" />
+
+        </Preference>-->
+
+
+
         <Preference
             android:title="Refer and Earn"
             android:icon="@drawable/ic_people">

@@ -111,8 +111,6 @@ public class AccountEditActivity extends AppCompatActivity {
                             if (code.equals("200")) {
                                 boolean updated = response.getBoolean("updated");
                                 Intent intent=new Intent();
-                                intent.putExtra("account",accountModel);
-                                intent.putExtra("updated",updated);
 
                                 if (updated) {
                                     accountModel.setPayee_name(payee_name.getText().toString());
@@ -120,6 +118,10 @@ public class AccountEditActivity extends AppCompatActivity {
                                     accountModel.setBank_name(bank_name.getText().toString());
                                     accountModel.setIfsc_code(ifsc_code.getText().toString());
                                 }
+
+                                intent.putExtra("account",accountModel);
+                                intent.putExtra("updated",updated);
+
                                 progressBar.setVisibility(View.GONE);
 
                                 setResult(RESULT_OK,intent);

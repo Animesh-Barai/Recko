@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import com.example.neelanshsethi.recko.Adapters.IndustryAdapter;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.IndustryChipModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -113,6 +114,7 @@ public class Industries extends AppCompatActivity {
                         try {
                             JSONArray array= response.getJSONArray("data");
                             Log.d("zzzarray",array.toString());
+                            int j = 0;
                             for (int i = 0; i < array.length(); i++) {
                                 try {
                                     JSONObject object = array.getJSONObject(i);
@@ -123,7 +125,7 @@ public class Industries extends AppCompatActivity {
                                     String uuid=object.getString("industry_uuid");
                                     if(pic_base64.contains("data")) {
 
-                                        for(int j=0;j<18;j++) {
+                                        //for(int j=0;j<18;j++) {
 
                                             Log.d("zzz j", String.valueOf(" " + i));
                                             String base64Image = pic_base64.split(",")[1];
@@ -133,9 +135,9 @@ public class Industries extends AppCompatActivity {
 
                                             IndustryChipModel industryChipModel =new IndustryChipModel(d,name,uuid);
                                             industryModellist.add(industryChipModel);
-                                            ind_names.add(j, name);
-                                            industry_uuid.add(j, uuid);
-                                        }
+                                            ind_names.add(j++, name);
+                                            industry_uuid.add(j++, uuid);
+                                        //}
 
                                     }
                                 } catch (JSONException e) {
@@ -205,6 +207,9 @@ public class Industries extends AppCompatActivity {
                                     bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                     bundle.putInt("user_industry_count", industries.length());
                                     mFirebaseAnalytics.logEvent("industries_saved", bundle);
+
+                                    Constants.getInstance().setIndustryUUids(selectedChips);
+
                                     Intent intent = new Intent(Industries.this, LearnHowItWorks.class);
                                     startActivity(intent);
                                     Log.d("zzz", selectedChips.toString());

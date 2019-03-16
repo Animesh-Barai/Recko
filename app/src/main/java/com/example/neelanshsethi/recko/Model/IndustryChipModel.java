@@ -2,7 +2,9 @@ package com.example.neelanshsethi.recko.Model;
 
 import android.graphics.drawable.Drawable;
 
-public class IndustryChipModel {
+import java.io.Serializable;
+
+public class IndustryChipModel implements Serializable {
 
     private Drawable industry_logo;
     private String industry_name;

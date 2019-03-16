@@ -28,6 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SplashScreen extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -175,6 +178,9 @@ public class SplashScreen extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                     if (industries!=null && industries.length() > 0) {
+                                        List<String> uuids = new ArrayList<>();
+                                        for (int ii=0;ii<industries.length();ii++) uuids.add(industries.getString(ii));
+                                        Constants.getInstance().setIndustryUUids(uuids);
                                         goto_navigation();
                                     } else {
                                         Bundle bundle = new Bundle();
