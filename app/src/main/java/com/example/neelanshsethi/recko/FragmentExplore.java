@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.neelanshsethi.recko.Adapters.CategoryListAdapter;
+import com.example.neelanshsethi.recko.Adapters.CompanyListGridAdapter;
 import com.example.neelanshsethi.recko.Adapters.Company_InCategoryAndCompanyAdapter;
 import com.example.neelanshsethi.recko.Adapters.IndustrySmallCardAdapter;
 import com.example.neelanshsethi.recko.Adapters.ProductListGridAdapter;
@@ -75,7 +76,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private RecyclerView rv_videolist;
     private RecyclerView rv_productlist1;
     private RecyclerView rv_categorylist2;
-    private RecyclerViewCustom rv_companyexp1;
+    private RecyclerView rv_companyexp1;
     private RecyclerView rv_small_industry2;
     private ViewPager carousel;
     private SliderAdapter sliderAdapter;
@@ -87,7 +88,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
     private CategoryListAdapter categoryListAdapter2;
     private IndustrySmallCardAdapter industrySmallCardAdapter1;
     private IndustrySmallCardAdapter industrySmallCardAdapter2;
-    private Company_InCategoryAndCompanyAdapter companyInCategoryAndCompanyAdapter;
+    private CompanyListGridAdapter compnayListGridAdapter;
     private List companylist;
     private List cardindustrylist;
 
@@ -150,7 +151,6 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         thisActivity=(Activity)getActivity();
         rv_videolist=v.findViewById(R.id.rv_videolist);
         rv_productlist1=v.findViewById(R.id.rv_productlist1);
-        rv_categorylist2=v.findViewById(R.id.rv_categorylist2);
         rv_companyexp1=v.findViewById(R.id.rv_companyexp1);
         rv_small_industry2=v.findViewById(R.id.rv_small_industry2);
         RelativeLayout layout = v.findViewById(R.id.top_layout);
@@ -227,29 +227,16 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         productListGridAdapter =new ProductListGridAdapter(getActivity(),productslist,getActivity());
         rv_productlist1.setAdapter(productListGridAdapter);
 
-//        categoryListAdapter1 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
-//        rv_productlist1.setAdapter(categoryListAdapter1);
-//        categoryListAdapter1.notifyDataSetChanged();
 
         rv_companyexp1.setHasFixedSize(true);
         rv_companyexp1.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL, false));
-        companyInCategoryAndCompanyAdapter = new Company_InCategoryAndCompanyAdapter(getActivity(), companylist, getActivity());
-        rv_companyexp1.setAdapter(companyInCategoryAndCompanyAdapter);
-//        industrySmallCardAdapter1=new IndustrySmallCardAdapter(getActivity(),heading2,sampleimgurl);
-//        rv_companyexp1.setAdapter(industrySmallCardAdapter1);
-//        industrySmallCardAdapter1.notifyDataSetChanged();
-
-        rv_categorylist2.setHasFixedSize(true);
-        rv_categorylist2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL, false));
-//        categoryListAdapter2 =new CategoryListAdapter(getActivity(),heading,imageurl,categorytitle,categoryamount);
-        rv_categorylist2.setAdapter(categoryListAdapter1);
-//        categoryListAdapter2.notifyDataSetChanged();
+        compnayListGridAdapter = new CompanyListGridAdapter(getActivity(), companylist, getActivity());
+        rv_companyexp1.setAdapter(compnayListGridAdapter);
 
         rv_small_industry2.setHasFixedSize(true);
         rv_small_industry2.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false));
         industrySmallCardAdapter2=new IndustrySmallCardAdapter(getActivity(),cardindustrylist,getActivity());
         rv_small_industry2.setAdapter(industrySmallCardAdapter2);
-//        industrySmallCardAdapter2.notifyDataSetChanged();
 
         get_rv_categorylist();
         get_carousel_images();
@@ -536,8 +523,8 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 e.printStackTrace();
             }
         }
-        rv_companyexp1.setMaxHeight(Constants.max_company_height_in_explore);
-        companyInCategoryAndCompanyAdapter.notifyDataSetChanged();
+        // rv_companyexp1.setMaxHeight(Constants.max_company_height_in_explore);
+        compnayListGridAdapter.notifyDataSetChanged();
     }
 
     private void get_smallcard_industry() {
@@ -547,15 +534,16 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         JSONObject json = new JSONObject();
         try {
             json.put("seller_uuid",mUser.getUid());
+            json.put("all", true);
             Log.d("zzz json", json.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/list_industries", json,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"industry/list", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("zzz", APIURL.url + "user/list_industries" + "\nonResponse: " + response);
+                        Log.d("zzz", APIURL.url + "industry/list" + "\nonResponse: " + response);
                         maybeStopRefresh();
                         try {
                             String code = response.getString("code");

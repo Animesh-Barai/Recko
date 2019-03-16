@@ -28,7 +28,7 @@ public class Constants {
     public static String seller_mobile_no;
 
     public static boolean isValidURL(String url) {
-        return !StringUtils.isEmpty(url) && !url.equals("null");
+        return url!=null && !StringUtils.isEmpty(url) && !url.equals("null");
     }
 
     public static String fixNullString(String text) {

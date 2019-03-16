@@ -101,30 +101,30 @@
                     android:textColor="@color/heading_dark"
                     android:textSize="24sp" />
 
-                <com.example.neelanshsethi.recko.Misc.RecyclerViewCustom
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/rv_companyexp1">
 
-                </com.example.neelanshsethi.recko.Misc.RecyclerViewCustom>
+                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
+            <!--<androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/rv_categorylist2"
                 android:layout_below="@id/rv_companyexp1_container">
-            </androidx.recyclerview.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>-->
 
             <LinearLayout
                 android:id="@+id/small_industry_container2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/rv_categorylist2"
+                android:layout_below="@+id/rv_companyexp1_container"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="25dp">
 
