@@ -47,6 +47,7 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity implements YouTub
         Intent i = new Intent(this, YoutubePlayerCustomActivity.class);
         i.putExtra("video_id", videoID);
         startActivity(i);
+        finish();
         return;
 
         //youTubePlayerView = findViewById(R.id.youtube_player_view);

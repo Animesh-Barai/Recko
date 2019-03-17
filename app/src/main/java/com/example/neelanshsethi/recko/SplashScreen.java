@@ -45,7 +45,9 @@ public class SplashScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        checkRecur();
+        Intent intent = new Intent(SplashScreen.this, LearnHowItWorks.class);
+        startActivity(intent);
+//        /checkRecur();
     }
 
     private void checkRecur()

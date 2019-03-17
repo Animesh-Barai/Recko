@@ -56,6 +56,7 @@ public class LearnHowItWorks extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                player.stop();
                 Intent intent=new Intent(getApplicationContext(),NavigationDashboard.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -74,6 +75,7 @@ public class LearnHowItWorks extends AppCompatActivity {
 
     public  void play(Context ctx)
     {
+        findViewById(R.id.linearLayout).setVisibility(View.VISIBLE);
         player=ExoPlayerFactory.newSimpleInstance(getApplicationContext());
         Uri uri=Uri.parse(videoURL);
         playerView.setPlayer(player);
