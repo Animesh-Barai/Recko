@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,25 +25,9 @@ public class NavigationDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_dashboard);
-
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
-        viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
-        viewpageradapter = new ViewPagerAdapter (getSupportFragmentManager());
-        viewpageradapter.addFragment(new FragmentLearn(), "Learn");
-        viewpageradapter.addFragment(new FragmentExplore(), "Explore");
-        viewpageradapter.addFragment(new FragmentForYou(), "ForYou");
-        viewpageradapter.addFragment(new FragmentCRM(), "CRM");
-        viewpageradapter.addFragment(new FragmentSettings(), "Settings");
-
-        viewPager.setPagingEnabled(false);
-        viewPager.setOffscreenPageLimit(4);
-        viewPager.setAdapter(viewpageradapter);
-        bottomNavigationView.setSelectedItemId(R.id.action_for_you);
-
+        //setContentView(R.layout.activity_navigation_dashboard);
+        new OnCreateRunner().execute();
+        Log.d("zzkkk", "return");
         /*swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -115,5 +100,35 @@ public class NavigationDashboard extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d("zzz navigation activity", "got activity result");
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private class OnCreateRunner extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("zzkkk", "runnable");
+                    setContentView(R.layout.activity_navigation_dashboard);
+                    bottomNavigationView = findViewById(R.id.bottom_navigation);
+                    bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+                    viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
+                    viewpageradapter = new ViewPagerAdapter (getSupportFragmentManager());
+                    viewpageradapter.addFragment(new FragmentLearn(), "Learn");
+                    viewpageradapter.addFragment(new FragmentExplore(), "Explore");
+                    viewpageradapter.addFragment(new FragmentForYou(), "ForYou");
+                    viewpageradapter.addFragment(new FragmentCRM(), "CRM");
+                    viewpageradapter.addFragment(new FragmentSettings(), "Settings");
+
+                    viewPager.setPagingEnabled(false);
+                    viewPager.setOffscreenPageLimit(4);
+                    viewPager.setAdapter(viewpageradapter);
+                    bottomNavigationView.setSelectedItemId(R.id.action_for_you);
+                    Log.d("zzkkk", "runnable END");
+                }
+            });
+            return null;
+        }
     }
 }

@@ -24,6 +24,8 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class LearnHowItWorks extends AppCompatActivity {
 
     PlayerView playerView;
@@ -32,6 +34,7 @@ public class LearnHowItWorks extends AppCompatActivity {
     ImageView skip_illustration;
     ImageView play;
     String videoURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    AtomicBoolean skip_clicked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class LearnHowItWorks extends AppCompatActivity {
         skip_illustration=findViewById(R.id.skip_illustration);
         play=findViewById(R.id.play);
 
+        skip_clicked = new AtomicBoolean();
+        skip_clicked.set(false);
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,15 +61,31 @@ public class LearnHowItWorks extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player.stop();
+                if (!skip_clicked.compareAndSet(false, true)) return;
+                if (player!=null) player.stop();
                 Intent intent=new Intent(getApplicationContext(),NavigationDashboard.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
+                finish();
 
             }
         });
-
+        findViewById(R.id.skip_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("zzkkk", "here1");
+                if (!skip_clicked.compareAndSet(false, true)) return;
+                Log.d("zzkkk", "here1");
+                if (player!=null) player.stop();
+                Log.d("zzkkk", "here1");
+                Intent intent=new Intent(getApplicationContext(),NavigationDashboard.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                Log.d("zzkkk", "here1");
+                finish();
+                Log.d("zzkkk", "here1");
+            }
+        });
     }
 
     @Override
@@ -76,6 +97,8 @@ public class LearnHowItWorks extends AppCompatActivity {
     public  void play(Context ctx)
     {
         findViewById(R.id.linearLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.appbar).setVisibility(View.VISIBLE);
+        skip.setVisibility(View.GONE);
         player=ExoPlayerFactory.newSimpleInstance(getApplicationContext());
         Uri uri=Uri.parse(videoURL);
         playerView.setPlayer(player);
