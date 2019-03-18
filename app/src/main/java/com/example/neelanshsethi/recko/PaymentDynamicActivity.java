@@ -179,7 +179,23 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
                                 JSONObject data = response.getJSONObject("data");
                                 String invoice_id = data.getString("invoice_id");
                                 progressBar.setVisibility(View.GONE);
-                                startPayment(invoice_id);
+                                if (behalf_switch.isChecked())
+                                    startPayment(invoice_id);
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Payment Link Sent!!", Toast.LENGTH_SHORT).show();
+                                    Thread thread = new Thread(){
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                Thread.sleep(Toast.LENGTH_SHORT);
+                                                PaymentDynamicActivity.this.finish();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    };
+                                    thread.start();
+                                }
                             } else {
                                 progressBar.setVisibility(View.GONE);
                                 Toast.makeText(getApplicationContext(),"Oops! We encountered some error, please try letter.",Toast.LENGTH_SHORT).show();
@@ -260,7 +276,7 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
-            Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }
@@ -275,14 +291,14 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
     @Override
     public void onPaymentError(int code, String response) {
         try {
-            Toast.makeText(this, "Payment failed: " + code + " " + response, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Payment failed: " + response, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
     }
 
     private String getEndUserAmountCommunicated() {
-        return getValueAtTag("amount");
+        return Constants.fixDoubleString(productModel.getUserPriceString(), 100);
     }
 
     private String getEndUserEmail() {

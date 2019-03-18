@@ -49,7 +49,7 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
     public ResultViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(mctx);
-        View v = inflater.inflate(R.layout.category_and_company_card, null);
+        View v = inflater.inflate(R.layout.product_large_card, null);
         return new ResultViewHolder(v);
     }
 

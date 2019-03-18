@@ -102,6 +102,12 @@ public class Constants {
         return Integer.toString(val_int);
     }
 
+    public static String fixDoubleString(String str, int scale) {
+        Double val = Double.parseDouble(str);
+        int val_int = (int)Math.ceil(val) * scale;
+        return Integer.toString(val_int);
+    }
+
     public static void MaybeCreateSharedPreference(AppCompatActivity activity) {}
 
     public static void storeUserNameInPreference() {}
