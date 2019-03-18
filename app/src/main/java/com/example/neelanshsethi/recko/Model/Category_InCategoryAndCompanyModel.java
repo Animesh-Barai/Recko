@@ -7,6 +7,7 @@ public class Category_InCategoryAndCompanyModel {
     private String category_uuid;
     private String image_url;
     private String name;
+    private String max_total_commission;
 
     public Category_InCategoryAndCompanyModel(String industry, String category_uuid, String image_url, String name) {
         this.industry = industry;
@@ -45,6 +46,14 @@ public class Category_InCategoryAndCompanyModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMax_total_commission() {
+        return max_total_commission;
+    }
+
+    public void setMax_total_commission(String max_total_commission) {
+        this.max_total_commission = max_total_commission;
     }
 
 }

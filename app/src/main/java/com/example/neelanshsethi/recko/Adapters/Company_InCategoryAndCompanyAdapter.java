@@ -64,6 +64,8 @@ public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Co
             }
 
             holder.textView.setText(company_inCategoryAndCompanyModel.getCompany_name());
+            holder.amountcategory.setText(Constants.fixDoubleString((
+                    company_inCategoryAndCompanyModel.getMax_commisiion())));
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -103,12 +105,14 @@ public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Co
         private ImageView imageView;
         private TextView textView;
         private CardView cardView;
+        private TextView amountcategory;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
             cardView=itemView.findViewById(R.id.categorycard);
+            amountcategory = itemView.findViewById(R.id.amountcategory);
         }
     }
 

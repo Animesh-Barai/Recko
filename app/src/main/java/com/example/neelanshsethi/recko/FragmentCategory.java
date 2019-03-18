@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.neelanshsethi.recko.Adapters.Category_InCategoryAndCompanyAdapter;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.Category_InCategoryAndCompanyModel;
 
 import org.json.JSONArray;
@@ -167,8 +168,11 @@ public class FragmentCategory extends androidx.fragment.app.Fragment {
                                     String category_uuid = object.getString("category_uuid");
                                     String image_url = object.getString("image_url");
                                     String name = object.getString("name");
+                                    String max_total_commission = object.getString("max_total_commission");
+                                    max_total_commission = Constants.fixDoubleString(max_total_commission);
 
                                     Category_InCategoryAndCompanyModel category_inCategoryAndCompanyModel= new Category_InCategoryAndCompanyModel(industry,category_uuid,image_url,name);
+                                    category_inCategoryAndCompanyModel.setMax_total_commission(max_total_commission);
                                     categorylist.add(category_inCategoryAndCompanyModel);
                                     Log.d("zzz id",industry +" "+name );
 

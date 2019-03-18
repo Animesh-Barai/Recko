@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.example.neelanshsethi.recko.ProductDetails;
 import com.example.neelanshsethi.recko.R;
@@ -57,6 +58,8 @@ public class Products_InCompanyAdapter extends RecyclerView.Adapter<Products_InC
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);
             holder.textView.setText(productModel.getTitle());
+            holder.amountcategory.setText(
+                    Constants.fixDoubleString(productModel.getTotal_commission()));
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +105,14 @@ public class Products_InCompanyAdapter extends RecyclerView.Adapter<Products_InC
         private ImageView imageView;
         private TextView textView;
         private CardView cardView;
+        private TextView amountcategory;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
             cardView=itemView.findViewById(R.id.categorycard);
+            amountcategory=itemView.findViewById(R.id.amountcategory);
         }
     }
 

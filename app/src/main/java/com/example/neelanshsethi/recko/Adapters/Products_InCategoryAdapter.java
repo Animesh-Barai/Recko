@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.neelanshsethi.recko.Misc.Constants;
 import com.example.neelanshsethi.recko.Model.ProductModel;
 import com.example.neelanshsethi.recko.ProductDetails;
 import com.example.neelanshsethi.recko.R;
@@ -72,7 +73,7 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);
             holder.textView.setText(productModel.getTitle());
-
+            holder.amountcategory.setText(Constants.fixDoubleString(productModel.getTotal_commission()));
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,12 +118,14 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
         private ImageView imageView;
         private TextView textView;
         private CardView cardView;
+        private  TextView amountcategory;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
             cardView=itemView.findViewById(R.id.categorycard);
+            amountcategory = itemView.findViewById(R.id.amountcategory);
         }
     }
 

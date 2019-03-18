@@ -90,6 +90,8 @@ public class CompanyInGridAdapter extends BaseAdapter {
         CardView cardView=v.findViewById(R.id.companycard);
 
         final Company_InCategoryAndCompanyModel companyModel = (Company_InCategoryAndCompanyModel) companyList.get(i);
+        ((TextView)v.findViewById(R.id.amountcompany)).setText(
+                Constants.fixDoubleString(companyModel.getMax_commisiion()));
         if (Constants.isValidURL(companyModel.getImage_url())) {
             Log.d(TAG, companyModel.getImage_url());
             Glide.with(mctx)

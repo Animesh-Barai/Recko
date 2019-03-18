@@ -25,8 +25,23 @@ public class NavigationDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_navigation_dashboard);
-        new OnCreateRunner().execute();
+        setContentView(R.layout.activity_navigation_dashboard);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+
+        viewPager = (CustomViewPager) findViewById(R.id.fragment_container);
+        viewpageradapter = new ViewPagerAdapter (getSupportFragmentManager());
+        viewpageradapter.addFragment(new FragmentLearn(), "Learn");
+        viewpageradapter.addFragment(new FragmentExplore(), "Explore");
+        viewpageradapter.addFragment(new FragmentForYou(), "ForYou");
+        viewpageradapter.addFragment(new FragmentCRM(), "CRM");
+        viewpageradapter.addFragment(new FragmentSettings(), "Settings");
+
+        viewPager.setPagingEnabled(false);
+        viewPager.setOffscreenPageLimit(4);
+        viewPager.setAdapter(viewpageradapter);
+        bottomNavigationView.setSelectedItemId(R.id.action_for_you);
+        //new OnCreateRunner().execute();
         Log.d("zzkkk", "return");
         /*swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -109,7 +124,7 @@ public class NavigationDashboard extends AppCompatActivity {
                 @Override
                 public void run() {
                     Log.d("zzkkk", "runnable");
-                    setContentView(R.layout.activity_navigation_dashboard);
+
                     bottomNavigationView = findViewById(R.id.bottom_navigation);
                     bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
