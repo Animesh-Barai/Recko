@@ -95,7 +95,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/newly_added_companies"
                     android:textColor="@color/heading_dark"
