@@ -244,7 +244,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                     String industry_uuid = object.getString("industry_uuid");
                                     String name = object.getString("name");
 
-                                    Log.d("zzzarray", object.toString());
+                                    Log.d("zzzarray", industry_uuid + ", " + name);
 
                                     IndustryCardModel industryCardModel=new IndustryCardModel(image_url,name,industry_uuid);
                                     cardindustrylist.add(industryCardModel);

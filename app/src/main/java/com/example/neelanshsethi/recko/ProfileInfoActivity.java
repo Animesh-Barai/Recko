@@ -223,6 +223,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
                                             Drawable d = new BitmapDrawable(getResources(), decodedByte);
 
                                             IndustryChipModel industryChipModel =new IndustryChipModel(d,name,uuid);
+                                            Log.d(TAG, uuid);
+                                        if (Constants.getInstance().isUserSubscribedToIndustry(uuid)) Log.d(TAG, "alredy in there " + uuid);
                                             if (Constants.getInstance().isUserSubscribedToIndustry(uuid)) industryModellist.add(industryChipModel);
                                             allIndustryModelList.add(industryChipModel);
 

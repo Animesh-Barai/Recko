@@ -42,11 +42,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class IndustryEditActivity extends AppCompatActivity {
-
+    private static String TAG = IndustryEditActivity.class.getSimpleName();
     GridView gridView;
     Button save;
     List industryModellist;
     EditIndustryAdapter editIndustryAdapter;
+    androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,14 @@ public class IndustryEditActivity extends AppCompatActivity {
         editIndustryAdapter= new EditIndustryAdapter(this,industryModellist);
         gridView.setAdapter(editIndustryAdapter);
         getdata();
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -165,6 +174,8 @@ public class IndustryEditActivity extends AppCompatActivity {
                         try {
                             if(response.getString("code").equals("200"))
                             {
+                                Log.d(TAG, "clearing industry cache");
+                                Volley.newRequestQueue(getApplicationContext()).getCache().remove(APIURL.url+"industry/list");
                                 List uuids = new ArrayList();
                                 for (int ii=0;ii<selectedChips.length();ii++) uuids.add(selectedChips.getString(ii));
                                 Constants.getInstance().setIndustryUUids(uuids);

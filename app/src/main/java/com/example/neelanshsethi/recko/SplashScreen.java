@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SplashScreen extends AppCompatActivity {
-
+    private static String TAG = SplashScreen.class.getSimpleName();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -180,7 +180,10 @@ public class SplashScreen extends AppCompatActivity {
                                     }
                                     if (industries!=null && industries.length() > 0) {
                                         List<String> uuids = new ArrayList<>();
-                                        for (int ii=0;ii<industries.length();ii++) uuids.add(industries.getString(ii));
+                                        for (int ii=0;ii<industries.length();ii++) {
+                                            Log.d(TAG, industries.getString(ii));
+                                            uuids.add(industries.getString(ii));
+                                        }
                                         Constants.getInstance().setIndustryUUids(uuids);
                                         goto_navigation();
                                     } else {
