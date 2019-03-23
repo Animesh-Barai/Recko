@@ -184,7 +184,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView19" />
 
-        <com.example.neelanshsethi.recko.Misc.WrappingGridView
+        <com.recko.app.Misc.WrappingGridView
             android:id="@+id/industry_gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

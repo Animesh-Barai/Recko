@@ -30,7 +30,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"-->
 
-        <com.example.neelanshsethi.recko.ExpandableHeightGridView
+        <com.recko.app.ExpandableHeightGridView
             android:id="@+id/productgridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,6 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </com.example.neelanshsethi.recko.ExpandableHeightGridView>
+        </com.recko.app.ExpandableHeightGridView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

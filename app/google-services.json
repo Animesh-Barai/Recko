@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:767365669680:android:c647846cd01a2bd2",
+        "mobilesdk_app_id": "1:767365669680:android:629bf1720f21899d",
         "android_client_info": {
-          "package_name": "com.example.neelanshsethi.recko"
+          "package_name": "com.recko.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "767365669680-610rj67838put8rrmesd9qd2eo8n5pjn.apps.googleusercontent.com",
+          "client_id": "767365669680-0lasv0dn1ja8e3s66sdra5jrmhphfkn3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.neelanshsethi.recko",
+            "package_name": "com.recko.app",
             "certificate_hash": "03aa677b4a1e23ef7fb60e266fc1ab011b88a187"
           }
         },

@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />-->
 
-        <com.example.neelanshsethi.recko.ExpandableHeightGridView
+        <com.recko.app.ExpandableHeightGridView
             android:id="@+id/companygridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,6 +41,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </com.example.neelanshsethi.recko.ExpandableHeightGridView>
+        </com.recko.app.ExpandableHeightGridView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
