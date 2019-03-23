@@ -43,6 +43,7 @@ import java.io.IOException;
 
 public class ProductDetails extends AppCompatActivity {
 
+    private static String TAG = ProductDetails.class.getSimpleName();
     androidx.appcompat.widget.Toolbar toolbar;
     Chip whatsapp,brochure;
     ProductModel productModel;
@@ -138,8 +139,10 @@ public class ProductDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProductDetails.this, TermsWebViewActivity.class);
+                Log.d(TAG, productModel.getBroucher());
                 //intent.putExtra("url", "http://soluciones.toshiba.com/media/downloads/products/4555c-5055cBrochure.pdf");
-                intent.putExtra("url", "http://www.africau.edu/images/default/sample.pdf");
+                intent.putExtra("url", productModel.getBroucher());
+                intent.putExtra("should_use_docs", true);
                 startActivity(intent);
             }
         });

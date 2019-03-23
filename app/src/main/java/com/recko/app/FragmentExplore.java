@@ -428,7 +428,6 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
 
                                     CarouselModel carouselModel= new CarouselModel(carousel_id,image_url,web_link);
                                     carousel_images.add(carouselModel);
-                                    carousel_images.add(carouselModel);
                                     Log.d("zzz id",image_url +" "+web_link+" " +carousel_id );
 
                                 } catch (JSONException e) {

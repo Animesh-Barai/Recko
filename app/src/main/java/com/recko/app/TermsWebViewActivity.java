@@ -35,10 +35,12 @@ public class TermsWebViewActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
 
+        boolean should_use_docs = intent.getBooleanExtra("should_use_docs", true);
+
         webView.getSettings().setBuiltInZoomControls(true);
         if (intent.hasExtra("url")) {
             String url = intent.getStringExtra("url");
-            if (url.endsWith(".pdf"))
+            if (should_use_docs && url.endsWith(".pdf"))
                     url = "http://docs.google.com/gview?embedded=true&url=" + url;
             webView.getSettings().setJavaScriptEnabled(true);
             //webView.getSettings().setLoadWithOverviewMode(true);
