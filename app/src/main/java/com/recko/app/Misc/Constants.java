@@ -69,6 +69,10 @@ public class Constants {
         return url!=null && !StringUtils.isEmpty(url) && !url.equals("null");
     }
 
+    public static boolean isValidString(String url) {
+        return url!=null && !StringUtils.isEmpty(url) && !url.equals("null");
+    }
+
     public static String fixNullString(String text) {
         if (text.equals("null")) return "";
         return text;

@@ -19,8 +19,8 @@
 
             <intent
                 android:action="android.intent.action.recko.ProfileInfo"
-                android:targetClass="com.recko.recko.ProfileInfoActivity"
-                android:targetPackage="com.recko.recko" />
+                android:targetClass="com.recko.app.ProfileInfoActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
 
@@ -30,8 +30,8 @@
 
             <intent
                 android:action="android.intent.action.recko.Account"
-                android:targetClass="com.recko.recko.AccountActivity"
-                android:targetPackage="com.recko.recko" />
+                android:targetClass="com.recko.app.AccountActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
 
@@ -41,8 +41,8 @@
 
             <intent
                 android:action="android.intent.action.recko.Account"
-                android:targetClass="com.recko.recko.AccountActivity"
-                android:targetPackage="com.recko.recko" />
+                android:targetClass="com.recko.app.AccountActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>-->
 
@@ -54,8 +54,8 @@
 
             <intent
                 android:action="android.intent.action.Refer"
-                android:targetClass="com.recko.recko.ReferActivity"
-                android:targetPackage="com.recko.recko" />
+                android:targetClass="com.recko.app.ReferActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
 
@@ -65,8 +65,8 @@
 
             <intent
                 android:action="android.intent.action.recko.Terms"
-                android:targetClass="com.recko.recko.TermsWebViewActivity"
-                android:targetPackage="com.recko.recko" />
+                android:targetClass="com.recko.app.TermsWebViewActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
 
@@ -76,8 +76,8 @@
 
             <intent
                 android:action="android.intent.action.recko.Logout"
-                android:targetClass="com.recko.recko.LogoutActivity"
-                android:targetPackage="com.recko.recko" />
+                android:targetClass="com.recko.app.LogoutActivity"
+                android:targetPackage="com.recko.app" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

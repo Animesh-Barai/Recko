@@ -21,6 +21,7 @@ import com.recko.app.Adapters.CategoryListAdapter;
 import com.recko.app.Adapters.IndustrySmallCardAdapter;
 import com.recko.app.Adapters.SliderAdapter;
 import com.recko.app.Adapters.VideoListAdapter;
+import com.recko.app.Misc.Constants;
 import com.recko.app.Model.CarouselModel;
 import com.recko.app.Model.CategoryListModel;
 import com.recko.app.Model.IndustryCardModel;
@@ -241,11 +242,15 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
                                     JSONObject object = array1.getJSONObject(i);
                                     String image_url = object.getString("image_url");
                                     String industry_uuid = object.getString("industry_uuid");
+                                    String img_url_high_res = object.getString("image_url_high_res");
                                     String name = object.getString("name");
 
                                     Log.d("zzzarray", industry_uuid + ", " + name);
+                                    Log.d("zzzarray", image_url);
 
                                     IndustryCardModel industryCardModel=new IndustryCardModel(image_url,name,industry_uuid);
+                                    if (Constants.isValidString(img_url_high_res))
+                                        industryCardModel.setImage_url(img_url_high_res);
                                     cardindustrylist.add(industryCardModel);
 
                                 } catch (JSONException e) {
