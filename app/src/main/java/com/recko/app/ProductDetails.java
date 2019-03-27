@@ -120,6 +120,7 @@ public class ProductDetails extends AppCompatActivity {
                 }
 
                 Intent i = new Intent(ProductDetails.this, YoutubePlayerCustomActivity.class);
+                Log.d("zzzkkk", videoId);
                 i.putExtra("video_id", videoId);
                 startActivity(i);
             }

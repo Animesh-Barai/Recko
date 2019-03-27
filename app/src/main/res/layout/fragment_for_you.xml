@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/carouselbody"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="24dp">
 
                 <TextView
                     android:id="@+id/products_for_you"
