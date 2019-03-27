@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.recko.app.Misc.Constants;
 import com.recko.app.Model.ProductModel;
 import com.recko.app.ProductDetails;
 import com.recko.app.R;
@@ -88,7 +89,7 @@ public class ProductInGridAdapter extends BaseAdapter {
         }
 
         titleproduct.setText(productModel.getTitle());
-        amountproduct.setText(productModel.getTotal_commission());
+        amountproduct.setText(Constants.fixDoubleString(productModel.getTotal_commission()));
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
