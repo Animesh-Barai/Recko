@@ -94,6 +94,10 @@ dependencies {
 
     // Youtube player
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.1'
+
+    // sdp
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
