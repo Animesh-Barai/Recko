@@ -1,10 +1,16 @@
 package com.recko.app.Model;
 
+import android.util.Log;
+
 import com.recko.app.Misc.Constants;
+
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
 public class ProductModel implements Serializable{
+
+    private static String TAG = ProductModel.class.getSimpleName();
 
     private String broucher;
     private String video;
@@ -29,7 +35,7 @@ public class ProductModel implements Serializable{
     private float discount;
     private String img_url;
     private String youtube_video_id;
-
+    private String display_name;
 
 
 
@@ -257,5 +263,25 @@ public class ProductModel implements Serializable{
 
     public String getYoutube_video_id() {
         return youtube_video_id;
+    }
+
+    public String getProductDisplayNmae() {
+        if (Constants.isValidString(display_name))
+            return display_name;
+        return getTitle();
+    }
+
+    public void fillMoreData(JSONObject data) {
+        Log.d(TAG, "Filling more data");
+        try {
+            if (data.has("display_name")) {
+                String displayName = data.getString("display_name");
+                if (Constants.isValidString(displayName)) {
+                    displayName = displayName.replace("<br/>", "\n");
+                    Log.d(TAG, "Display name: " + displayName);
+                    display_name = displayName;
+                }
+            }
+        } catch (Exception e) {}
     }
 }

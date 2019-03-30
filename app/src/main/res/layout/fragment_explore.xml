@@ -62,17 +62,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/carouselbody"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="@dimen/_21sdp">
 
                 <TextView
                     android:id="@+id/rv_productlist1_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="29dp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/newly_launched_products"
                     android:textColor="@color/heading_dark"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/_20ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -88,17 +88,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/rv_productlist1_container"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="@dimen/_21sdp">
 
                 <TextView
                     android:id="@+id/rv_companyexp1_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/newly_added_companies"
                     android:textColor="@color/heading_dark"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/_20ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"

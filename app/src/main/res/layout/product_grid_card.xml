@@ -14,15 +14,15 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/productcard"
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="@dimen/_130sdp"
             android:layout_height="0dp"
-            android:background="@drawable/shadow_192610"
             app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="@dimen/_10sdp"
             app:cardElevation="@dimen/_3sdp"
             app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="h,144:168"
+            app:layout_constraintDimensionRatio="h,130:168"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,11 +31,11 @@
 
                 <ImageView
                     android:id="@+id/imgproduct"
-                    android:layout_width="@dimen/_120sdp"
+                    android:layout_width="@dimen/_130sdp"
                     android:layout_height="0dp"
-                    android:src="@drawable/sample2"
+                    android:src="@drawable/sample2_390x216"
                     android:adjustViewBounds="true"
-                    app:layout_constraintDimensionRatio="h,144:72"
+                    app:layout_constraintDimensionRatio="h,130:72"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -45,17 +45,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="12dp"
-                    android:maxLines = "2"
-                    android:minLines = "2"
                     android:ellipsize="marquee"
                     android:fontFamily="@font/brandontext_medium"
-                    android:lineSpacingExtra="6sp"
+                    android:lineSpacingExtra="0sp"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="2"
+                    android:minLines="2"
                     android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="@string/car_loan"
+                    android:singleLine="false"
+                    android:text="Bansal\nTest"
                     android:textColor="@color/heading_dark"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imgproduct" />
 

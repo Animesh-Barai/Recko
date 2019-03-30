@@ -14,7 +14,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/companycard"
-            android:layout_width="170dp"
+            android:layout_width="@dimen/_130sdp"
             android:layout_height="0dp"
             app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="10dp"
@@ -30,7 +30,7 @@
 
                 <ImageView
                     android:id="@+id/imgcompany"
-                    android:layout_width="170dp"
+                    android:layout_width="@dimen/_130sdp"
                     android:layout_height="0dp"
                     android:src="@drawable/sample2"
                     app:layout_constraintDimensionRatio="h,16:8"

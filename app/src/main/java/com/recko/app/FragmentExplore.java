@@ -384,6 +384,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 String mrp = !productDetails.has("mrp")?"null":productDetails.getString("mrp");
 
                 ProductModel productModel = new ProductModel(broucher, video, to_date, good_time_to_sell, category, title, upfront_commission, from_date, location_of_sell, target_customer, type, price_on_x, companyy_uuid, total_commission, tips_to_sell, customer_data_needed, product_details, payment_type, product_uuid, mrp);
+                productModel.fillMoreData(productDetails);
                 Log.d("zzz explore1", "adding 1 model");
                 productslist.add(productModel);
             }
@@ -508,6 +509,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                     String mrp = productDetails.getString("mrp");
 
                     ProductModel productModel = new ProductModel(broucher,video,to_date,good_time_to_sell,category,title,upfront_commission,from_date,location_of_sell,target_customer,type,price_on_x,companyy_uuid,total_commission,tips_to_sell,customer_data_needed,product_details,payment_type,product_uuid,  mrp);
+                    productModel.fillMoreData(productDetails);
                     temp.add(productModel);
 
                 }

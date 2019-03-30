@@ -88,7 +88,7 @@ public class ProductInGridAdapter extends BaseAdapter {
                     .into(imgproduct);
         }
 
-        titleproduct.setText(productModel.getTitle());
+        titleproduct.setText(productModel.getProductDisplayNmae());
         amountproduct.setText(Constants.fixDoubleString(productModel.getTotal_commission()));
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
