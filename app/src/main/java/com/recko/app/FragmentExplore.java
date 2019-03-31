@@ -25,6 +25,7 @@ import com.recko.app.Adapters.IndustrySmallCardAdapter;
 import com.recko.app.Adapters.ProductListGridAdapter;
 import com.recko.app.Adapters.Products_InCategoryAdapter;
 import com.recko.app.Adapters.SliderAdapter;
+import com.recko.app.Misc.Constants;
 import com.recko.app.Model.CarouselModel;
 import com.recko.app.Model.CategoryListModel;
 import com.recko.app.Model.Company_InCategoryAndCompanyModel;
@@ -557,11 +558,13 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                                     String image_url = object.getString("image_url");
                                     String industry_uuid = object.getString("industry_uuid");
                                     String name = object.getString("name");
+                                    String img_url_high_res = object.getString("image_url_high_res");
 
                                     Log.d("zzzarray", object.toString());
 
                                     IndustryCardModel industryCardModel=new IndustryCardModel(image_url,name,industry_uuid);
-                                    industryCardModel.setShould_use_large_image(true);
+                                    if (Constants.isValidString(img_url_high_res))
+                                        industryCardModel.setImage_url(img_url_high_res);
                                     cardindustrylist.add(industryCardModel);
 
                                 } catch (JSONException e) {
