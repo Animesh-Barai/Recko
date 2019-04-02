@@ -135,7 +135,7 @@ public class Industries extends AppCompatActivity {
 
                                             IndustryChipModel industryChipModel =new IndustryChipModel(d,name,uuid);
                                             industryModellist.add(industryChipModel);
-                                            ind_names.add(j++, name);
+                                            ind_names.add(j, name);
                                             industry_uuid.add(j++, uuid);
                                         //}
 

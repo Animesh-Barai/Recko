@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.recko.app.Adapters.CategoryListAdapter;
 import com.recko.app.Adapters.IndustrySmallCardAdapter;
 import com.recko.app.Adapters.SliderAdapter;
@@ -108,6 +109,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);

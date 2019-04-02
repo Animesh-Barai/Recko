@@ -62,10 +62,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
                         .load(videosModel.getThumbnail_url())
                         .into(holder.imageView);
             } else {
-                holder.imageView.setImageResource(R.drawable.sample2);
+                holder.imageView.setImageResource(R.drawable.video_icon_work);
             }
 
             holder.textView.setText(videosModel.getTitle());
+            holder.thumbnailText.setText(videosModel.getTitle());
         }
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
@@ -106,12 +107,13 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
     class ResultViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
-        private TextView textView;
+        private TextView textView, thumbnailText;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.video_thumbnail);
             textView=itemView.findViewById(R.id.video_thumbnail_text);
+            thumbnailText = itemView.findViewById(R.id.video_thumbnail_text_top);
         }
     }
 
