@@ -66,10 +66,11 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
                         .load(videosModel.getThumbnail_url())
                         .into(holder.imageView);
             } else {
-                holder.imageView.setImageResource(R.drawable.sample2);
+                holder.imageView.setImageResource(R.drawable.video_icon_work);
             }
             holder.textView.setText(videosModel.getTitle());
-
+            holder.thumbnailText.setText(videosModel.getTitle());
+            holder.flavour_text.setText(videosModel.getFlavour_text());
 
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,7 +124,7 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
     class ResultViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
-        private TextView textView;
+        private TextView textView, thumbnailText, flavour_text;
         private ConstraintLayout mainViewHolder;
 
         public ResultViewHolder(View itemView) {
@@ -131,6 +132,8 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
             imageView=itemView.findViewById(R.id.imgcategory);
             textView=itemView.findViewById(R.id.titlecategory);
             mainViewHolder = itemView.findViewById(R.id.learnVideoCardHolder);
+            thumbnailText = itemView.findViewById(R.id.video_thumbnail_text_top);
+            flavour_text = itemView.findViewById(R.id.flavour_text);
         }
     }
 

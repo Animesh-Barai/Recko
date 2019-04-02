@@ -45,4 +45,16 @@ public class VideosModel {
     private String video_url;
     private String video_uuid;
     private String title;
+
+    public String getFlavour_text() {
+        return flavour_text;
+    }
+
+    public void setFlavour_text(String flavour_text) {
+        if (flavour_text.equals("null")) flavour_text = "";
+        flavour_text = flavour_text.replace("<br/>", "\n");
+        this.flavour_text = flavour_text;
+    }
+
+    private String flavour_text;
 }

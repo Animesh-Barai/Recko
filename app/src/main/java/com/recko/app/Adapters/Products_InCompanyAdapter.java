@@ -57,7 +57,7 @@ public class Products_InCompanyAdapter extends RecyclerView.Adapter<Products_InC
 //            Glide.with(mctx)
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);
-            holder.textView.setText(productModel.getTitle());
+            holder.textView.setText(productModel.getProductDisplayNmae());
             holder.amountcategory.setText(
                     Constants.fixDoubleString(productModel.getTotal_commission()));
         }

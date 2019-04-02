@@ -69,7 +69,7 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
 //            Glide.with(mctx)
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);
-            holder.textView.setText(productModel.getTitle());
+            holder.textView.setText(productModel.getProductDisplayNmae());
             holder.amountcategory.setText(Constants.fixDoubleString(productModel.getTotal_commission()));
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

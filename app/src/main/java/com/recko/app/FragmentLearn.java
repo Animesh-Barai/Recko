@@ -130,8 +130,10 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
                                     String video_uuid = object.getString("video_uuid");
                                     String thumbnail_url = object.getString("thumbnail_url");
                                     String title = object.getString("title");
+                                    String flavour_text = object.getString("flavour_text");
 
                                     VideosModel videosModel = new VideosModel(thumbnail_url,video_url,video_uuid,title);
+                                    videosModel.setFlavour_text(flavour_text);
                                     videoslist.add(videosModel);
                                     Log.d("zzz id",video_url +" "+title );
 
