@@ -98,7 +98,7 @@ public class SplashScreen extends AppCompatActivity {
 //                @Override
 //                public void run() {
 //                    if (test) {
-                    fetch_details();
+                   fetch_details();
                 }
                 else {
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);

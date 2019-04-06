@@ -312,7 +312,7 @@ public class AddLeadCustomer extends Activity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         if (requestCode == 100) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
                 Uri uri = Uri.parse("content://contacts");
                 Intent intent = new Intent(Intent.ACTION_PICK, uri);

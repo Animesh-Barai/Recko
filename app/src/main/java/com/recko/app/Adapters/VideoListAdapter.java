@@ -67,26 +67,25 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
 
             holder.textView.setText(videosModel.getTitle());
             holder.thumbnailText.setText(videosModel.getTitle());
+
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    bundle.putString("video_id",videosModel.getVideo_url());
+                    mFirebaseAnalytics.logEvent("click_video_from_for_you", bundle);
+
+                    Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
+                    intent.putExtra("video_id",videosModel.getVideo_url());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mctx.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+                }
+            });
         }
-
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                bundle.putString("video_id",videosModel.getVideo_url());
-                mFirebaseAnalytics.logEvent("click_video_from_for_you", bundle);
-
-                Intent intent= new Intent(mctx,YoutubePlayerActivity.class);
-                intent.putExtra("video_id",videosModel.getVideo_url());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mctx.startActivity(intent);
-                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-
-            }
-        });
-
     }
 
 
