@@ -111,6 +111,7 @@ public class AccountActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Constants.logVolleyError(error);
                 progressBar.setVisibility(View.GONE);
                 error.printStackTrace();
                 Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();

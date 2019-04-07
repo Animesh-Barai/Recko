@@ -154,7 +154,7 @@ public class Industries extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(Industries.this,"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
@@ -224,7 +224,7 @@ public class Industries extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(Industries.this,"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

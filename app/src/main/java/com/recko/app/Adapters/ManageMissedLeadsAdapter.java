@@ -212,7 +212,7 @@ public class ManageMissedLeadsAdapter extends RecyclerView.Adapter<ManageMissedL
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(mctx,"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

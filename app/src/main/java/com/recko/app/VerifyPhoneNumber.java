@@ -33,6 +33,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.raycoarana.codeinputview.CodeInputView;
 import com.raycoarana.codeinputview.OnCodeCompleteListener;
+import com.recko.app.Misc.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -58,7 +59,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     String code;
     TextView resend;
     private Timer timer;
-    private int timeRemaining = 10;
+    private int timeRemaining = 30;
     private TextView txtTimer;
     private boolean isWaiting = false;
     //firebase auth object
@@ -151,9 +152,10 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     //the country id is concatenated
     //you can take the country id as user input as well
     private void sendVerificationCode(String mobile) {
+        startResendTimer();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + mobile,
-                10,
+                30,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks);
@@ -194,6 +196,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         @Override
         public void onVerificationFailed(FirebaseException e) {
             Toast.makeText(VerifyPhoneNumber.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.d("zzz","verification failed: "+ e.getMessage());
             mVerificationInProgress = false;
         }
 
@@ -206,7 +209,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             //storing the verification id that is sent to the user
             mVerificationId = s;
             mResendToken = forceResendingToken;
-            startResendTimer();
+            //startResendTimer();
         }
     };
 
@@ -308,7 +311,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
@@ -356,10 +359,11 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     }
 
     private void resendVerificationCode(String mobile){
+        startResendTimer();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91"+mobile,        // Phone number to verify
-                1  ,               // Timeout duration
-                TimeUnit.MINUTES,   // Unit of timeout
+                30  ,               // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 mResendToken);             // Force Resending Token from callbacks
@@ -378,7 +382,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private void stopResendTimer(){
         timer.cancel();
         txtTimer.setVisibility(View.INVISIBLE);
-        timeRemaining = 10;
+        timeRemaining = 30;
         isWaiting = false;
     }
 
@@ -396,7 +400,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                         resend.setTextColor(getResources().getColor(R.color.colorPrimary));
                         stopResendTimer();
                     }else{
-                        String strTimeRemaining = String.format("%02d:%02d",timeRemaining/10,timeRemaining%10);
+                        String strTimeRemaining = String.format("%02d:%02d",timeRemaining/60,timeRemaining%60);
                         txtTimer.setText(strTimeRemaining);
                     }
                 }

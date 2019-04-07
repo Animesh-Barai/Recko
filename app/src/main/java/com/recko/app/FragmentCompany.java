@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.recko.app.Adapters.Company_InCategoryAndCompanyAdapter;
+import com.recko.app.Misc.Constants;
 import com.recko.app.Model.Company_InCategoryAndCompanyModel;
 import com.recko.app.Model.ProductModel;
 
@@ -200,7 +201,7 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
                     }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

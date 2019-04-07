@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.recko.app.Misc.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -77,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("user_id", user.getUid());
             mFirebaseAnalytics.logEvent("already_logged_in", bundle);
+            Intent intent=new Intent(this,NavigationDashboard.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
             //fetch_details();
         } else {
             should_allow_navigation_to_next_page = true;
@@ -169,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

@@ -1,8 +1,14 @@
 package com.recko.app.Misc;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Patterns;
+import android.widget.Toast;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.crashlytics.android.Crashlytics;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -39,6 +45,9 @@ public class Constants {
     private Constants() {
         seller_industry_uuids = new ArrayList<String>();
     }
+
+    public static final String ReckoPREFERENCES = "ReckoPrefs" ;
+    public static  final String SeenHowItWorksPrefKey = "ReckoPrefSeenHowItWorks";
 
     public void setIndustryUUids(List seller_industry_uuids)  {
         synchronized(Constants.class) {
@@ -135,5 +144,26 @@ public class Constants {
     public static void setSellerNameNo(String seller_name, String seller_mobile_no) {
         Constants.setSeller_name(seller_name);
         Constants.setSeller_mobile_no(seller_mobile_no);
+    }
+
+    public static Response.ErrorListener getVollyErrorListner(final Context ctx) {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Crashlytics.log(error.getMessage());
+                Crashlytics.log(error.getStackTrace().toString());
+                Crashlytics.log(error.toString());
+                Crashlytics.logException(new Exception());
+                error.printStackTrace();
+                Toast.makeText(ctx,"Oops! Please try again later",Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
+    public static void logVolleyError(VolleyError error) {
+        Crashlytics.log(1, "Volley", error.getMessage());
+        Crashlytics.log(error.getStackTrace().toString());
+        Crashlytics.log(error.toString());
+        Crashlytics.logException(new Exception());
     }
 }

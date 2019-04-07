@@ -159,7 +159,7 @@ public class UserInfo extends AppCompatActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+							Constants.logVolleyError(error);
                             error.printStackTrace();
                             Toast.makeText(UserInfo.this, "Oops! Please try again later", Toast.LENGTH_SHORT).show();
                         }

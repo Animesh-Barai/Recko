@@ -183,11 +183,11 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         carousel.setAdapter(sliderAdapter);
         dotsIndicator.setViewPager(carousel);
 
-        sampleimgurl.add("https://www.desktopbackground.org/download/2000x1500/2010/04/10/29_ultra-hd-4k-rain-wallpapers-hd-desktop-backgrounds-3840x2400_3840x2400_h.jpg");
+/*        sampleimgurl.add("https://www.desktopbackground.org/download/2000x1500/2010/04/10/29_ultra-hd-4k-rain-wallpapers-hd-desktop-backgrounds-3840x2400_3840x2400_h.jpg");
         sampleimgurl.add("https://www.oneperiodic.com/products/photobatch/tutorials/img/scale_original.png");
         sampleimgurl.add("https://a-static.besthdwallpaper.com/above-the-clouds-sunset-wallpaper-2048x1536-4355_26.jpg");
-        sampleimgurl.add("http://s4301.pcdn.co/wp-content/uploads/2012/11/20130312_10thExterior_night-desktop4x3.jpg");
-
+        sampleimgurl.add("https://s4301.pcdn.co/wp-content/uploads/2012/11/20130312_10thExterior_night-desktop4x3.jpg");
+*/
         heading.add("Popular Products for you");
         heading.add("Kamao BC Kamao");
         heading.add("Kamao BC Kamao");
@@ -337,6 +337,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+				Constants.logVolleyError(error);
                 maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
@@ -447,6 +448,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+				Constants.logVolleyError(error);
                 maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
@@ -579,6 +581,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+				Constants.logVolleyError(error);
                 maybeStopRefresh();
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();

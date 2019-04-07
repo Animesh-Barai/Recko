@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.recko.app.Adapters.Products_InCategoryAdapter;
+import com.recko.app.Misc.Constants;
 import com.recko.app.Model.ProductModel;
 
 import org.json.JSONArray;
@@ -133,7 +134,7 @@ public class ProductsInCategory extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

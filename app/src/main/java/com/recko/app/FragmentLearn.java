@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.recko.app.Adapters.CategoryListAdapter;
 import com.recko.app.Adapters.LearnVideoAdapter;
 import com.recko.app.Adapters.SliderAdapter;
+import com.recko.app.Misc.Constants;
 import com.recko.app.Model.CarouselModel;
 import com.recko.app.Model.VideosModel;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -151,7 +152,7 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
@@ -199,7 +200,7 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+				Constants.logVolleyError(error);
                 error.printStackTrace();
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

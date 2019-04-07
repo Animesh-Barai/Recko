@@ -2,6 +2,7 @@ package com.recko.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
@@ -23,7 +30,18 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.recko.app.Misc.Constants;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LearnHowItWorks extends AppCompatActivity {
@@ -35,6 +53,8 @@ public class LearnHowItWorks extends AppCompatActivity {
     ImageView play;
     String videoURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     AtomicBoolean skip_clicked;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,27 +83,16 @@ public class LearnHowItWorks extends AppCompatActivity {
             public void onClick(View view) {
                 if (!skip_clicked.compareAndSet(false, true)) return;
                 if (player!=null) player.stop();
-                Intent intent=new Intent(getApplicationContext(),NavigationDashboard.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                makeJump();
 
             }
         });
         findViewById(R.id.skip_container).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("zzkkk", "here1");
                 if (!skip_clicked.compareAndSet(false, true)) return;
-                Log.d("zzkkk", "here1");
                 if (player!=null) player.stop();
-                Log.d("zzkkk", "here1");
-                Intent intent=new Intent(getApplicationContext(),NavigationDashboard.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                Log.d("zzkkk", "here1");
-                finish();
-                Log.d("zzkkk", "here1");
+                makeJump();
             }
         });
     }
@@ -92,6 +101,36 @@ public class LearnHowItWorks extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+    }
+
+    private void makeJump() {
+        SharedPreferences sharedpreferences=getSharedPreferences(Constants.ReckoPREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean(Constants.SeenHowItWorksPrefKey, true);
+        editor.commit();
+
+        String jumpLocation = getIntent().getStringExtra("jump");
+        if (jumpLocation == UserInfo.class.getSimpleName()) {
+            Intent intent = new Intent(getApplicationContext(), UserInfo.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if (jumpLocation ==  Industries.class.getSimpleName()) {
+            Intent intent = new Intent(getApplicationContext(), Industries.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else {
+            goto_navigation();
+        }
+
+    }
+
+    private void goto_navigation() {
+        Intent intent=new Intent(this,NavigationDashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     public  void play(Context ctx)
@@ -146,4 +185,5 @@ public class LearnHowItWorks extends AppCompatActivity {
             player.release();
         }
     }
+
 }

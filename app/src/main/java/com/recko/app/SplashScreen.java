@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.recko.app.Misc.Constants;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,9 @@ public class SplashScreen extends AppCompatActivity {
     private static String TAG = SplashScreen.class.getSimpleName();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAnalytics mFirebaseAnalytics;
+
+    SharedPreferences sharedpreferences;
+    boolean seenHowItWorks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +85,37 @@ public class SplashScreen extends AppCompatActivity {
 //        }
 //    }
 
+    private void gotoLearnHowItWorks(String jump_location) {
+        Intent intent=new Intent(this,LearnHowItWorks.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("jump", jump_location);
+        startActivity(intent);
+        finish();
+    }
+
+    private void goto_navigation() {
+        Intent intent=new Intent(this,NavigationDashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
     private void proceed()
     {
-        SharedPreferences pref=getSharedPreferences("status",MODE_PRIVATE);
-        final boolean test=pref.getBoolean("first",true);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        sharedpreferences=getSharedPreferences(Constants.ReckoPREFERENCES, MODE_PRIVATE);
+        seenHowItWorks = sharedpreferences.contains(Constants.SeenHowItWorksPrefKey) &&
+                sharedpreferences.getBoolean(Constants.SeenHowItWorksPrefKey, false);
 
+        if (user != null) {
+            fetch_details();
+        } else {
+            Intent i = new Intent(SplashScreen.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
 
-
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -104,23 +131,14 @@ public class SplashScreen extends AppCompatActivity {
                     Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                     finish();
-                    /*Intent i = new Intent(SplashScreen.this, GetStarted.class);
-                    startActivity(i);
-                    finish();*/
                 }
 
             }
-        },3000);
+        },3000);*/
 
 
     }
 
-    private void goto_navigation() {
-        Intent intent=new Intent(this,NavigationDashboard.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
 
     private void fetch_details() {
 
@@ -162,6 +180,8 @@ public class SplashScreen extends AppCompatActivity {
                                     bundle.putInt("quit_before_user_info", 1);
                                     mFirebaseAnalytics.logEvent("quit_before_user_info", bundle);
 
+                                    if (!seenHowItWorks) {gotoLearnHowItWorks(UserInfo.class.getSimpleName());return;}
+
                                     // We don't have name/location send him/her to UserInfo page.
                                     Intent intent = new Intent(getApplicationContext(), UserInfo.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -185,15 +205,21 @@ public class SplashScreen extends AppCompatActivity {
                                             uuids.add(industries.getString(ii));
                                         }
                                         Constants.getInstance().setIndustryUUids(uuids);
+
+                                        // Pass tag to learn how it works so it can make appropriate jump.
+                                        if (!seenHowItWorks) {gotoLearnHowItWorks(NavigationDashboard.class.getSimpleName());return;}
+
                                         goto_navigation();
                                     } else {
                                         Bundle bundle = new Bundle();
                                         bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                         mFirebaseAnalytics.logEvent("quit_before_industries", bundle);
 
+                                        if (!seenHowItWorks) {gotoLearnHowItWorks(Industries.class.getSimpleName());return;}
+
                                         // We don't have industry list for user send him/her to pick industries page.
                                         Intent intent = new Intent(getApplicationContext(), Industries.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -206,8 +232,13 @@ public class SplashScreen extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+		
                 error.printStackTrace();
+                Crashlytics.setUserIdentifier(mUser.getUid());
+                Crashlytics.log(error.getMessage());
+                Crashlytics.log(error.getStackTrace().toString());
+                Crashlytics.log(error.toString());
+                Crashlytics.logException(new Exception());
                 Toast.makeText(getApplicationContext(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
         });

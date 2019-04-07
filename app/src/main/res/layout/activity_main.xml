@@ -27,6 +27,7 @@
     <EditText
         android:id="@+id/phonenumber"
         android:layout_width="332dp"
+        android:digits="0123456789"
         android:inputType="number|textNoSuggestions"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
