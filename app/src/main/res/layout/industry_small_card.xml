@@ -24,17 +24,23 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:background="#f5f5f5"
+                app:layout_constraintDimensionRatio="h,120:90">
 
                 <ImageView
                     android:id="@+id/img_small_industry"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_70sdp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:src="@drawable/sample2"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="h,120:90"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -49,7 +55,7 @@
             android:fontFamily="@font/brandontext_medium"
             android:text="@string/byjus"
             android:textColor="@color/heading_dark"
-            android:textSize="@dimen/_15ssp"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/categorycard"
             tools:ignore="HardcodedText" />
@@ -61,7 +67,7 @@
             android:fontFamily="@font/brandontext_regular"
             android:text="@string/_100_products"
             android:textColor="#8b8b8b"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintStart_toStartOf="@+id/title_small_industry"
             app:layout_constraintTop_toBottomOf="@+id/title_small_industry" />
 

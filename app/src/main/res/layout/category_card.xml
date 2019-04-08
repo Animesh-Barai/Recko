@@ -28,14 +28,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imgcategory"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="170dp"
                     android:layout_height="0dp"
-                    android:src="@drawable/sample2"
+                    android:id="@+id/imgcategory_container"
+                    android:background="#f5f5f5"
                     app:layout_constraintDimensionRatio="h,16:8"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgcategory"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/sample2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/titlecategory"
@@ -47,10 +62,10 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/car_loan"
                     android:textColor="@color/heading_dark"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_13ssp"
                     app:layout_constraintBottom_toTopOf="@+id/earnupto"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgcategory" />
+                    app:layout_constraintTop_toBottomOf="@+id/imgcategory_container" />
 
                 <TextView
                     android:id="@+id/earnupto"
@@ -60,7 +75,7 @@
                     android:fontFamily="@font/brandontext_regular"
                     android:text="@string/_10_products"
                     android:textColor="#8b8b8b"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="@+id/titlecategory"
                     app:layout_constraintTop_toBottomOf="@+id/titlecategory" />
 
@@ -72,7 +87,7 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/_10_000"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/rupee_symbol"
                     app:layout_constraintStart_toEndOf="@+id/rupee_symbol" />
 
@@ -82,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sale"
                     android:textColor="#8b8b8b"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/amountcategory"
                     app:layout_constraintStart_toEndOf="@+id/amountcategory" />
 
@@ -94,7 +109,7 @@
                     android:text="@string/u20b9"
                     android:textColor="@color/colorPrimary"
                     android:fontFamily="@font/brandontext_regular"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/upto"
                     app:layout_constraintStart_toEndOf="@+id/upto" />
 
@@ -106,7 +121,7 @@
                     android:fontFamily="@font/brandontext_regular"
                     android:text="@string/upto"
                     android:textColor="#8b8b8b"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/earnupto" />
 
