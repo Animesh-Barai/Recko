@@ -86,7 +86,7 @@ public class SplashScreen extends AppCompatActivity {
 //    }
 
     private void gotoLearnHowItWorks(String jump_location) {
-        Intent intent=new Intent(this,LearnHowItWorks.class);
+        Intent intent=new Intent(this,GetStarted.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("jump", jump_location);
         startActivity(intent);
@@ -110,9 +110,11 @@ public class SplashScreen extends AppCompatActivity {
         if (user != null) {
             fetch_details();
         } else {
-            Intent i = new Intent(SplashScreen.this, MainActivity.class);
-            startActivity(i);
-            finish();
+            gotoLearnHowItWorks(MainActivity.class.getSimpleName());
+            return;
+//            Intent i = new Intent(SplashScreen.this, MainActivity.class);
+//            startActivity(i);
+//            finish();
         }
 
         /*new Handler().postDelayed(new Runnable() {

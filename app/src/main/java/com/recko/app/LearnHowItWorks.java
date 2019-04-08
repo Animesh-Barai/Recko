@@ -104,25 +104,29 @@ public class LearnHowItWorks extends AppCompatActivity {
     }
 
     private void makeJump() {
-        SharedPreferences sharedpreferences=getSharedPreferences(Constants.ReckoPREFERENCES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putBoolean(Constants.SeenHowItWorksPrefKey, true);
-        editor.commit();
+        goto_navigation();
+        return;
 
-        String jumpLocation = getIntent().getStringExtra("jump");
-        if (jumpLocation == UserInfo.class.getSimpleName()) {
-            Intent intent = new Intent(getApplicationContext(), UserInfo.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        } else if (jumpLocation ==  Industries.class.getSimpleName()) {
-            Intent intent = new Intent(getApplicationContext(), Industries.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        } else {
-            goto_navigation();
-        }
+        // Below code has been made redundent.
+//        SharedPreferences sharedpreferences=getSharedPreferences(Constants.ReckoPREFERENCES, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.putBoolean(Constants.SeenHowItWorksPrefKey, true);
+//        editor.commit();
+//
+//        String jumpLocation = getIntent().getStringExtra("jump");
+//        if (jumpLocation == UserInfo.class.getSimpleName()) {
+//            Intent intent = new Intent(getApplicationContext(), UserInfo.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
+//        } else if (jumpLocation ==  Industries.class.getSimpleName()) {
+//            Intent intent = new Intent(getApplicationContext(), Industries.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
+//        } else {
+//            goto_navigation();
+//        }
 
     }
 

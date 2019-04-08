@@ -253,7 +253,7 @@ public class ProductDetails extends AppCompatActivity {
                         offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_lighter, getTheme())));
                     productModel.setDiscount(0);
                 }
-                final_price.setText(productModel.getUserPriceString());
+                final_price.setText(Constants.fixDoubleString(productModel.getUserPriceString()));
                 String earn_text = getString(R.string.earn_dash_on_this_product, productModel.commissionAfterDiscount());
                 earn_button.setText(earn_text);
             }

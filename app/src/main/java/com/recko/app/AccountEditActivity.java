@@ -39,6 +39,7 @@ public class AccountEditActivity extends AppCompatActivity {
     EditText ifsc_code;
 
     Button save;
+    androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,15 @@ public class AccountEditActivity extends AppCompatActivity {
         account_no.setText(accountModel.getAccount_no());
         bank_name.setText(accountModel.getBank_name());
         ifsc_code.setText(accountModel.getIfsc_code());
+
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         save = findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {

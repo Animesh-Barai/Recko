@@ -72,7 +72,7 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/newly_launched_products"
                     android:textColor="@color/heading_dark"
-                    android:textSize="@dimen/_20ssp" />
+                    android:textSize="@dimen/_16ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/newly_added_companies"
                     android:textColor="@color/heading_dark"
-                    android:textSize="@dimen/_20ssp" />
+                    android:textSize="@dimen/_16ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -136,7 +136,7 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/browse_by_industries"
                     android:textColor="@color/heading_dark"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/_16ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"

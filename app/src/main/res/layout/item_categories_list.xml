@@ -20,7 +20,7 @@
             android:fontFamily="@font/brandontext_medium"
             android:text=""
             android:textColor="@color/heading_dark"
-            android:textSize="24sp"
+            android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
