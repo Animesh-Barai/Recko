@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>privacy_policy</key>
+        <value>https://storage.googleapis.com/sell-forus.appspot.com/Recko%20Privacy%20Policy.pdf</value>
+    </entry>
+</defaultsMap>
+    <!-- END xml_defaults -->

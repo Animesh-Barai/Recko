@@ -20,6 +20,9 @@ import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Constants {
+
+    public static final  boolean is_test_start = false;
+
     private static String TAG = Constants.class.getSimpleName();
     public static final int max_company_height_in_explore = 300;
     public static final int add_lead_request_id = 7;

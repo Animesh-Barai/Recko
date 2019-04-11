@@ -102,6 +102,9 @@ dependencies {
 
     // crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+
+    // Remote config
+    implementation 'com.google.firebase:firebase-config:16.5.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

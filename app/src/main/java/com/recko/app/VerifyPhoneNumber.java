@@ -270,7 +270,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                if (StringUtils.isAnyEmpty(name, location)){
+                                if (StringUtils.isAnyEmpty(name, location) || Constants.is_test_start){
                                     Bundle bundle = new Bundle();
                                     bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                     bundle.putInt("quit_before_user_info", 1);

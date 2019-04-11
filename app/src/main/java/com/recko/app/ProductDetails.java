@@ -24,6 +24,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,14 +56,17 @@ public class ProductDetails extends AppCompatActivity {
     TextView actual_price, video_thumbnail_text;
     TextView offer_price;
     TextView final_price;
-    TextInputEditText offer_discount_price;
-    Chip chip_discount1;
-    Chip chip_discount2;
-    Chip chip_discount3;
-    Chip chip_discount4;
+    //TextInputEditText offer_discount_price;
+    EditText offer_discount_price;
+//    Chip chip_discount1;
+//    Chip chip_discount2;
+//    Chip chip_discount3;
+//    Chip chip_discount4;
     Button earn_button;
     ImageView brochure_thumbnail;
     View translucent, video_thumbnail_container;
+
+    TextView seller_commission_footer;
 
     int actual_price_val;
     View flyerView;
@@ -87,10 +91,10 @@ public class ProductDetails extends AppCompatActivity {
         offer_price = findViewById(R.id.offer_price);
         final_price = findViewById(R.id.final_price);
         offer_discount_price = findViewById(R.id.offer_discount_price);
-        chip_discount1 = findViewById(R.id.chip_discount1);
-        chip_discount2 = findViewById(R.id.chip_discount2);
-        chip_discount3 = findViewById(R.id.chip_discount3);
-        chip_discount4 = findViewById(R.id.chip_discount4);
+//        chip_discount1 = findViewById(R.id.chip_discount1);
+//        chip_discount2 = findViewById(R.id.chip_discount2);
+//        chip_discount3 = findViewById(R.id.chip_discount3);
+//        chip_discount4 = findViewById(R.id.chip_discount4);
         earn_button = findViewById(R.id.earn_button);
         brochure_thumbnail= findViewById(R.id.brochure_thumbnail);
         flyerView = findViewById(R.id.custom_image_root);
@@ -109,7 +113,9 @@ public class ProductDetails extends AppCompatActivity {
         video_thumbnail_text = findViewById(R.id.video_thumbnail_text);
         video_thumbnail_text.setText(productModel.getTitle() + " " + "Product Video");
 
-        
+        seller_commission_footer = findViewById(R.id.seller_commission_footer);
+        seller_commission_footer.setText(getString(R.string.your_commission_is, productModel.commissionAfterDiscount()));
+
         video_thumbnail_container = findViewById(R.id.cardView);
         video_thumbnail_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,48 +188,52 @@ public class ProductDetails extends AppCompatActivity {
 //        });
 
         actual_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getMrp())));
-        offer_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getPrice_on_x())));
+        String discountOnRecko = Constants.fixDoubleString(productModel.getDiscount_byRecko());
+        if (discountOnRecko.equals("0"))
+            offer_price.setText(getString(R.string.rstart_template,discountOnRecko));
+        else
+            offer_price.setText("-" + getString(R.string.rstart_template,discountOnRecko));
         final_price.setText(Constants.fixDoubleString(productModel.getPrice_on_x()));
 
-        chip_discount1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                offer_discount_price.setText(
-                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
-                                getString(R.string.dis100_val)));
-                //offer_discount_price.setText(getString(R.string.dis100_val));
-            }
-        });
-
-        chip_discount2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                offer_discount_price.setText(
-                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
-                                getString(R.string.dis200_val)));
-                //offer_discount_price.setText(getString(R.string.dis200_val));
-            }
-        });
-
-        chip_discount3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                offer_discount_price.setText(
-                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
-                                getString(R.string.dis500_val)));
-                //offer_discount_price.setText(getString(R.string.dis500_val));
-            }
-        });
-
-        chip_discount4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                offer_discount_price.setText(
-                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
-                                getString(R.string.dis1000_val)));
-                //offer_discount_price.setText(getString(R.string.dis1000_val));
-            }
-        });
+//        chip_discount1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                offer_discount_price.setText(
+//                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+//                                getString(R.string.dis100_val)));
+//                //offer_discount_price.setText(getString(R.string.dis100_val));
+//            }
+//        });
+//
+//        chip_discount2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                offer_discount_price.setText(
+//                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+//                                getString(R.string.dis200_val)));
+//                //offer_discount_price.setText(getString(R.string.dis200_val));
+//            }
+//        });
+//
+//        chip_discount3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                offer_discount_price.setText(
+//                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+//                                getString(R.string.dis500_val)));
+//                //offer_discount_price.setText(getString(R.string.dis500_val));
+//            }
+//        });
+//
+//        chip_discount4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                offer_discount_price.setText(
+//                        Constants.percentageValueDiscount(productModel.getTotal_commission(),
+//                                getString(R.string.dis1000_val)));
+//                //offer_discount_price.setText(getString(R.string.dis1000_val));
+//            }
+//        });
 
         offer_discount_price.addTextChangedListener(new TextWatcher() {
             @Override
@@ -240,7 +250,7 @@ public class ProductDetails extends AppCompatActivity {
                     }
 
                     if (Double.parseDouble(discount_offered)>Double.parseDouble(productModel.getTotal_commission())) {
-                        offer_discount_price.setText(productModel.getTotal_commission());
+                        offer_discount_price.setText(Constants.fixDoubleString(productModel.getTotal_commission()));
                         Toast.makeText(getApplicationContext(), "Sorry you cant give discount more then commission", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -256,6 +266,7 @@ public class ProductDetails extends AppCompatActivity {
                 final_price.setText(Constants.fixDoubleString(productModel.getUserPriceString()));
                 String earn_text = getString(R.string.earn_dash_on_this_product, productModel.commissionAfterDiscount());
                 earn_button.setText(earn_text);
+                seller_commission_footer.setText(getString(R.string.your_commission_is, productModel.commissionAfterDiscount()));
             }
 
             @Override

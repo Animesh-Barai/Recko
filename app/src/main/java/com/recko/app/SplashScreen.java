@@ -105,9 +105,9 @@ public class SplashScreen extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         sharedpreferences=getSharedPreferences(Constants.ReckoPREFERENCES, MODE_PRIVATE);
         seenHowItWorks = sharedpreferences.contains(Constants.SeenHowItWorksPrefKey) &&
-                sharedpreferences.getBoolean(Constants.SeenHowItWorksPrefKey, false);
+                sharedpreferences.getBoolean(Constants.SeenHowItWorksPrefKey, false)&& !Constants.is_test_start;
 
-        if (user != null) {
+        if (user != null && !Constants.is_test_start) {
             fetch_details();
         } else {
             gotoLearnHowItWorks(MainActivity.class.getSimpleName());

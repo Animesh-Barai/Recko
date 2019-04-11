@@ -11,6 +11,8 @@
     <string name="enter_price_pitched_to_the_user">Enter discount you want to offer</string>
     <string name="u20b9100">₹100</string>
 
+    <string name="your_commission_is">(Your commission is ₹%1$s)</string>
+
     <string name="rstart_template">₹%1$s</string>
 
     <string name="dis100">20%</string>

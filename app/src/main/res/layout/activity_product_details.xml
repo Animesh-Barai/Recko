@@ -381,11 +381,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/brandontext_regular"
-                        android:text="@string/our_offer_price"
+                        android:text="Discount by recko"
                         android:textColor="@color/heading_light"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/textView6"
                         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/brandontext_regular"
+                        android:text="Discount by you"
+                        android:textColor="@color/heading_light"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/textView7"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                     <TextView
                         android:id="@+id/actual_price"
@@ -409,16 +421,84 @@
                         android:layout_marginEnd="32dp"
                         android:fontFamily="@font/brandontext_regular"
                         android:text="@string/u20b913000"
-                        android:textColor="@color/heading_dark"
+                        android:textColor="@color/discount_color"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView7" />
 
+                    <EditText
+                        android:id="@+id/offer_discount_price"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:gravity="right"
+                        android:fontFamily="@font/brandontext_regular"
+                        android:text="0"
+                        android:digits="0123456789"
+                        android:inputType="number|textNoSuggestions"
+                        android:textColor="@color/discount_color"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+                    <TextView
+                        android:id="@+id/seller_commission_footer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_11sdp"
+                        android:fontFamily="@font/brandontext_regular"
+                        android:text="(Your commission is 100)"
+                        android:textColor="@color/heading_light"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/textView10"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                    <View
+                        android:id="@+id/SplitLine_hor2"
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:background="@color/gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/seller_commission_footer" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:fontFamily="@font/brandontext_regular"
+                        android:text="@string/your_customer_pays"
+                        android:textColor="@color/heading_light"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/textView7"
+                        app:layout_constraintTop_toBottomOf="@+id/SplitLine_hor2" />
+
+                    <TextView
+                        android:id="@+id/final_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:fontFamily="@font/brandontext_medium"
+                        android:text="@string/u20b913000"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.recko.app.CustomTextInputLayout
+                <!--<com.recko.app.CustomTextInputLayout
                     android:id="@+id/offer_discount_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -446,8 +526,9 @@
                         android:textColorHint="@color/heading_lighter"
                         android:textSize="18sp"
                         tools:targetApi="o" />
-                </com.recko.app.CustomTextInputLayout>
+                </com.recko.app.CustomTextInputLayout>-->
 
+<!--
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl5"
                     android:layout_width="match_parent"
@@ -504,8 +585,8 @@
                         app:layout_constraintTop_toTopOf="@+id/chip_discount1"
                         app:textStartPadding="10dp" />
 
-                    <!--
-                        app:chipStartPadding="10dp"-->
+
+                    //    app:chipStartPadding="10dp"
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_discount3"
                         style="@style/Widget.MaterialComponents.Chip.Action"
@@ -557,11 +638,25 @@
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <View
+                    android:id="@+id/SplitLine_hor1"
+                    android:layout_width="@dimen/_284sdp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/cl4"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@color/gray" />
+
+                <!--<androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cl5"
+                    android:layout_below="@+id/SplitLine_hor1"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="36dp">
 
@@ -590,7 +685,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView4" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             </RelativeLayout>
 

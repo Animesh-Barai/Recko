@@ -227,6 +227,12 @@ public class ProductModel implements Serializable{
         return price_float;
     }
 
+    public String getDiscount_byRecko() {
+        return Constants.fixDoubleString(
+                Double.toString(Float.parseFloat(getMrp()) - getPrice_on_x_float()));
+
+    }
+
     public void setDiscount(float val) {discount = val;}
 
     public boolean setDiscount(String val) {
