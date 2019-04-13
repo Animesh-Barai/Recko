@@ -193,7 +193,7 @@ public class ProductDetails extends AppCompatActivity {
             offer_price.setText(getString(R.string.rstart_template,discountOnRecko));
         else
             offer_price.setText("-" + getString(R.string.rstart_template,discountOnRecko));
-        final_price.setText(Constants.fixDoubleString(productModel.getPrice_on_x()));
+        final_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getPrice_on_x())) );
 
 //        chip_discount1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -263,7 +263,7 @@ public class ProductDetails extends AppCompatActivity {
                         offer_discount_price.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.heading_lighter, getTheme())));
                     productModel.setDiscount(0);
                 }
-                final_price.setText(Constants.fixDoubleString(productModel.getUserPriceString()));
+                final_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getUserPriceString())) );
                 String earn_text = getString(R.string.earn_dash_on_this_product, productModel.commissionAfterDiscount());
                 earn_button.setText(earn_text);
                 seller_commission_footer.setText(getString(R.string.your_commission_is, productModel.commissionAfterDiscount()));

@@ -411,7 +411,6 @@
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView6"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/offer_price"
                         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
                     <TextView

@@ -43,6 +43,8 @@ public class Constants {
 
     public List<String> seller_industry_uuids;
 
+    public static String default_video = "ExTlL_MlOok";
+
     private static Constants SINGLE_INSTANCE = null;
 
     private Constants() {

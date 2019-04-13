@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
+import com.recko.app.LearnHowItWorks;
 import com.recko.app.Model.VideosModel;
 import com.recko.app.R;
 import com.recko.app.YoutubePlayerActivity;
@@ -32,8 +33,9 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
     private List videolist;
     Activity mActivity;
 
+    private static String TAG = LearnVideoAdapter.class.getSimpleName();
+
     public static final int VIEW_TYPE_NORMAL = 1;
-    private VideosModel videosModel;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     public LearnVideoAdapter(Context mctx,List videolist, Activity mActivity) {
@@ -59,7 +61,7 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
     public void onBindViewHolder(@NonNull ResultViewHolder holder, final int position) {
 
         if (!videolist.isEmpty()) {
-            videosModel = (VideosModel) videolist.get(position);
+            final VideosModel videosModel = (VideosModel) videolist.get(position);
             Log.d("zzzz: ", "setting video in learn");
             if (!StringUtils.isEmpty(videosModel.getThumbnail_url())) {
                 Glide.with(mctx)
@@ -72,10 +74,11 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
             holder.thumbnailText.setText(videosModel.getTitle());
             holder.flavour_text.setText(videosModel.getFlavour_text());
 
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
+            /*holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Log.d(TAG, "aa");
+                    Log.d(TAG, videosModel.getVideo_url());
                     Intent intent = new Intent(mctx, YoutubePlayerActivity.class);
                     intent.putExtra("video_id", videosModel.getVideo_url());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -83,17 +86,19 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
                     mActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
                 }
-            });
+            });*/
 
             if (holder.mainViewHolder != null) {
                 Bundle bundle = new Bundle();
                 bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 bundle.putString("video_id",videosModel.getVideo_url());
                 mFirebaseAnalytics.logEvent("click_video_from_learn", bundle);
-
+                Log.d(TAG, "Callback set");
                 holder.mainViewHolder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Log.d(TAG, "aa");
+                        Log.d(TAG, videosModel.getVideo_url());
                         Intent intent = new Intent(mctx, YoutubePlayerActivity.class);
                         intent.putExtra("video_id", videosModel.getVideo_url());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

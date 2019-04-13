@@ -2,10 +2,19 @@ package com.recko.app;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.recko.app.Misc.Constants;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -20,6 +29,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +60,7 @@ import java.util.Locale;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class UserInfo extends AppCompatActivity {
-
+    private static String TAG = UserInfo.class.getSimpleName();
     EditText name, location;
     Button next;
     private String NAME, LOCATION;
@@ -64,6 +74,7 @@ public class UserInfo extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +97,7 @@ public class UserInfo extends AppCompatActivity {
             public void onFocusChange(View view, boolean b) {
 
                 if(b) {
-                    startLocationUpdates();
+                    maybeAskUserToTurnOnLocation();
                 }
 
             }
@@ -99,7 +110,6 @@ public class UserInfo extends AppCompatActivity {
                     public void onComplete(@NonNull Task<GetTokenResult> task) {
                         if (task.isSuccessful()) {
                             idToken = task.getResult().getToken();
-                            Log.d("tokennn", idToken);
                             // Send token to your backend via HTTPS
                             // ...
                         } else {
@@ -189,8 +199,14 @@ public class UserInfo extends AppCompatActivity {
         }
     }
 
-    protected void startLocationUpdates() {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 102) {
+            startLocationUpdates();
+        }
+    }
 
+    protected void startLocationUpdates() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -199,6 +215,36 @@ public class UserInfo extends AppCompatActivity {
                 return;
             }
         }
+
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    }
+                }
+
+                    fusedLocationProviderClient.getLastLocation().addOnSuccessListener(UserInfo.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location l) {
+                            if (l != null)
+                                Log.d("zzz coordinates", "Latitude = " + l.getLatitude() + " Longitude = " + l.getLongitude());
+                            try {
+                                if (l != null)
+                                    coordinatesToAddress(l.getLatitude(), l.getLongitude());
+                                else
+                                    Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            location.setOnFocusChangeListener(null);
+                        }
+                    });
+
+            }
+        }, 100);*/
 
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(UserInfo.this, new OnSuccessListener<Location>() {
             @Override
@@ -209,13 +255,55 @@ public class UserInfo extends AppCompatActivity {
                     if (l!=null)
                         coordinatesToAddress(l.getLatitude(),l.getLongitude());
                     else
-                        Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
+                        locationUpdates();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 location.setOnFocusChangeListener(null);
             }
         });
+    }
+
+    private void locationUpdates() {
+        LocationRequest mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(1 * 1000)
+                .setFastestInterval(1 * 1000);
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationAvailability (LocationAvailability locationAvailability){
+                Log.d(TAG, "Location not available");
+                if (!locationAvailability.isLocationAvailable()) {
+                    Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
+                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                    return;
+                }
+            }
+
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
+                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    try {
+                        coordinatesToAddress(location.getLatitude(), location.getLongitude());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                    return;
+                }
+            }
+        };
+        try {
+            fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, locationCallback, null);
+        } catch (SecurityException e) {
+            Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     protected void coordinatesToAddress(Double latitude, Double longitude) throws IOException {
@@ -239,6 +327,52 @@ public class UserInfo extends AppCompatActivity {
         location.setText(address);
         Log.d("zzz coordinates",address+"\n"+city+"\n"+state+"\n"+country+"\n"+postalCode+"\n"+premises+"\n"+sublocality+"\n"+subadmin);
 
+    }
+
+    private AppCompatActivity getActivity() {
+        return this;
+    }
+
+    private void maybeAskUserToTurnOnLocation() {
+        LocationRequest mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)
+                .setFastestInterval(1 * 1000);
+        LocationSettingsRequest.Builder settingsBuilder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(mLocationRequest);
+        settingsBuilder.setAlwaysShow(true);
+        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(this)
+                .checkLocationSettings(settingsBuilder.build());
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                boolean should_call_startLocationUpdates = true;
+                try {
+                    LocationSettingsResponse response =
+                            task.getResult(ApiException.class);
+
+                } catch (ApiException ex) {
+                    switch (ex.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            try {
+                                ResolvableApiException resolvableApiException =
+                                        (ResolvableApiException) ex;
+                                resolvableApiException
+                                        .startResolutionForResult(getActivity(),
+                                                102);
+                                should_call_startLocationUpdates = false;
+                            } catch (IntentSender.SendIntentException e) {
+
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+
+                            break;
+                    }
+                }
+                if (should_call_startLocationUpdates) startLocationUpdates();
+            }
+        });
     }
 
 }

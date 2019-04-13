@@ -16,15 +16,13 @@
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:autoPlay="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showFullScreenButton="true"
             app:showYouTubeButton="false"
-            app:useWebUi="true"
-            app:videoId="hxHZSedHbP4" />
+            app:useWebUi="true" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
