@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.recko.app.Misc.Constants;
 import com.recko.app.Model.ProductModel;
 import com.recko.app.ProductDetails;
@@ -54,9 +55,10 @@ public class Products_InCompanyAdapter extends RecyclerView.Adapter<Products_InC
 
         if (!productlist.isEmpty()) {
             productModel = (ProductModel) productlist.get(position);
-//            Glide.with(mctx)
-//                    .load(productModel.getImage_url())
-//                    .into(holder.imageView);
+            if (Constants.isValidString(productModel.getImg_url()))
+                Glide.with(mctx)
+                        .load(productModel.getImg_url())
+                        .into(holder.imageView);
             holder.textView.setText(productModel.getProductDisplayNmae());
             holder.amountcategory.setText(
                     Constants.fixDoubleString(productModel.getTotal_commission()));

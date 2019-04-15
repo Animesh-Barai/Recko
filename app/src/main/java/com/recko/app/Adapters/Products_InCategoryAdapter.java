@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.recko.app.Misc.Constants;
 import com.recko.app.Model.ProductModel;
 import com.recko.app.ProductDetails;
@@ -25,7 +26,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_InCategoryAdapter.ResultViewHolder> {
-
+    private static String TAG = Products_InCategoryAdapter.class.getSimpleName();
     Context mctx;
     List productlist;
     Activity mActivity;
@@ -58,14 +59,16 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
 
         if (!productlist.isEmpty()) {
             productModel = (ProductModel) productlist.get(position);
-            holder.imageView.setImageResource(R.drawable.sample2);
-            /*if (!StringUtils.isEmpty(productModel.getImage_url())) {
+            //holder.imageView.setImageResource(R.drawable.sample2);
+            Log.d(TAG, productModel.getImg_url());
+            Log.d(TAG, "kk");
+            if (Constants.isValidString(productModel.getImg_url())) {
                 Glide.with(mctx)
-                        .load(productModel.getImage_url())
+                        .load(productModel.getImg_url())
                         .into(holder.imageView);
             } else {
                 holder.imageView.setImageResource(R.drawable.sample2);
-            }*/
+            }
 //            Glide.with(mctx)
 //                    .load(productModel.getImage_url())
 //                    .into(holder.imageView);

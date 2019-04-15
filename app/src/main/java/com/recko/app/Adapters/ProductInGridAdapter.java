@@ -3,6 +3,7 @@ package com.recko.app.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import java.util.List;
 import androidx.cardview.widget.CardView;
 
 public class ProductInGridAdapter extends BaseAdapter {
-
+    private static String TAG  = ProductInGridAdapter.class.getSimpleName();
     View v;
     LayoutInflater layoutInflater;
 
@@ -82,7 +83,8 @@ public class ProductInGridAdapter extends BaseAdapter {
         CardView cardView=v.findViewById(R.id.productcard);
 
         final ProductModel productModel = (ProductModel) productList.get(i);
-        if (productModel.getImg_url() != null && !productModel.getImg_url().trim().equals("")) {
+        Log.d(TAG, productModel.getImg_url());
+        if (Constants.isValidString(productModel.getImg_url())) {
             Glide.with(mctx)
                     .load(productModel.getImg_url())
                     .into(imgproduct);

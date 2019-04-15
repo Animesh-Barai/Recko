@@ -279,6 +279,7 @@ public class ProductModel implements Serializable{
 
     public void fillMoreData(JSONObject data) {
         Log.d(TAG, "Filling more data");
+        Log.d(TAG, data.toString());
         try {
             if (data.has("display_name")) {
                 String displayName = data.getString("display_name");
@@ -288,6 +289,7 @@ public class ProductModel implements Serializable{
                     display_name = displayName;
                 }
             }
+            img_url = !data.has("img_url")?"null":data.getString("img_url");
         } catch (Exception e) {}
     }
 }

@@ -56,6 +56,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
@@ -76,6 +77,8 @@ public class UserInfo extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private LocationCallback locationCallback;
 
+    private AtomicBoolean requestSent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +92,8 @@ public class UserInfo extends AppCompatActivity {
         chip = findViewById(R.id.chip);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        requestSent = new AtomicBoolean(false);
 
         name.requestFocus();
 
@@ -121,7 +126,7 @@ public class UserInfo extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!requestSent.compareAndSet(false, true)) return;
 
                 NAME = name.getText().toString().trim();
                 LOCATION = location.getText().toString().trim();
@@ -146,7 +151,7 @@ public class UserInfo extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
 
                                     Log.d("zzz", APIURL.url + "user/insert" + "\nonResponse: " + response);
-
+                                    requestSent.compareAndSet(true, false);
                                     try {
 
                                         if (response.getString("code").equals("200")) {
@@ -157,7 +162,7 @@ public class UserInfo extends AppCompatActivity {
                                             Constants.setSellerNameNo(NAME, mUser.getPhoneNumber());
 
                                             Intent intent = new Intent(UserInfo.this, Industries.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                             startActivity(intent);
                                         } else {
                                             Toast.makeText(UserInfo.this, "Oops! Please try again later", Toast.LENGTH_SHORT).show();
@@ -170,6 +175,7 @@ public class UserInfo extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
 							Constants.logVolleyError(error);
+							requestSent.compareAndSet(true, false);
                             error.printStackTrace();
                             Toast.makeText(UserInfo.this, "Oops! Please try again later", Toast.LENGTH_SHORT).show();
                         }
