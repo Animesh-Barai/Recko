@@ -220,14 +220,15 @@
                         android:layout_width="112dp"
                         android:layout_height="131dp"
                         android:layout_marginEnd="24dp"
-                        android:backgroundTint="#783d85"
                         android:foregroundGravity="center"
+                        android:backgroundTint="@color/colorFormMasterHeaderBackground"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="4dp"
                         app:layout_constraintCircleRadius="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <!-- this view is currently not visible will remove this when app becomes more stable -->
                         <TextView
                             android:id="@+id/product_name"
                             android:layout_width="wrap_content"
@@ -237,7 +238,14 @@
                             android:text="@string/byju_s"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="24sp" />
+                            android:textSize="24sp"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/pdf_icon"
+                            />
 
 
                     </androidx.cardview.widget.CardView>

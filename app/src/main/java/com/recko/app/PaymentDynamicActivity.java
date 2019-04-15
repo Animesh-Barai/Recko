@@ -63,6 +63,8 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
 
     private String productUUID, sellerUUID;
 
+    private AtomicBoolean request_in_progress;
+
     @Override
     public void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,8 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
         sellerUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         tagToIndexMap = new HashMap<String, Integer>();
+
+        request_in_progress = new AtomicBoolean(false);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mFormBuilder = new FormBuilder(this, mRecyclerView);
@@ -135,6 +139,7 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
     }
 
     public void createInvoice(String auth_token) {
+        if (request_in_progress.compareAndSet(false, true)) return;
         progressBar.setVisibility(View.VISIBLE);
         JSONObject json = new JSONObject();
         try {
@@ -164,7 +169,7 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
                     public void onResponse(JSONObject response) {
 
                         Log.d("zzz PaymentActivity", APIURL.url + "invoice/create" + "\nonResponse: " + response);
-
+                        request_in_progress.compareAndSet(true, false);
                         try {
                             String code = response.getString("code");
                             if (code.equals("200")) {
@@ -201,6 +206,7 @@ public class PaymentDynamicActivity  extends AppCompatActivity implements Paymen
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                request_in_progress.compareAndSet(true, false);
 				Constants.logVolleyError(error);
                 error.printStackTrace();
                 progressBar.setVisibility(View.GONE);
