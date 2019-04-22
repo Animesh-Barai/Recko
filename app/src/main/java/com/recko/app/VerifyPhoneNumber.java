@@ -7,10 +7,12 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.SystemClock;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     //These are the objects needed
     //It is the verification id that will be sent to the user
     private String mVerificationId;
+    ProgressBar progressBar;
 
     //The edittext to input the code
     private EditText editTextCode;
@@ -67,6 +70,8 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private long mLastClickTime_buttonSignIn = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         resend=findViewById(R.id.resendCode);
         resend.setVisibility(View.GONE);
         txtTimer = (TextView) findViewById(R.id.txtTimer);
+        progressBar = findViewById(R.id.spin_kit);
 
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
@@ -104,6 +110,11 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (SystemClock.elapsedRealtime() - mLastClickTime_buttonSignIn < 2000){
+                    return;
+                }
+                mLastClickTime_buttonSignIn = SystemClock.elapsedRealtime();
+
                     codeInputView = findViewById(R.id.codeInput);
                     code=codeInputView.getCode();
 //                    codeInputView.addOnCompleteListener(new OnCodeCompleteListener() {
@@ -112,6 +123,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
 //                        }
 //                    });
                             Log.d("zzz","Code is"+code+ "of length "+ code.length());
+
 
                             if(code.length()<6 || code.isEmpty())
                             {
@@ -124,7 +136,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                 },500);
                             }
                             else {
-                                
+                                progressBar.setVisibility(View.VISIBLE);
                                 verifyVerificationCode(code);
                                 Log.d("zzz", code);
 
@@ -331,6 +343,8 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             bundle.putString("user_id", user.getUid());
                             mFirebaseAnalytics.logEvent("logged_in_or_signup", bundle);
+
+                            progressBar.setVisibility(View.GONE);
                             fetch_details();
                         } else {
 
@@ -352,7 +366,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                 }
                             },1000);
 
-
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

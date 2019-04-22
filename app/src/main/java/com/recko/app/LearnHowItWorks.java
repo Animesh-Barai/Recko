@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,8 @@ public class LearnHowItWorks extends AppCompatActivity {
     String videoURL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     AtomicBoolean skip_clicked;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private long mLastClickTime_buttonPlay = 0;
+    private long mLastClickTime_buttonSkip = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,10 @@ public class LearnHowItWorks extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime_buttonPlay < 1000){
+                    return;
+                }
+                mLastClickTime_buttonPlay = SystemClock.elapsedRealtime();
                 Context context=view.getContext();
                 skip_illustration.setVisibility(View.INVISIBLE);
                 play.setVisibility(View.INVISIBLE);
@@ -81,6 +88,11 @@ public class LearnHowItWorks extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime_buttonSkip < 1000){
+                    return;
+                }
+                mLastClickTime_buttonSkip = SystemClock.elapsedRealtime();
+                
                 if (!skip_clicked.compareAndSet(false, true)) return;
                 if (player!=null) player.stop();
                 makeJump();
@@ -132,7 +144,7 @@ public class LearnHowItWorks extends AppCompatActivity {
 
     private void goto_navigation() {
         Intent intent=new Intent(this,NavigationDashboard.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
     }

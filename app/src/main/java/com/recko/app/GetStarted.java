@@ -29,6 +29,9 @@ public class GetStarted extends AppCompatActivity {
 //                pref.edit().putBoolean("first", false).apply();
 //                Intent i = new Intent(GetStarted.this, MainActivity.class);
 //                startActivity(i);
+
+                // Disable get started button as it should not be clicked twice.
+                getStarted.setEnabled(false);
                 SharedPreferences sharedpreferences = getSharedPreferences(Constants.ReckoPREFERENCES, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putBoolean(Constants.SeenHowItWorksPrefKey, true);

@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Constants {
 
-    public static final  boolean is_test_start = false;
+    public static final  boolean is_test_start = true;
 
     private static String TAG = Constants.class.getSimpleName();
     public static final int max_company_height_in_explore = 300;

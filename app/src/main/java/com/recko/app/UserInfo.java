@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -78,6 +79,9 @@ public class UserInfo extends AppCompatActivity {
     private LocationCallback locationCallback;
 
     private AtomicBoolean requestSent;
+    private boolean gotLocation = false;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +94,7 @@ public class UserInfo extends AppCompatActivity {
         location = findViewById(R.id.location);
         next = findViewById(R.id.Next);
         chip = findViewById(R.id.chip);
+        progressBar = findViewById(R.id.spin_kit);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -128,6 +133,7 @@ public class UserInfo extends AppCompatActivity {
             public void onClick(View view) {
                 if (!requestSent.compareAndSet(false, true)) return;
 
+                progressBar.setVisibility(View.VISIBLE);
                 NAME = name.getText().toString().trim();
                 LOCATION = location.getText().toString().trim();
 
@@ -164,10 +170,13 @@ public class UserInfo extends AppCompatActivity {
                                             Intent intent = new Intent(UserInfo.this, Industries.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                             startActivity(intent);
+                                            progressBar.setVisibility(View.GONE);
                                         } else {
+                                            progressBar.setVisibility(View.GONE);
                                             Toast.makeText(UserInfo.this, "Oops! Please try again later", Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
+                                        progressBar.setVisibility(View.GONE);
                                         e.printStackTrace();
                                     }
                                 }
@@ -175,6 +184,7 @@ public class UserInfo extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
 							Constants.logVolleyError(error);
+                            progressBar.setVisibility(View.GONE);
 							requestSent.compareAndSet(true, false);
                             error.printStackTrace();
                             Toast.makeText(UserInfo.this, "Oops! Please try again later", Toast.LENGTH_SHORT).show();
@@ -275,16 +285,29 @@ public class UserInfo extends AppCompatActivity {
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(1 * 1000)
                 .setFastestInterval(1 * 1000);
-        locationCallback = new LocationCallback() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onLocationAvailability (LocationAvailability locationAvailability){
-                Log.d(TAG, "Location not available");
-                if (!locationAvailability.isLocationAvailable()) {
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+                fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                if (!gotLocation)
                     Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
-                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-                    return;
-                }
+                return;
             }
+        }, 3000);
+
+        locationCallback = new LocationCallback() {
+//            @Override
+//            public void onLocationAvailability (LocationAvailability locationAvailability){
+//                Log.d(TAG, "Location not available");
+//                if (!locationAvailability.isLocationAvailable()) {
+//                    Toast.makeText(getApplicationContext(), "Not able to automatically detect location", Toast.LENGTH_SHORT).show();
+//                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+//                    return;
+//                }
+//            }
 
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -299,6 +322,7 @@ public class UserInfo extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    gotLocation = true;
                     fusedLocationProviderClient.removeLocationUpdates(locationCallback);
                     return;
                 }

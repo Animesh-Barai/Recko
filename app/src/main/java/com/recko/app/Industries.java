@@ -16,11 +16,13 @@ import com.google.android.material.chip.Chip;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,9 @@ public class Industries extends AppCompatActivity {
     private String idToken;
     private static List<String> selectedChips = new ArrayList<String>();
     private FirebaseAnalytics mFirebaseAnalytics;
+    private long mLastClickTime_buttonNext = 0;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class Industries extends AppCompatActivity {
         setContentView(R.layout.activity_industries);
         next= findViewById(R.id.Next);
         gridView=findViewById(R.id.gridview);
+        progressBar = findViewById(R.id.spin_kit);
 
         industryModellist =new ArrayList<>();
         industryAdapter= new IndustryAdapter(this,industryModellist);
@@ -75,7 +81,6 @@ public class Industries extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (selectedChips.isEmpty())
                     Toast.makeText(getApplicationContext(),"Please choose the Industires",Toast.LENGTH_SHORT).show();
                 else if(!InternetConnection.checkConnection(Industries.this)) {
@@ -85,6 +90,10 @@ public class Industries extends AppCompatActivity {
                 }
                 else
                 {
+                    if (SystemClock.elapsedRealtime() - mLastClickTime_buttonNext < 2000){
+                        return;
+                    }
+                    mLastClickTime_buttonNext = SystemClock.elapsedRealtime();
                     send_industries();
                 }
 
@@ -166,6 +175,7 @@ public class Industries extends AppCompatActivity {
 
     private void send_industries()
     {
+        progressBar.setVisibility(View.VISIBLE);
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getIdToken(true)
                 .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
@@ -213,11 +223,14 @@ public class Industries extends AppCompatActivity {
                                     Intent intent = new Intent(Industries.this, LearnHowItWorks.class);
                                     startActivity(intent);
                                     Log.d("zzz", selectedChips.toString());
+                                progressBar.setVisibility(View.GONE);
                             }
                             else{
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(getApplicationContext(),"Oooops! Please try again later",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
+                            progressBar.setVisibility(View.GONE);
                             e.printStackTrace();
                         }
                     }
@@ -225,6 +238,7 @@ public class Industries extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 				Constants.logVolleyError(error);
+                progressBar.setVisibility(View.GONE);
                 error.printStackTrace();
                 Toast.makeText(Industries.this,"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }

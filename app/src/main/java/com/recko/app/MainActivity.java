@@ -5,8 +5,10 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextMobile;
     private boolean should_allow_navigation_to_next_page = false;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private Button buttonContinue;
+    private long mLastClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +44,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editTextMobile = findViewById(R.id.phonenumber);
 
-        findViewById(R.id.buttonContinue).setOnClickListener(new View.OnClickListener() {
+        buttonContinue = findViewById(R.id.buttonContinue);
+        buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
 
                 String mobile = editTextMobile.getText().toString().trim();
 
@@ -92,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goto_navigation() {
         Intent intent=new Intent(this,NavigationDashboard.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK );
         startActivity(intent);
         finish();
     }
