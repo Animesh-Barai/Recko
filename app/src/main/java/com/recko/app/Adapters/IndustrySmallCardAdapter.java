@@ -95,7 +95,7 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
         if (cardindustrylist != null && cardindustrylist.size() > 0) {
             return cardindustrylist.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 

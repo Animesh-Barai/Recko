@@ -99,7 +99,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Resu
         if (videoslist != null && videoslist.size() > 0) {
             return videoslist.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 

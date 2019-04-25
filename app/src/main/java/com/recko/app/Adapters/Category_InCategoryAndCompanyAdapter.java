@@ -90,7 +90,7 @@ public class Category_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<C
         if (categorylist != null && categorylist.size() > 0) {
             return categorylist.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 

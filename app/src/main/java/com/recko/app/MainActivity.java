@@ -21,12 +21,16 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.recko.app.Misc.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, VerifyPhoneNumber.class);
                 intent.putExtra("mobile", mobile);
                 if (should_allow_navigation_to_next_page) {
+                    sendNumber(mobile);
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(),"Please wait trying to contact our servers",Toast.LENGTH_SHORT).show();
@@ -98,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
            Log.d("zzz MainActivity", "user is not logged in");
         }
 
+    }
+
+    private void sendNumber(String mobile) {
+        Map<String, Object> data = new HashMap<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("phone_numbers").document(mobile).set(data);
     }
 
     private void goto_navigation() {

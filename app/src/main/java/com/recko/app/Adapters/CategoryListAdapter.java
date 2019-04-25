@@ -66,7 +66,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         if (categorylist != null && categorylist.size() > 0) {
             return categorylist.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 

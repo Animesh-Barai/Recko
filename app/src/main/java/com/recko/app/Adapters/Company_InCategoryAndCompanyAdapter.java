@@ -64,24 +64,24 @@ public class Company_InCategoryAndCompanyAdapter extends RecyclerView.Adapter<Co
             holder.textView.setText(company_inCategoryAndCompanyModel.getCompany_name());
             holder.amountcategory.setText(Constants.fixDoubleString((
                     company_inCategoryAndCompanyModel.getMax_commisiion())));
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    Company_InCategoryAndCompanyModel temp = (Company_InCategoryAndCompanyModel) companylist.get(position);
+                    List tempList = temp.getList();
+                    Intent intent= new Intent(mctx,ProductsInCompany.class);
+                    intent.putExtra("product_list", (Serializable) tempList);
+                    intent.putExtra("company_name", temp.getCompany_name());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mctx.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+                }
+            });
         }
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                Company_InCategoryAndCompanyModel temp = (Company_InCategoryAndCompanyModel) companylist.get(position);
-                List tempList = temp.getList();
-                Intent intent= new Intent(mctx,ProductsInCompany.class);
-                intent.putExtra("product_list", (Serializable) tempList);
-                intent.putExtra("company_name", temp.getCompany_name());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mctx.startActivity(intent);
-                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-
-            }
-        });
     }
 
     @Override

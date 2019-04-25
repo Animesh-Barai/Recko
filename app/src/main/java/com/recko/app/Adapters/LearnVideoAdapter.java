@@ -122,7 +122,7 @@ public class LearnVideoAdapter extends RecyclerView.Adapter<LearnVideoAdapter.Re
         if (videolist != null && videolist.size() > 0) {
             return videolist.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 

@@ -3,6 +3,7 @@ package com.recko.app;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,8 +108,22 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
         learnVideoAdapter=new LearnVideoAdapter(getActivity(),videoslist,thisActivity);
         rv_videolist.setAdapter(learnVideoAdapter);
         get_rv_videolist();
-
+        maybeCreateRefreshLoop();
         return v;
+    }
+
+    private void maybeCreateRefreshLoop() {
+        final Handler handler = new Handler();
+        final int delay = 15000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                if (videoslist.size() == 0) {
+                    get_rv_videolist();
+                    handler.postDelayed(this, delay);
+                }
+            }
+        }, delay);
     }
 
     private void get_rv_videolist(){
@@ -123,6 +138,7 @@ public class FragmentLearn extends androidx.fragment.app.Fragment {
                         try {
                             JSONArray array= response.getJSONArray("data");
                             Log.d("zzzarray",array.toString());
+                            videoslist.clear();
                             for (int i = 0; i < array.length(); i++) {
                                 try {
                                     JSONObject object = array.getJSONObject(i);

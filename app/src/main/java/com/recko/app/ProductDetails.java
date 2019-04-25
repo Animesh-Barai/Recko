@@ -189,8 +189,11 @@ public class ProductDetails extends AppCompatActivity {
 
         actual_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getMrp())));
         String discountOnRecko = Constants.fixDoubleString(productModel.getDiscount_byRecko());
-        if (discountOnRecko.equals("0"))
-            offer_price.setText(getString(R.string.rstart_template,discountOnRecko));
+        if (discountOnRecko.equals("0")) {
+            offer_price.setText(getString(R.string.rstart_template, discountOnRecko));
+            findViewById(R.id.disByReckoText).setVisibility(View.GONE);
+            offer_price.setVisibility(View.GONE);
+        }
         else
             offer_price.setText("-" + getString(R.string.rstart_template,discountOnRecko));
         final_price.setText(getString(R.string.rstart_template, Constants.fixDoubleString(productModel.getPrice_on_x())) );
@@ -341,7 +344,8 @@ public class ProductDetails extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Looper.prepare();
+            if (Looper.myLooper()==null)
+                Looper.prepare();
             try {
                 Log.d("kkk ", "load image");
                 //LayoutInflater  mInflater = (LayoutInflater)getApplicationContext().getSystemService(getApplicationContext().LAYOUT_INFLATER_SERVICE);

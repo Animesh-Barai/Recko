@@ -109,7 +109,7 @@
         android:inputType="textMultiLine"
         android:text="@string/please_enter_otp"
         android:textColor="@color/heading_dark"
-        android:textSize="24sp"
+        android:textSize="@dimen/_20ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

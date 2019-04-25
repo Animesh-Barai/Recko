@@ -57,6 +57,7 @@ public class LearnHowItWorks extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private long mLastClickTime_buttonPlay = 0;
     private long mLastClickTime_buttonSkip = 0;
+    private long mLastClickTime_buttonSkipContainer = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class LearnHowItWorks extends AppCompatActivity {
                     return;
                 }
                 mLastClickTime_buttonSkip = SystemClock.elapsedRealtime();
-                
+
                 if (!skip_clicked.compareAndSet(false, true)) return;
                 if (player!=null) player.stop();
                 makeJump();
@@ -102,6 +103,11 @@ public class LearnHowItWorks extends AppCompatActivity {
         findViewById(R.id.skip_container).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime_buttonSkipContainer < 1000){
+                    return;
+                }
+                mLastClickTime_buttonSkipContainer = SystemClock.elapsedRealtime();
+
                 if (!skip_clicked.compareAndSet(false, true)) return;
                 if (player!=null) player.stop();
                 makeJump();

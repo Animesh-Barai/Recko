@@ -109,7 +109,7 @@ public class Products_InCategoryAdapter extends RecyclerView.Adapter<Products_In
         if (productlist != null && productlist.size() > 0) {
             return productlist.size();
         } else {
-            return 1;
+            return 0;
         }
     }
 
