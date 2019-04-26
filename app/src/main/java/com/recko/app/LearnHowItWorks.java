@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -31,9 +32,12 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.recko.app.Misc.Constants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +50,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LearnHowItWorks extends AppCompatActivity {
-
+    private static String TAG = LearnHowItWorks.class.getSimpleName();
     PlayerView playerView;
     SimpleExoPlayer player;
     Button skip;
@@ -58,6 +62,7 @@ public class LearnHowItWorks extends AppCompatActivity {
     private long mLastClickTime_buttonPlay = 0;
     private long mLastClickTime_buttonSkip = 0;
     private long mLastClickTime_buttonSkipContainer = 0;
+    FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,18 @@ public class LearnHowItWorks extends AppCompatActivity {
 
         skip_clicked = new AtomicBoolean();
         skip_clicked.set(false);
+
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_default);
+
+        videoURL = mFirebaseRemoteConfig.getString("learn_how_it_works_video_url");
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Boolean> task) {
+                        videoURL = mFirebaseRemoteConfig.getString("learn_how_it_works_video_url");
+                    }
+                });
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,11 +192,11 @@ public class LearnHowItWorks extends AppCompatActivity {
 
             player.prepare(videoSource);
             player.setPlayWhenReady(true);
-            playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
+            //playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
             playerView.setControllerHideOnTouch(true);
 
-            playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-            player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+            //playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+            //player.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
 
 
 
