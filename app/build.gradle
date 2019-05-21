@@ -7,14 +7,14 @@ android {
         applicationId "com.recko.app"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 5
+        versionCode 9
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

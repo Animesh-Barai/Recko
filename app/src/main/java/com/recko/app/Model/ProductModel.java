@@ -39,6 +39,9 @@ public class ProductModel implements Serializable{
 
 
 
+    private String flyer_url;
+
+
     public ProductModel(String broucher, String video, String to_date, String good_time_to_sell, String category, String title, String upfront_commission, String from_date, String location_of_sell, String target_customer, String type, String price_on_x, String company_uuid, String total_commission, String tips_to_sell, String customer_data_needed, String product_details, String payment_type, String product_uuid, String mrp) {
         this.broucher = broucher;
         this.video = video;
@@ -268,7 +271,7 @@ public class ProductModel implements Serializable{
 
 
     public String getYoutube_video_id() {
-        return youtube_video_id;
+        return video;
     }
 
     public String getProductDisplayNmae() {
@@ -290,6 +293,15 @@ public class ProductModel implements Serializable{
                 }
             }
             img_url = !data.has("img_url")?"null":data.getString("img_url");
+            flyer_url = data.has("flyer_url")?data.getString("flyer_url"):"https://storage.googleapis.com/ehimages/2018/1/7/img_8a9f448b813cf35915bc0bfd1355d281_1515313874521_original.jpg";
+            if (flyer_url == null || flyer_url == "null")
+                flyer_url = "https://storage.googleapis.com/ehimages/2018/1/7/img_8a9f448b813cf35915bc0bfd1355d281_1515313874521_original.jpg";
         } catch (Exception e) {}
     }
+
+    public String getFlyer_url() {
+        return flyer_url;
+    }
+
 }
+

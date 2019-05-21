@@ -37,6 +37,7 @@
         android:layout_above="@+id/chip_whatsapp">
 
         <ImageView
+            android:id="@+id/brochure_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:transitionName="brochure_thumbnail"

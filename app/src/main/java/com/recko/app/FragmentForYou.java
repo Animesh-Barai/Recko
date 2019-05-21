@@ -23,6 +23,7 @@ import com.recko.app.Adapters.IndustrySmallCardAdapter;
 import com.recko.app.Adapters.SliderAdapter;
 import com.recko.app.Adapters.VideoListAdapter;
 import com.recko.app.Misc.Constants;
+import com.recko.app.Misc.CustomJsonObjectRequest;
 import com.recko.app.Model.CarouselModel;
 import com.recko.app.Model.CategoryListModel;
 import com.recko.app.Model.IndustryCardModel;
@@ -223,7 +224,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/list_industries", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.POST,APIURL.url+"user/list_industries", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -279,7 +280,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
     private void get_carousel_images() {
         JSONObject json = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"carousel/list", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.POST,APIURL.url+"carousel/list", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -343,7 +344,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/front_page_categories", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.POST,APIURL.url+"user/front_page_categories", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -435,7 +436,7 @@ public class FragmentForYou extends androidx.fragment.app.Fragment {
 
     private void get_rv_videolist(){
         JSONObject json = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,APIURL.url+"video/list", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.GET,APIURL.url+"video/list", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

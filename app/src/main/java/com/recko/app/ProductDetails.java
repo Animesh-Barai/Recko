@@ -51,7 +51,7 @@ public class ProductDetails extends AppCompatActivity {
 
     ImageView video_thumbnail;
     TextView product_name;
-    TextView brochure_subheading;
+    TextView brochure_subheading, share_earn_text;
 
     TextView actual_price, video_thumbnail_text;
     TextView offer_price;
@@ -81,8 +81,9 @@ public class ProductDetails extends AppCompatActivity {
         whatsapp = findViewById(R.id.chip_whatsapp);
         brochure = findViewById(R.id.chip_brochure);
         video_thumbnail = findViewById(R.id.video_thumbnail);
-        product_name = findViewById(R.id.product_name);
+        //product_name = findViewById(R.id.product_name);
         brochure_subheading = findViewById(R.id.brochure_subheading);
+        share_earn_text = findViewById(R.id.share_earn_text);
 
         spinner_flyer = findViewById(R.id.spin_kit);
         spinner_flyer.setVisibility(View.GONE);
@@ -137,10 +138,12 @@ public class ProductDetails extends AppCompatActivity {
 //        Glide.with(this)
 //                    .load(productModel.getImage_url())
 //                    .into(video_thumbnail);
-        product_name.setText(productModel.getTitle());
-        brochure_subheading.setText(String.format("Get to know more\nabout all the products\nfrom %s", productModel.getTitle()));
+        //product_name.setText(productModel.getTitle());
+        brochure_subheading.setText(String.format("Get to know about %s in detail,\nthrough this easy brochure", productModel.getTitle()));
+        share_earn_text.setText(String.format("Share this with your \nfriends to tell them about %s", productModel.getTitle()));
+        Log.d(TAG, "flyer_url: " + productModel.getFlyer_url());
         Glide.with(this)
-                .load("https://storage.googleapis.com/ehimages/2018/1/7/img_8a9f448b813cf35915bc0bfd1355d281_1515313874521_original.jpg")
+                .load(productModel.getFlyer_url())
                 .into(brochure_thumbnail);
         brochure.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +162,7 @@ public class ProductDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProductDetails.this, ViewBrochure.class);
                 intent.putExtra("product_name",productModel.getTitle());
+                intent.putExtra("flyer_url", productModel.getFlyer_url());
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(ProductDetails.this,brochure_thumbnail,"brochure_thumbnail");
                 startActivity(intent, options.toBundle());
@@ -382,11 +386,11 @@ public class ProductDetails extends AppCompatActivity {
                  //       bm = Bitmap.createBitmap(view.getDrawingCache());
                 //view.setDrawingCacheEnabled(false);
 
-                /*bm = Glide.with(getApplicationContext()).
+                bm = Glide.with(getApplicationContext()).
                         asBitmap().
                         load(link).
                         submit().
-                        get();*/
+                        get();
             } catch (Exception e) { //(InterruptedException e) {
                 e.printStackTrace();}
             /*} catch (ExecutionException e) {
@@ -456,8 +460,8 @@ public class ProductDetails extends AppCompatActivity {
             }
         }
 
-        String text = "Wowww";
-        String link = "https://www.google.es/images/srpr/logo11w.png";
+        String text = "";
+        String link =  productModel.getFlyer_url();
 
         spinner_flyer.setVisibility(View.VISIBLE);
 

@@ -65,29 +65,29 @@ public class IndustrySmallCardAdapter extends RecyclerView.Adapter<IndustrySmall
             }
 
             holder.textView.setText(industryCardModel.getName());
+
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    IndustryCardModel temp = (IndustryCardModel) cardindustrylist.get(position);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    bundle.putString("industry_uuid",temp.getIndustry_uuid());
+                    bundle.putString("industry_name",temp.getName());
+                    mFirebaseAnalytics.logEvent("click_industry_from_main_page", bundle);
+
+
+                    Intent intent= new Intent(mctx,CategoryAndCompany.class);
+                    intent.putExtra("industry_uuid",temp.getIndustry_uuid());
+                    intent.putExtra("industry_name",temp.getName());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mctx.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                }
+            });
         }
-
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                IndustryCardModel temp = (IndustryCardModel) cardindustrylist.get(position);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                bundle.putString("industry_uuid",temp.getIndustry_uuid());
-                bundle.putString("industry_name",temp.getName());
-                mFirebaseAnalytics.logEvent("click_industry_from_main_page", bundle);
-
-
-                Intent intent= new Intent(mctx,CategoryAndCompany.class);
-                intent.putExtra("industry_uuid",temp.getIndustry_uuid());
-                intent.putExtra("industry_name",temp.getName());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mctx.startActivity(intent);
-                mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-            }
-        });
     }
 
     @Override

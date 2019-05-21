@@ -21,7 +21,7 @@
             android:value="true" />
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_cqaJDphyOlEaqG"
+            android:value="rzp_live_d8AcaqlOxE6q1w"
             />
         <activity
             android:screenOrientation="portrait"

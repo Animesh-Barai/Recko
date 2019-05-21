@@ -185,6 +185,8 @@ public class FragmentCompany extends androidx.fragment.app.Fragment {
                                         temp.add(productModel);
 
                                     }
+                                    Log.d("zzz_kkk", image_url);
+                                    Log.d("zzz_kkk", company_name);
                                     company_inCategoryAndCompanyModel = new Company_InCategoryAndCompanyModel(max_commission,company_uuid,image_url,company_name,no_of_products,temp);
                                     companylist.add(company_inCategoryAndCompanyModel);
 

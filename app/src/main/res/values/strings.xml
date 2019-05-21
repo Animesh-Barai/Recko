@@ -47,7 +47,7 @@
     <string name="share_with_client">Share with client</string>
     <string name="your_customer_pays">Your Customer Pays:</string>
     <string name="earn_u20b91500_on_this_product">Earn ₹1500 on this Product</string>
-    <string name="earn_dash_on_this_product">Earn %1$s on this Product</string>
+    <string name="earn_dash_on_this_product">Earn ₹%1$s on this Product</string>
     <string name="name">Name</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="e_mail">E-mail</string>

@@ -273,8 +273,12 @@ public class FragmentCRM extends androidx.fragment.app.Fragment {
                 Toast.makeText(getActivity(),"Oops! Please try again later",Toast.LENGTH_SHORT).show();
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(jsonObjectRequest);
+
+        // This is a hack fix for crash. Will fix later.
+        if (getActivity() != null) {
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            requestQueue.add(jsonObjectRequest);
+        }
     }
 
     private void get_followups() {

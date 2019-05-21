@@ -26,6 +26,7 @@ import com.recko.app.Adapters.ProductListGridAdapter;
 import com.recko.app.Adapters.Products_InCategoryAdapter;
 import com.recko.app.Adapters.SliderAdapter;
 import com.recko.app.Misc.Constants;
+import com.recko.app.Misc.CustomJsonObjectRequest;
 import com.recko.app.Model.CarouselModel;
 import com.recko.app.Model.CategoryListModel;
 import com.recko.app.Model.Company_InCategoryAndCompanyModel;
@@ -257,7 +258,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"user/explore_page_categories", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.POST,APIURL.url+"user/explore_page_categories", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -406,7 +407,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"carousel/list", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.POST,APIURL.url+"carousel/list", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -517,6 +518,9 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
                     temp.add(productModel);
 
                 }
+
+                Log.d("zzz_kkk", image_url);
+                Log.d("zzz_kkk", company_name);
                 company_inCategoryAndCompanyModel = new Company_InCategoryAndCompanyModel(max_commission,company_uuid,image_url,company_name,no_of_products,temp);
                 companylist.add(company_inCategoryAndCompanyModel);
 
@@ -540,7 +544,7 @@ public class FragmentExplore extends androidx.fragment.app.Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,APIURL.url+"industry/list", json,
+        CustomJsonObjectRequest jsonObjectRequest = new CustomJsonObjectRequest(Request.Method.POST,APIURL.url+"industry/list", json,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

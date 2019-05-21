@@ -57,6 +57,10 @@ public class ViewBrochure extends AppCompatActivity {
         brochure_thumbnail = findViewById(R.id.brochure_thumbnail);
         toolbar.setTitle(getIntent().getStringExtra("product_name") + " Offer Pamphlet");
 
+        Glide.with(this)
+                .load(getIntent().getStringExtra("flyer_url"))
+                .into(brochure_thumbnail);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSupportActionBar(toolbar);
         }
@@ -105,8 +109,8 @@ public class ViewBrochure extends AppCompatActivity {
             }
         }
 
-        String text = "Wowww";
-        String link = "https://www.google.es/images/srpr/logo11w.png";
+        String text = "";
+        String link = getIntent().getStringExtra("flyer_url");
 
         Bundle bundle = new Bundle();
         bundle.putString("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());

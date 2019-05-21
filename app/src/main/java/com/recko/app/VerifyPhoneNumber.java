@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.SystemClock;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -58,7 +60,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     String mobile;
     private boolean mVerificationInProgress = false;
     CodeInputView codeInputView;
-    TextView wesenOTP;
+    TextView wesenOTP, mobileNoText;
     String code;
     TextView resend;
     private Timer timer;
@@ -87,7 +89,8 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         //initializing objects
         mAuth = FirebaseAuth.getInstance();
         wesenOTP=findViewById(R.id.weSentOTP);
-        wesenOTP.setText("We have sent an OTP\n Please wait for auto-read or\n enter the OTP below");
+        mobileNoText = findViewById(R.id.mobileNoText);
+
 //        editTextCode = findViewById(R.id.editTextCode);
 
 
@@ -95,6 +98,9 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         //and sending the verification code to the number
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile");
+
+        mobileNoText.setText("Enter the OTP sent to +91-" + mobile);
+
         sendVerificationCode(mobile);
 
         codeInputView.addOnCompleteListener(new OnCodeCompleteListener() {
@@ -149,12 +155,14 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             }
         });
 
+
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resendVerificationCode(mobile);
                 resend.setEnabled(false);
-                resend.setTextColor(Color.parseColor("#d3d3d3"));
+                resend.setVisibility(View.GONE);
+                //resend.setTextColor(Color.parseColor("#d3d3d3"));
             }
         });
 
