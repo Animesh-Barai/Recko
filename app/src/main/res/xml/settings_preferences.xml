@@ -18,9 +18,9 @@
             android:icon="@drawable/profile_circle">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:action="android.intent.action.recko.ProfileInfo"
+                android:targetClass="com.recko.app.ProfileInfoActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
 
@@ -29,20 +29,33 @@
             android:icon="@drawable/ic_account_balance">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:action="android.intent.action.recko.Account"
+                android:targetClass="com.recko.app.AccountActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
+
+        <!--<Preference
+            android:title="Your Industries"
+            android:icon="@drawable/ic_perm_data_setting_black_24dp">
+
+            <intent
+                android:action="android.intent.action.recko.Account"
+                android:targetClass="com.recko.app.AccountActivity"
+                android:targetPackage="com.recko.app" />
+
+        </Preference>-->
+
+
 
         <Preference
             android:title="Refer and Earn"
             android:icon="@drawable/ic_people">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:action="android.intent.action.Refer"
+                android:targetClass="com.recko.app.ReferActivity"
+                android:targetPackage="com.recko.app" />
 
         </Preference>
 
@@ -51,10 +64,20 @@
             android:icon="@drawable/ic_terms_and_conditions">
 
             <intent
-                android:action="com.example.neelanshsethi.sello.SETTING_START_ACTIVITY"
-                android:targetClass="com.example.neelanshsethi.sello.ProfileActivity"
-                android:targetPackage="com.example.neelanshsethi.sello" />
+                android:action="android.intent.action.recko.Terms"
+                android:targetClass="com.recko.app.TermsWebViewActivity"
+                android:targetPackage="com.recko.app" />
 
+        </Preference>
+
+        <Preference
+            android:title="Logout"
+            android:icon="@drawable/ic_logout">
+
+            <intent
+                android:action="android.intent.action.recko.Logout"
+                android:targetClass="com.recko.app.LogoutActivity"
+                android:targetPackage="com.recko.app" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

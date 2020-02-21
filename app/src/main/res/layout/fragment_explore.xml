@@ -9,6 +9,11 @@
     android:focusableInTouchMode="true"
     tools:context=".FragmentForYou">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,56 +56,75 @@
                     android:gravity="center|top" />
 
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/rv_categorylist1"
-                android:layout_below="@id/carouselbody">
-            </androidx.recyclerview.widget.RecyclerView>
-
             <LinearLayout
-                android:id="@+id/small_industry_container"
+                android:id="@+id/rv_productlist1_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/rv_categorylist1"
-                android:layout_marginTop="25dp">
+                android:layout_below="@+id/carouselbody"
+                android:layout_marginTop="@dimen/_21sdp">
 
                 <TextView
-                    android:id="@+id/small_industry_label"
+                    android:id="@+id/rv_productlist1_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:fontFamily="@font/brandontext_medium"
-                    android:text="@string/newly_added_companies"
+                    android:text="@string/newly_launched_products"
                     android:textColor="@color/heading_dark"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/_16ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/rv_small_industry1">
+                    android:id="@+id/rv_productlist1">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rv_companyexp1_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/rv_productlist1_container"
+                android:layout_marginTop="@dimen/_21sdp">
+
+                <TextView
+                    android:id="@+id/rv_companyexp1_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:fontFamily="@font/brandontext_medium"
+                    android:text="@string/newly_added_companies"
+                    android:textColor="@color/heading_dark"
+                    android:textSize="@dimen/_16ssp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_companyexp1">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+
+            <!--<androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/rv_categorylist2"
-                android:layout_below="@id/small_industry_container">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_below="@id/rv_companyexp1_container">
+            </androidx.recyclerview.widget.RecyclerView>-->
 
             <LinearLayout
                 android:id="@+id/small_industry_container2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/rv_categorylist2"
+                android:layout_below="@+id/rv_companyexp1_container"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="25dp">
 
                 <TextView
@@ -112,7 +136,7 @@
                     android:fontFamily="@font/brandontext_medium"
                     android:text="@string/browse_by_industries"
                     android:textColor="@color/heading_dark"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/_16ssp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -127,4 +151,6 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

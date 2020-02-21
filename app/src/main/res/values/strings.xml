@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sello</string>
+    <string name="app_name">Recko</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -7,9 +7,22 @@
     <string name="actual_market_price">Actual Market Price</string>
     <string name="our_offer_price">Our Offer Price</string>
     <string name="u20b915000">₹15000</string>
-    <string name="u20b913000">₹13000</string>
-    <string name="enter_price_pitched_to_the_user">Enter price pitched to the user</string>
+    <string name="u20b913000">₹1300</string>
+    <string name="enter_price_pitched_to_the_user">Enter discount you want to offer</string>
     <string name="u20b9100">₹100</string>
+
+    <string name="your_commission_is">(Your commission is ₹%1$s)</string>
+
+    <string name="rstart_template">₹%1$s</string>
+
+    <string name="dis100">20%</string>
+    <string name="dis200">40%</string>
+    <string name="dis500">60%</string>
+    <string name="dis1000">80%</string>
+    <string name="dis100_val">20</string>
+    <string name="dis200_val">40</string>
+    <string name="dis500_val">60</string>
+    <string name="dis1000_val">80</string>
 
     <string name="select_client_details">Select Client Details</string>
     <string name="follow_up_date">Follow-up date</string>
@@ -34,6 +47,7 @@
     <string name="share_with_client">Share with client</string>
     <string name="your_customer_pays">Your Customer Pays:</string>
     <string name="earn_u20b91500_on_this_product">Earn ₹1500 on this Product</string>
+    <string name="earn_dash_on_this_product">Earn ₹%1$s on this Product</string>
     <string name="name">Name</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="e_mail">E-mail</string>
@@ -47,10 +61,11 @@
     <string name="learn">Learn</string>
     <string name="explore">Explore</string>
     <string name="for_you">For You</string>
-    <string name="crm">CRM</string>
+    <string name="crm">Leads</string>
     <string name="settings">Settings</string>
     <string name="car_loannndddddddddddd">Car Loannndddddddddddd</string>
     <string name="_10_products">10+ Products</string>
+    <string name="_10_products_sold">Sold 10+ times</string>
     <string name="_10_000">10,000</string>
     <string name="sale">/sale</string>
     <string name="u20b9">₹</string>
@@ -62,6 +77,7 @@
     <string name="missed_follow_ups">Missed Follow-ups</string>
     <string name="upcoming_follow_ups">Upcoming Follow-ups</string>
     <string name="newly_added_companies">Newly Added Companies</string>
+    <string name="newly_launched_products">Newly Launched Products</string>
     <string name="browse_by_industries">Browse by Industries</string>
     <string name="videos_to_help_you_sell_better">Videos to help you sell better</string>
     <string name="your_industries">Your Industries</string>
@@ -79,5 +95,8 @@
 
     <string name="facebook_app_id">247050259518411</string>
     <string name="fb_login_protocol_scheme">fb247050259518411</string>
+
+    <string name="refer_msg_top"> Help your friends and family earn money
+        by recommending good product to those in need</string>
 
 </resources>

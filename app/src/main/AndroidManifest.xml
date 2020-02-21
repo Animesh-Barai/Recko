@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.neelanshsethi.recko">
+    package="com.recko.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -19,56 +19,105 @@
         <meta-data
             android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_d8AcaqlOxE6q1w"
+            />
         <activity
-            android:name="com.example.neelanshsethi.recko.MainActivity"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.MainActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name="com.example.neelanshsethi.recko.VerifyPhoneNumber" />
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.VerifyPhoneNumber" />
         <activity
-            android:name="com.example.neelanshsethi.recko.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.ProfileActivity"
             android:exported="true" />
-        <activity android:name="com.example.neelanshsethi.recko.SplashScreen">
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.neelanshsethi.recko.GetStarted" />
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.GetStarted" />
         <activity
-            android:name="com.example.neelanshsethi.recko.UserInfo"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.UserInfo"
             android:exported="true"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name="com.example.neelanshsethi.recko.LearnHowItWorks"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.LearnHowItWorks"
             android:exported="true" />
         <activity
-            android:name="com.example.neelanshsethi.recko.Industries"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.Industries"
             android:exported="true" />
         <activity
-            android:name="com.example.neelanshsethi.recko.VideoListDemoActivity"
+            android:name="com.recko.app.VideoListDemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true" />
         <activity
-            android:name="com.example.neelanshsethi.recko.YoutubePlayerActivity"
+            android:name="com.recko.app.YoutubePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity android:name="com.example.neelanshsethi.recko.AwwSnap" />
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.AwwSnap" />
         <activity
-            android:name="com.example.neelanshsethi.recko.NavigationDashboard"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.NavigationDashboard"
             android:exported="true" />
         <activity
-            android:name="com.example.neelanshsethi.recko.CategoryAndCompany"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.CategoryAndCompany"
             android:exported="true" />
         <activity
-            android:name="com.example.neelanshsethi.recko.AddLeadCustomer"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.AddLeadCustomer"
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.example.neelanshsethi.recko.ProductsInCategory" />
-        <activity android:name="com.example.neelanshsethi.recko.ProductsInCompany" />
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.ProductsInCategory" />
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.ProductsInCompany" />
         <activity
-            android:name="com.example.neelanshsethi.recko.ProductDetails"
+            android:screenOrientation="portrait"
+            android:name="com.recko.app.ProductDetails"
             android:exported="true" />
-        <activity android:name="com.example.neelanshsethi.recko.ViewBrochure">
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.ViewBrochure"/>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.PaymentActivity" />
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.ReferActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.Refer" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.AccountActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.Account"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.recko.app.TermsWebViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.Terms"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.ProfileInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.ProfileInfo"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.EditUserInfoActivity"/>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.AccountEditActivity"/>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.LogoutActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.recko.Logout"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.LeadInfoActivity"/>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.PaymentDynamicActivity"/>
+        <activity android:name="com.recko.app.YoutubePlayerCustomActivity"/>
+        <activity android:screenOrientation="portrait" android:name="com.recko.app.IndustryEditActivity"/>
     </application>
 
 </manifest>
